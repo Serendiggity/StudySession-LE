@@ -67,27 +67,51 @@ def test_api_connection():
 
     print()
 
-    # Test simple extraction
-    print("Testing API connection with simple extraction...")
+    # Test simple API call with Google Generative AI directly
+    print("Testing API connection with Gemini...")
     print("(This may take 10-20 seconds on first run)")
     print()
 
     try:
-        result = lx.extract(
-            text_or_documents="The Bankruptcy and Insolvency Act (BIA) governs bankruptcy proceedings in Canada.",
-            prompt_description="Extract the name of the Act mentioned in this text.",
-            examples=[],
-            model_id="gemini-2.5-flash"
+        # Test with direct API call first
+        import google.generativeai as genai
+
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-2.5-flash')
+
+        response = model.generate_content(
+            "Respond with exactly: 'API test successful'"
         )
 
         print("✓ API call successful!")
         print()
-        print("Response details:")
-        print(f"  • Model used: gemini-2.5-flash")
-        print(f"  • Extractions found: {len(result.extractions)}")
+        print("Response from Gemini:")
+        print(f"  • {response.text}")
+        print()
 
-        if result.extractions:
-            print(f"  • First extraction: {result.extractions[0].extraction_text[:50]}...")
+        # Now test Lang Extract with a simple example
+        print("Testing Lang Extract integration...")
+
+        example = lx.data.ExampleData(
+            text="The Bankruptcy and Insolvency Act (BIA) governs bankruptcy in Canada.",
+            extractions=[
+                lx.data.Extraction(
+                    extraction_class="act",
+                    extraction_text="Bankruptcy and Insolvency Act",
+                    attributes={"abbreviation": "BIA"}
+                )
+            ]
+        )
+
+        result = lx.extract(
+            text_or_documents="The Companies' Creditors Arrangement Act (CCAA) is another insolvency statute.",
+            prompt_description="Extract the name of the Act and its abbreviation.",
+            examples=[example],
+            model_id="gemini-2.5-flash"
+        )
+
+        print("✓ Lang Extract working!")
+        print(f"  • Extractions found: {len(result.extractions)}")
 
         print()
         print("=" * 60)
