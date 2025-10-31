@@ -102,12 +102,59 @@ def info():
 
 
 @cli.command()
-@click.option('--input', 'input_path', type=click.Path(exists=True),
+@click.option('--input', 'input_path', type=click.Path(exists=True), required=True,
               help='Path to PDF file')
-def extract_text(input_path):
-    """Extract text from a PDF file (Phase 2 functionality)."""
-    console.print("[yellow]⚠ This command will be implemented in Phase 2[/yellow]")
-    console.print("For now, focus on completing Phase 1 setup.")
+@click.option('--output', 'output_path', type=click.Path(),
+              default='data/input/study_materials/extracted_text.txt',
+              help='Path to save extracted text')
+@click.option('--validate', is_flag=True, help='Run quality validation')
+def extract_text(input_path, output_path, validate):
+    """Extract text from a PDF file."""
+    from document_processor.pdf_extractor import PDFExtractor
+    from document_processor.text_cleaner import TextCleaner
+
+    logger = get_logger(__name__)
+
+    input_path = Path(input_path)
+    output_path = Path(output_path)
+
+    console.print(f"\n[bold]Extracting text from PDF[/bold]")
+    console.print(f"Input: {input_path.name}\n")
+
+    # Extract
+    extractor = PDFExtractor()
+    cleaner = TextCleaner()
+
+    with console.status("[bold green]Extracting text..."):
+        raw_text = extractor.extract_text(input_path)
+
+    console.print(f"✓ Extracted {len(raw_text):,} characters")
+
+    # Validate if requested
+    if validate:
+        with console.status("[bold green]Validating quality..."):
+            report = extractor.validate_extraction(input_path, raw_text)
+
+        console.print(f"\n[cyan]Quality Report:[/cyan]")
+        console.print(f"  Pages: {report.total_pages}")
+        console.print(f"  Avg chars/page: {report.avg_chars_per_page:.0f}")
+
+        if report.warnings:
+            for warning in report.warnings:
+                console.print(f"  [yellow]⚠[/yellow] {warning}")
+
+    # Clean
+    with console.status("[bold green]Cleaning text..."):
+        cleaned_text = cleaner.clean(raw_text)
+
+    removed = len(raw_text) - len(cleaned_text)
+    console.print(f"✓ Cleaned: {len(cleaned_text):,} chars ({removed:,} removed)\n")
+
+    # Save
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(cleaned_text, encoding='utf-8')
+
+    console.print(f"[green]✓ Saved to:[/green] {output_path}\n")
 
 
 # Placeholder commands for future phases
