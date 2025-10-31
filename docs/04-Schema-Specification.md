@@ -108,7 +108,8 @@ Look for patterns:
 - `importance_level` if present must be one of: "high", "medium", "low"
 - `section_reference` should match pattern: "s. X" or "section X"
 
-**Target Count:** 150-250 concepts from 291-page PDF
+**Example Count:** 3-5 examples (per Lang Extract best practices)
+**Target Extraction Count:** 150-250 concepts from 291-page PDF
 
 ---
 
@@ -834,29 +835,33 @@ Look for patterns:
 
 ## Priority Extraction Order
 
-### Phase 1: Critical Foundation (Days 1-3 of Example Creation)
-1. **Concepts** (10 examples)
-2. **Statutory References - BIA** (10 examples)
-3. **Deadlines** (10 examples - include calculation methods!)
+**UPDATED GUIDANCE:** Based on Lang Extract documentation, 3-5 high-quality examples per category is optimal!
 
-### Phase 2: Core Knowledge (Days 4-6)
-4. **Role Obligations** (8 examples)
-5. **Principles** (8 examples)
-6. **Procedures** (8 examples)
+### Day 1: Critical Foundation (Test After Each!)
+1. **Concepts** (3-5 examples) → Test immediately!
+2. **Statutory References - BIA** (3-5 examples) → Test!
+3. **Deadlines** (3-5 examples - include calculation methods!) → Test!
 
-### Phase 3: Supporting Information (Days 7-8)
-7. **Document Requirements** (5 examples)
-8. **Event Triggers** (5 examples)
-9. **Communication Requirements** (5 examples)
-10. **Relationships** (5 examples)
+### Day 2: Core Knowledge (Test After Each!)
+4. **Role Obligations** (4 examples) → Test!
+5. **Principles** (4 examples) → Test!
+6. **Procedures** (4 examples) → Test!
 
-### Phase 4: Contextual (Days 9-10)
-11. **Cases** (5 examples)
-12. **Requirements** (5 examples)
-13. **Exceptions** (5 examples)
-14. **Pitfalls** (5 examples)
+### Day 3: Supporting Information (Batch Test)
+7. **Document Requirements** (3 examples)
+8. **Event Triggers** (3 examples)
+9. **Communication Requirements** (3 examples)
+10. **Relationships** (3 examples)
+→ Test all 4 categories together
 
-**Total:** 80-100 examples over 10 days
+### Day 4: Contextual (Batch Test)
+11. **Cases** (3 examples)
+12. **Requirements** (3 examples)
+13. **Exceptions** (3 examples)
+14. **Pitfalls** (3 examples)
+→ Test all 4 categories together + final refinement
+
+**Total:** 40-65 examples over 4 days (much more efficient!)
 
 ---
 

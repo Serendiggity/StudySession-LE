@@ -1,34 +1,98 @@
 # Example Creation Guide
 ## How to Create High-Quality Examples for Lang Extract
 
-**Version:** 1.0
-**Date:** 2025-10-28
-**Purpose:** Guide you through creating the 80-100 examples needed for Phase 3
+**Version:** 1.1 (Updated with Lang Extract Best Practices)
+**Date:** 2025-10-31
+**Purpose:** Guide you through creating 40-65 examples (3-5 per category) for Phase 3
 
 ---
 
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Why Examples Matter](#why-examples-matter)
-3. [The Example Creation Process](#the-example-creation-process)
-4. [Step-by-Step Walkthrough](#step-by-step-walkthrough)
-5. [Example Templates by Category](#example-templates-by-category)
-6. [Quality Checklist](#quality-checklist)
-7. [Common Mistakes to Avoid](#common-mistakes-to-avoid)
-8. [Troubleshooting](#troubleshooting)
+2. [Critical Rules from Lang Extract](#critical-rules-from-lang-extract)
+3. [Why Examples Matter](#why-examples-matter)
+4. [The Example Creation Process](#the-example-creation-process)
+5. [Step-by-Step Walkthrough](#step-by-step-walkthrough)
+6. [Example Templates by Category](#example-templates-by-category)
+7. [Quality Checklist](#quality-checklist)
+8. [Common Mistakes to Avoid](#common-mistakes-to-avoid)
+9. [Troubleshooting](#troubleshooting)
 
 ---
 
 ## Overview
 
-**What you're creating:** 80-100 training examples that teach Lang Extract how to extract knowledge from your insolvency PDF.
+**What you're creating:** 40-65 training examples (3-5 per category) that teach Lang Extract how to extract knowledge from your insolvency PDF.
 
-**Time required:** 5-10 days (Phase 3 of implementation)
+**Key Insight from Lang Extract Docs:**
+> "Zero examples work; 3-5 high-quality ones usually lift accuracy and consistency."
+
+**Time required:** 2-4 days (Phase 3 of implementation) - Much faster than originally planned!
 
 **Difficulty:** Moderate - requires careful attention to detail but follows clear patterns
 
 **Impact:** This is THE MOST IMPORTANT phase - quality here determines extraction quality for entire system!
+
+**Strategy:** Start with 3-5 examples per category, test immediately, add more only if needed.
+
+---
+
+## Critical Rules from Lang Extract
+
+### ⚠️ MUST FOLLOW - These are non-negotiable!
+
+#### Rule 1: Use Exact Text - NO PARAPHRASING
+
+```python
+# ❌ WRONG - Paraphrased
+extraction_text="Bankruptcy proceedings"
+
+# ✅ RIGHT - Exact text from source
+extraction_text="The Bankruptcy and Insolvency Act"
+```
+
+**Why:** Lang Extract uses the exact text for source grounding. Paraphrasing breaks this.
+
+#### Rule 2: No Overlapping Text Spans
+
+```python
+# ❌ WRONG - These overlap!
+Extraction(extraction_text="Bankruptcy and Insolvency")
+Extraction(extraction_text="Insolvency Act")
+
+# ✅ RIGHT - Single extraction
+Extraction(extraction_text="Bankruptcy and Insolvency Act")
+```
+
+**Why:** Overlapping breaks source grounding and confuses the model.
+
+#### Rule 3: Extract in Order of Appearance
+
+Extract entities in the order they appear in the text, from left to right.
+
+```python
+# If text is: "The Trustee must file within 10 days with the OSB"
+# ✅ Extract in this order:
+1. "Trustee" (appears first)
+2. "file" (appears second)
+3. "10 days" (appears third)
+4. "OSB" (appears last)
+```
+
+#### Rule 4: Use Attributes for Grouping
+
+When multiple extractions relate to the same concept, use attributes:
+
+```python
+# Deadline and all its details use same group ID
+Extraction(extraction_class="deadline", extraction_text="10 days",
+          attributes={"deadline_id": "D1", "type": "notice"}),
+Extraction(extraction_class="trigger", extraction_text="appointment",
+          attributes={"deadline_id": "D1"}),
+Extraction(extraction_class="responsible", extraction_text="Trustee",
+          attributes={"deadline_id": "D1"})
+```
 
 ---
 
@@ -57,7 +121,7 @@ Lang Extract is a **few-shot learning** system. It learns patterns from your exa
 ```
 1. Choose a category (e.g., "concepts")
 2. Open your PDF to find relevant content
-3. Identify 5-10 extraction candidates
+3. Identify 3-5 extraction candidates (quality over quantity!)
 4. For each candidate:
    a. Copy relevant text from PDF
    b. Identify what to extract
@@ -71,12 +135,17 @@ Lang Extract is a **few-shot learning** system. It learns patterns from your exa
 
 ### Time Breakdown (per category)
 
-- **Finding candidates:** 15-20 minutes
-- **Creating 5-10 examples:** 30-45 minutes
-- **Formatting and validation:** 10-15 minutes
-- **Total per category:** ~60-90 minutes
+**Updated based on Lang Extract best practices (3-5 examples per category):**
 
-**For 13 categories:** 13-20 hours over 5-10 days
+- **Finding candidates:** 10-15 minutes
+- **Creating 3-5 examples:** 20-30 minutes
+- **Formatting and validation:** 5-10 minutes
+- **Testing with small sample:** 5 minutes
+- **Total per category:** ~40-60 minutes
+
+**For 13 categories:** 8-13 hours over 2-4 days (not 5-10!)
+
+**Quality > Quantity:** 3-5 excellent examples beat 10 mediocre ones!
 
 ---
 
@@ -178,9 +247,9 @@ concept_examples.append(
 # ... continue for all examples
 ```
 
-### Step 7: Test Early
+### Step 7: Test Early (CRITICAL - Do This After Every Category!)
 
-After creating 3-5 examples, test them:
+**Best Practice:** Test after creating just 3-5 examples - don't wait!
 
 ```python
 from extraction.extractor import ExtractionEngine
@@ -567,7 +636,8 @@ If all your concept examples are simple one-sentence definitions, Lang Extract m
 - For concepts: Look in glossary, definition sections, first mention of key terms
 - For deadlines: Look for "days", "immediately", "before", "after", "within"
 - For statutory references: Search for "s.", "section", "BIA", "CCAA"
-- It's okay if some categories have fewer examples (5 minimum is fine)
+- **It's okay if some categories have fewer examples (3 minimum is fine!)**
+- **Remember:** Lang Extract can work with even 1-2 examples if they're high quality
 
 ### Problem: Examples feel repetitive
 
@@ -647,36 +717,38 @@ Don't wait until all 100 examples are done! Test every 10-15 examples to catch i
 
 ## Example Creation Schedule
 
-### Recommended 10-Day Schedule
+### Recommended 4-Day Schedule (Updated!)
 
-**Days 1-3: Critical Foundation**
-- Day 1: Concepts (10 examples)
-- Day 2: Statutory References (10 examples)
-- Day 3: Deadlines (10 examples) + test with small sample
+**Day 1: Critical Foundation (Test After Each!)**
+- Morning: Concepts (3-5 examples) → Test immediately!
+- Afternoon: Statutory References (3-5 examples) → Test!
+- Evening: Deadlines (3-5 examples) → Test!
 
-**Days 4-6: Core Knowledge**
-- Day 4: Role Obligations (8 examples) + Principles (8 examples)
-- Day 5: Procedures (8 examples)
-- Day 6: Test all categories so far, refine if needed
+**Day 2: Core Knowledge**
+- Morning: Role Obligations (4 examples) + Principles (4 examples) → Test!
+- Afternoon: Procedures (4 examples) → Test!
 
-**Days 7-8: Supporting Information**
-- Day 7: Document Requirements (5), Event Triggers (5), Communication Requirements (5)
-- Day 8: Relationships (5 examples)
+**Day 3: Supporting Information**
+- Morning: Document Requirements (3) + Event Triggers (3) → Test!
+- Afternoon: Communication Requirements (3) + Relationships (3) → Test!
 
-**Days 9-10: Contextual**
-- Day 9: Cases (5), Requirements (5), Exceptions (5)
-- Day 10: Pitfalls (5) + final review and testing
+**Day 4: Contextual**
+- Morning: Cases (3) + Requirements (3) + Exceptions (3) → Test!
+- Afternoon: Pitfalls (3) + final testing & refinement
 
-**Total:** 93 examples over 10 days
+**Total:** 40-65 examples over 4 days (much more efficient!)
+
+**Key Change:** Test after EACH category, not at the end of the day. Iterate immediately if quality is low.
 
 ---
 
 ## Final Checklist Before Moving to Phase 4
 
-✅ **Quantity**
-- [ ] At least 80 examples total
-- [ ] Each category has minimum 5 examples
-- [ ] Critical categories (concepts, deadlines, etc.) have 8-10 examples
+✅ **Quantity** (Updated - Quality over Quantity!)
+- [ ] At least 40 examples total (not 80!)
+- [ ] Each category has minimum 3 examples
+- [ ] Critical categories (concepts, deadlines, statutory refs) have 5 examples
+- [ ] Lang Extract guidance: "3-5 high-quality examples per category is optimal"
 
 ✅ **Quality**
 - [ ] All examples validated against checklist

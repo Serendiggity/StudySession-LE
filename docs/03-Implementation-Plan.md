@@ -17,7 +17,7 @@ This document provides a detailed, actionable implementation plan for building t
 |-------|-------|----------|------|
 | 1 | Project Setup | 3 days | $0 |
 | 2 | PDF Processing | 2 days | $0 |
-| 3 | Schema & Examples | 5 days | $0 |
+| 3 | Schema & Examples | 3-4 days | $0.10-0.30 |
 | 4 | Core Extraction | 7 days | $0.10-0.50 |
 | 5 | Storage Layer | 4 days | $0 |
 | 6 | Full Extraction | 7 days | $0-2 |
@@ -27,7 +27,7 @@ This document provides a detailed, actionable implementation plan for building t
 | 10 | CLI Commands | 7 days | $0 |
 | 11 | Testing & QA | 4 days | $0.20-0.50 |
 | 12 | Documentation | 4 days | $0 |
-| **Total** | **MVP Complete** | **60 days** | **$1-5** |
+| **Total** | **MVP Complete** | **57-58 days** | **$1-5** |
 
 ---
 
@@ -394,18 +394,24 @@ This document provides a detailed, actionable implementation plan for building t
 
 ---
 
-## Phase 3: Schema Design & Examples (Week 1-2, Days 6-10)
+## Phase 3: Schema Design & Examples (Week 1-2, Days 6-9) - UPDATED!
 
 ### Objectives
 - Define all 13 extraction schemas
-- Create 80-100 high-quality examples
+- Create 40-65 high-quality examples (3-5 per category)
 - Write extraction prompts
+- **Test iteratively** after each category
 
-### This is the MOST IMPORTANT phase - quality here determines overall success
+### This is THE MOST IMPORTANT phase - quality here determines overall success
+
+**UPDATED BASED ON LANG EXTRACT DOCS:**
+> "Zero examples work; 3-5 high-quality ones usually lift accuracy and consistency."
+
+**New Strategy:** Quality over quantity! 3-5 excellent examples per category, test immediately, iterate based on results.
 
 ### Tasks
 
-#### Days 6-7: Schema Definition
+#### Day 6: Schema Definition
 1. **Create schema definitions** (see Schema Specification doc for details)
 2. **Implement ExtractionCategory dataclass**
    ```python
@@ -425,50 +431,63 @@ This document provides a detailed, actionable implementation plan for building t
        passes: int = 3
    ```
 
-#### Days 8-10: Example Creation
-**This is labor-intensive but critical!**
+#### Days 7-9: Example Creation (REVISED - Much Faster!)
 
-For each of the 13 categories, create 5-10 examples:
+**Critical Rules to Follow:**
+- ✅ Use EXACT text from source (no paraphrasing!)
+- ✅ No overlapping text spans
+- ✅ Extract in order of appearance
+- ✅ Use attributes for grouping related items
 
-1. **Concepts** (10 examples)
+**Day 7: Critical Foundation (Test After Each Category!)**
+
+1. **Concepts** (3-5 examples) → **Test immediately!**
    - Find clear definitions in your PDF
    - Include term, definition, source act, section reference
    - Examples: "Administration", "Proposal", "Secured Creditor"
+   - **Test on 10-20 pages before proceeding**
 
-2. **Statutory References** (10 examples)
+2. **Statutory References** (3-5 examples) → **Test immediately!**
    - BIA sections with full citations
    - Include practical effect
    - Examples: BIA s. 43(1), BIA s. 65.13
+   - **Test on sample text**
 
-3. **Deadlines** (10 examples)
+3. **Deadlines** (3-5 examples) → **Test immediately!**
    - MUST include calculation method
    - Business days vs. calendar days examples
    - Include triggering event
    - Examples: "10 days notice before meeting", "30 days for Statement of Affairs"
+   - **Critical: Test deadline extraction accuracy**
 
-4. **Role Obligations** (8 examples)
+**Day 8: Core Knowledge (Test After Each!)**
+
+4. **Role Obligations** (4 examples) → **Test!**
    - Duties by role (Trustee, Receiver, etc.)
    - Include when obligation arises
    - Examples: Trustee's duty to notify OSB
 
-5. **Principles** (8 examples)
+5. **Principles** (4 examples) → **Test!**
    - Legal principles and rules
    - Include statutory basis
    - Examples: Fiduciary duty principles
 
-6. **Procedures** (8 examples)
+6. **Procedures** (4 examples) → **Test!**
    - Step-by-step processes
    - Include prerequisites
    - Examples: Filing for bankruptcy procedure
 
-7-13. **Remaining categories** (5 examples each)
-   - Document requirements
-   - Event triggers
-   - Communication requirements
-   - Relationships
-   - Cases
-   - Requirements
-   - Exceptions
+**Day 9: Supporting & Contextual Categories (Batch Test)**
+
+7-13. **Remaining 7 categories** (3 examples each):
+   - Document requirements (3)
+   - Event triggers (3)
+   - Communication requirements (3)
+   - Relationships (3)
+   - Cases (3)
+   - Requirements (3)
+   - Exceptions (3)
+   - **Test all 7 categories together at end of day**
 
 **Example format:**
 ```python
@@ -504,18 +523,20 @@ concept_example_1 = lx.data.ExampleData(
 
 ### Deliverables
 - ✅ Complete schemas.py with all 13 categories
-- ✅ 80-100 high-quality examples
+- ✅ 40-65 high-quality examples (3-5 per category) - **REVISED!**
 - ✅ Extraction prompts documented
 - ✅ examples/ directory populated
+- ✅ Test results from each category showing 80%+ accuracy
 
 ### Success Criteria
-- Each category has 5-10 representative examples
-- Examples show variety (simple and complex cases)
+- Each category has 3-5 representative examples (**Updated - quality over quantity!**)
+- Examples follow Lang Extract rules (exact text, no overlap, order matters)
 - Deadline examples include calculation methods
 - All examples formatted correctly for Lang Extract
+- Tested after each category with 80%+ initial accuracy
 
-### Time: 5 days (most time-consuming phase!)
-### Cost: $0
+### Time: 3-4 days (MUCH faster than original 5-10 day estimate!)
+### Cost: ~$0.10-0.30 (testing with small samples)
 
 ---
 
