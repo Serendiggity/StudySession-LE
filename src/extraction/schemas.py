@@ -171,20 +171,21 @@ def create_decision_points_category(examples: List[lx.data.ExampleData]) -> Extr
 # Placeholder for other categories
 # Will implement as examples are created
 
+# Consolidated from 15 to 11 categories
+# Merged: Event Triggers→Deadlines, Communications→Deadlines, Requirements→Principles, Exceptions→Principles
+# Deferred: Cases (add later if needed)
 ALL_CATEGORIES = [
     "concepts",
     "statutory_references",
-    "deadlines",
-    "timeline_sequences",
-    "decision_points",
+    "deadlines",  # Enhanced: includes triggering events, required documents, communication methods
+    "document_requirements",  # Separate: forms, reports (important for exam!)
     "role_obligations",
-    "principles",
+    "principles",  # Enhanced: includes requirements and exceptions as attributes
     "procedures",
-    "document_requirements",
-    "event_triggers",
-    "communication_requirements",
+    "timeline_sequences",  # For swimlane diagrams
+    "decision_points",  # For flowcharts
     "relationships",
-    "cases",
-    "requirements",
-    "exceptions"
+    "pitfalls"  # Common mistakes
 ]
+
+TOTAL_CATEGORIES = len(ALL_CATEGORIES)  # 11 streamlined categories

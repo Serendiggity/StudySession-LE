@@ -64,6 +64,7 @@ principles_example_3 = lx.data.ExampleData(
             attributes={
                 "principle_name": "Trustee Impartiality",
                 "description": "Trustee must remain impartial while completing estate administration despite duty of care to both debtor and creditors",
+                "requirements": ["Trustee must have duty of care to both parties", "Must maintain impartiality"],
                 "application_context": "Trustee administration of estates",
                 "priority_level": "critical"
             }
@@ -86,6 +87,8 @@ principles_example_4 = lx.data.ExampleData(
             attributes={
                 "principle_name": "Process Transparency",
                 "description": "Codes of conduct established to address conflicts of interest and ensure insolvency process remains transparent",
+                "requirements": ["Must follow OSB codes of conduct", "Must follow CAIRP professional standards"],
+                "exceptions": ["Confidentiality requirements may limit some disclosures"],
                 "statutory_basis": "BIA Rules 34-53, CAIRP Rules of Professional Conduct",
                 "application_context": "Addressing inherent conflicts of interest in Trustee role",
                 "priority_level": "important"

@@ -35,8 +35,10 @@ deadlines_example_1 = lx.data.ExampleData(
                 "calculation_method": "calendar_days",
                 "triggering_event": "Filing of Notice of Intention with Official Receiver",
                 "required_action": "File cash flow statement and related reports with Official Receiver",
+                "required_documents": ["Cash Flow Statement (Form 29)", "Report on cash flow preparation", "Trustee's report on reasonableness (Form 30)"],
                 "responsible_party": "Insolvent person (with Trustee assistance)",
                 "recipient": "Official Receiver",
+                "communication_method": "E-filing with OSB",
                 "statutory_reference": "BIA s. 50.4"
             }
         )
@@ -61,8 +63,10 @@ deadlines_example_2 = lx.data.ExampleData(
                 "calculation_method": "calendar_days",
                 "triggering_event": "Filing of Notice of Intention",
                 "required_action": "File the proposal OR request extension",
+                "required_documents": ["Proposal document", "Revised Cash Flow Statement"],
                 "responsible_party": "Insolvent person",
                 "recipient": "Official Receiver and Court (if extension)",
+                "communication_method": "E-filing with OSB",
                 "statutory_reference": "BIA s. 50.4",
                 "extension_available": "Yes - up to 45 days per extension, maximum 6 months total"
             }
@@ -87,8 +91,10 @@ deadlines_example_3 = lx.data.ExampleData(
                 "calculation_method": "calendar_days",
                 "triggering_event": "Filing of Notice of Intention",
                 "required_action": "Send copy of Notice of Intention to every known creditor",
+                "required_documents": ["Copy of Notice of Intention (Form 33)"],
                 "responsible_party": "Trustee",
                 "recipient": "All known creditors",
+                "communication_method": "Mail to last known address",
                 "statutory_reference": "BIA s. 50.4"
             }
         )
