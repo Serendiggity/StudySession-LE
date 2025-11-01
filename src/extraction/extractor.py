@@ -71,6 +71,7 @@ class ExtractionEngine:
                 model_id=self.model_id,
                 extraction_passes=passes,
                 max_workers=max_workers
+                # fence_output=True - Not needed in 1.0.9+ (PR #239 fixed parsing issues)
             )
 
             self.logger.info(f"✓ Extracted {len(result.extractions)} items for category: {category.name}")
