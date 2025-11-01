@@ -15,6 +15,10 @@ from rich.panel import Panel
 import sys
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Add src directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -159,9 +163,86 @@ def extract_text(input_path, output_path, validate):
 
 # Placeholder commands for future phases
 @cli.command()
-def extract():
-    """Extract knowledge from study materials (Phase 4+)."""
-    console.print("[yellow]⚠ This command will be implemented in Phase 4[/yellow]")
+@click.option('--input', 'input_path', type=click.Path(exists=True),
+              help='Path to extracted text file (from extract-text command)')
+@click.option('--categories', default='all',
+              help='Comma-separated list of categories or "all" (default: all)')
+@click.option('--passes', default=3, type=int,
+              help='Number of extraction passes (default: 3)')
+@click.option('--output', 'output_dir', type=click.Path(),
+              default='data/output/knowledge_base',
+              help='Output directory for results')
+@click.option('--sample-size', type=int,
+              help='Extract from first N characters only (for testing)')
+def extract(input_path, categories, passes, output_dir, sample_size):
+    """Extract knowledge from study materials using Lang Extract."""
+    from extraction.extractor import ExtractionEngine
+    from extraction.schemas import ALL_CATEGORIES
+
+    logger = get_logger(__name__)
+
+    # Load text
+    if not input_path:
+        input_path = 'data/input/study_materials/insolvency_admin_extracted.txt'
+
+    text_file = Path(input_path)
+    if not text_file.exists():
+        console.print(f"[red]✗[/red] File not found: {text_file}")
+        return
+
+    text = text_file.read_text()
+
+    # Sample if requested
+    if sample_size:
+        text = text[:sample_size]
+        console.print(f"[yellow]Sample mode:[/yellow] Using first {sample_size:,} characters")
+
+    # Parse categories
+    if categories == 'all':
+        category_list = ALL_CATEGORIES
+    else:
+        category_list = [c.strip() for c in categories.split(',')]
+
+    console.print(f"\n[bold]Extraction Configuration[/bold]")
+    console.print(f"Input: {text_file.name}")
+    console.print(f"Text length: {len(text):,} characters")
+    console.print(f"Categories: {len(category_list)}")
+    console.print(f"Passes: {passes}")
+    console.print(f"Output: {output_dir}\n")
+
+    # Extract
+    engine = ExtractionEngine()
+
+    with console.status("[bold green]Extracting knowledge..."):
+        results = engine.extract_all_categories(
+            text=text,
+            categories=category_list,
+            passes=passes,
+            max_workers=10,
+            output_dir=Path(output_dir)
+        )
+
+    # Summary
+    total = sum(len(r.extractions) for r in results.values())
+
+    console.print(f"\n[bold green]✓ Extraction Complete![/bold green]")
+    console.print(f"\nResults:")
+    for cat_name, result in results.items():
+        console.print(f"  • {cat_name}: {len(result.extractions)} items")
+
+    console.print(f"\n[bold]Total extracted: {total} items[/bold]")
+    console.print(f"Saved to: {output_dir}/\n")
+
+    # Generate HTML
+    console.print("[bold]Generating HTML visualizations...[/bold]")
+    with console.status("[bold green]Creating interactive HTML..."):
+        engine.generate_html_visualizations(Path(output_dir))
+
+    console.print("[green]✓[/green] HTML files ready for review\n")
+    console.print(f"[cyan]Next steps:[/cyan]")
+    console.print(f"1. Open {output_dir}/*.html in your browser")
+    console.print(f"2. Review extractions with color-coded highlighting")
+    console.print(f"3. Verify quality and source grounding")
 
 
 @cli.command()

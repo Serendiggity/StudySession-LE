@@ -48,8 +48,7 @@ concept_example_2 = lx.data.ExampleData(
                 "term": "Trustee",
                 "definition": "An officer of the court who owes a duty of care to all stakeholders and operates in a position of trust maintaining high ethical standards",
                 "context": "Licensed insolvency practitioner administering bankruptcy/proposal estates",
-                "importance_level": "high",
-                "related_terms": ["Licensed Insolvency Trustee", "LIT", "Officer of the court"]
+                "importance_level": "high"
             }
         )
     ]
@@ -70,8 +69,7 @@ concept_example_3 = lx.data.ExampleData(
                 "definition": "A person who has either filed an assignment in bankruptcy or has been petitioned into bankruptcy by a creditor and is now subject to the provisions of the BIA",
                 "source_act": "Bankruptcy and Insolvency Act",
                 "context": "Legal status after bankruptcy proceeding initiated",
-                "importance_level": "high",
-                "related_terms": ["Assignment in bankruptcy", "Petition", "Debtor"]
+                "importance_level": "high"
             }
         )
     ]
@@ -94,8 +92,7 @@ concept_example_4 = lx.data.ExampleData(
                 "definition": "Provides for the financial restructuring of a company or related group of companies with debts of more than $5,000,000 under court supervision",
                 "source_act": "Companies' Creditors Arrangement Act",
                 "context": "Large corporate restructuring (>$5M debt)",
-                "importance_level": "high",
-                "related_terms": ["CCAA", "restructuring", "court supervision"]
+                "importance_level": "high"
             }
         )
     ]
@@ -117,8 +114,7 @@ concept_example_5 = lx.data.ExampleData(
                 "definition": "A rehabilitative act that offers an insolvent person an opportunity to be released from debts and offers creditors an orderly wind-up and distribution of a bankrupt's realizable assets",
                 "source_act": "Bankruptcy and Insolvency Act",
                 "context": "Primary federal legislation governing insolvency in Canada",
-                "importance_level": "high",
-                "related_terms": ["Bankruptcy", "Insolvency", "Federal legislation"]
+                "importance_level": "high"
             }
         )
     ]
