@@ -22,7 +22,8 @@ Final 10 Categories:
 11. Relationships
 """
 
-from .concepts_examples import concept_examples
+# ACTION 2: Use minimal examples (proven to work!)
+from .concepts_minimal import concept_minimal_examples as concept_examples  # 1-2 attributes only
 from .statutory_examples import statutory_examples
 from .deadlines_examples import deadlines_examples
 from .role_obligations_examples import role_obligations_examples
