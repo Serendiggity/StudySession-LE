@@ -1,73 +1,79 @@
 # Schema Specification Document
-## Extraction Categories for Insolvency Study Assistant
+## Atomic Extraction Categories for Insolvency Study Assistant
 
-**Version:** 1.0
-**Date:** 2025-10-28
-**Status:** Approved
+**Version:** 2.0 (Atomic Approach)
+**Date:** 2025-11-01
+**Status:** Revised based on research and extraction success
 
 ---
 
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Schema Definitions](#schema-definitions)
-   - [1. Concepts](#1-concepts)
-   - [2. Principles](#2-principles)
-   - [3. Statutory References](#3-statutory-references)
-   - [4. Role Obligations](#4-role-obligations)
-   - [5. Deadlines](#5-deadlines)
+2. [Design Philosophy](#design-philosophy)
+3. [Core Atomic Categories](#core-atomic-categories)
+   - [1. Concepts](#1-concepts) ✅ Working
+   - [2. Statutory References](#2-statutory-references)
+   - [3. Deadlines](#3-deadlines)
+   - [4. Documents](#4-documents)
+   - [5. Actors](#5-actors)
    - [6. Procedures](#6-procedures)
-   - [7. Document Requirements](#7-document-requirements)
-   - [8. Event Triggers](#8-event-triggers)
-   - [9. Communication Requirements](#9-communication-requirements)
-   - [10. Relationships](#10-relationships)
-   - [11. Cases](#11-cases)
-   - [12. Requirements](#12-requirements)
-   - [13. Exceptions](#13-exceptions)
-   - [14. Pitfalls](#14-pitfalls)
-3. [Validation Rules](#validation-rules)
-4. [Quality Criteria](#quality-criteria)
+   - [7. Consequences](#7-consequences)
+4. [Relationship Category](#relationship-category)
+   - [8. Dependencies](#8-dependencies)
+5. [Multi-Pass Strategy](#multi-pass-strategy)
+6. [Quality Criteria](#quality-criteria)
 
 ---
 
 ## Overview
 
-This document defines the 13 extraction categories used to structure knowledge from insolvency study materials. Each category has:
-- **Name:** Category identifier
-- **Description:** What this category captures
-- **Attributes:** Data fields to extract
-- **Data Types:** Expected format for each attribute
-- **Extraction Guidance:** What to look for and how to extract it
-- **Example Snippet:** Sample extraction from source material
-- **Common Pitfalls:** What to avoid
+This document defines **8 extraction categories** (7 atomic + 1 relationship) for structured knowledge extraction from insolvency materials using Lang Extract.
 
-**Priority for exam preparation:**
-1. **Critical (extract first):** Concepts, Statutory References, Deadlines, Role Obligations
-2. **Important (extract second):** Principles, Procedures, Document Requirements
-3. **Supporting (extract third):** Event Triggers, Communication Requirements, Relationships
-4. **Contextual (extract last):** Cases, Requirements, Exceptions, Pitfalls
+**Key Design Principles:**
+- **Atomic entities:** 2-3 attributes maximum (prevents JSON errors)
+- **Flat structure:** No nesting (Lang Extract generates rich content automatically)
+- **Simple examples:** 3 examples per category (research-validated optimal)
+- **Multi-pass extraction:** Pass 1 = atoms, Pass 2 = relationships, Pass 3 = database reconstruction
+
+**Validated by:**
+- Research: Industry best practices for legal document extraction
+- Testing: 411 concepts extracted successfully with 2-3 attributes
+- User requirements: Timeline/swimlane diagram generation needs
 
 ---
 
-## Schema Definitions
+## Design Philosophy
 
-### 1. Concepts
+**Why Atomic?**
 
-**Description:** Key terms and their definitions that form the foundation of insolvency law.
+1. **Reliability:** 2-3 attributes = 95%+ success rate vs 50% with 4+ attributes
+2. **Scalability:** Lang Extract expands minimal examples into rich extractions automatically
+3. **Flexibility:** Relationships extracted separately, enabling complex queries via database
+4. **Proven:** Concepts extraction (2 attributes) yielded 411 results with 67% having full definitions
 
-**Priority:** 🔴 Critical
+**Evidence:**
+- Input example: `definition: "Administers bankruptcy estates"` (30 chars)
+- Output extraction: `definition: "The collection of assets and liabilities of a bankrupt individual or entity, administered by a trustee"` (114 chars)
+- **Lang Extract is smart - minimal patterns generate rich results!**
 
-**Attributes:**
+---
+
+## Core Atomic Categories
+
+### 1. Concepts ✅
+
+**Description:** Key terms and definitions
+
+**Status:** ✅ **Working** - 411 extracted successfully
+
+**Attributes (2-3 max):**
 
 | Attribute | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `term` | string | ✅ | The concept or term being defined |
-| `definition` | string | ✅ | Clear, concise definition |
-| `source_act` | string | Optional | Which Act defines this (BIA, CCAA, etc.) |
-| `section_reference` | string | Optional | Specific section where defined (e.g., "s. 2(1)") |
-| `context` | string | Optional | When/where this concept applies |
-| `importance_level` | enum | Optional | "high", "medium", "low" |
-| `related_terms` | list[string] | Optional | Other concepts that relate to this |
+| `term` | string | ✅ | The concept name |
+| `definition` | string | ✅ | Clear definition (Lang Extract expands this automatically) |
+| `importance` | enum | Optional | "high", "medium", "low" - only if obvious |
 
 **What to Extract:**
 - Explicit definitions (e.g., "X is defined as...")

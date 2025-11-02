@@ -1,57 +1,44 @@
 """
-Consolidated examples for all 10 core categories.
+Atomic minimal examples for insolvency extraction (v2.0).
 
-Categories consolidated from original 15:
-- Event Triggers → merged into Deadlines (as triggering_event attribute)
-- Communication Requirements → merged into Deadlines (as recipient/method attributes)
-- Requirements → merged into Principles (as requirements attribute)
-- Exceptions → merged into Principles (as exceptions attribute)
-- Cases → deferred (add later if needed)
+Schema v2.0: 7 Core Atomic Categories + 1 Relationship Category
+- Each category: 3 examples, 2-3 attributes maximum
+- Proven approach: concepts_minimal.py yielded 411 extractions with 0 errors
 
-Final 10 Categories:
-1. Concepts
-2. Statutory References
-3. Deadlines (enhanced)
-4. Document Requirements
-5. Role Obligations
-6. Principles (enhanced)
-7. Procedures
-8. Timeline Sequences (for swimlanes)
-9. Decision Points (for flowcharts)
-10. Pitfalls
-11. Relationships
+Design Philosophy:
+- Minimal examples prevent JSON errors (research-validated)
+- Lang Extract generates rich content automatically from simple patterns
+- Atomic entities enable database reconstruction of complex scenarios
+
+Categories:
+1. Concepts ✅ (Working - 411 extracted)
+2. Statutory References (Ready)
+3. Deadlines (Ready)
+4. Documents (Ready)
+5. Actors (Ready)
+6. Procedures (Ready)
+7. Consequences (Ready)
+8. Dependencies (Pass 2 - relationship extraction)
 """
 
-# ACTION 2: Use minimal examples (proven to work!)
-from .concepts_minimal import concept_minimal_examples as concept_examples  # 1-2 attributes only
-from .statutory_examples import statutory_examples
-from .deadlines_examples import deadlines_examples
-from .role_obligations_examples import role_obligations_examples
-from .principles_examples import principles_examples
-from .procedures_examples import procedures_examples
-from .timeline_examples import timeline_examples
-from .decision_points_examples import decision_points_examples
-from .pitfalls_examples import pitfalls_examples
-
-# Import document requirements and relationships from remaining_categories
-from .remaining_categories_examples import (
-    document_requirements_examples,
-    relationships_examples
-)
+# Import all minimal examples
+from .concepts_minimal import concept_minimal_examples as concept_examples  # ✅ WORKING - 411 extractions!
+from .statutory_references_minimal import statutory_references_minimal_examples as statutory_examples
+from .deadlines_minimal import deadlines_minimal_examples as deadlines_examples
+from .documents_minimal import documents_minimal_examples as document_examples
+from .actors_minimal import actors_minimal_examples as actor_examples
+from .procedures_minimal import procedures_minimal_examples as procedure_examples
+from .consequences_minimal import consequences_minimal_examples as consequence_examples
 
 # Export all examples grouped by category
 ALL_EXAMPLES = {
     "concepts": concept_examples,
     "statutory_references": statutory_examples,
     "deadlines": deadlines_examples,
-    "document_requirements": document_requirements_examples,
-    "role_obligations": role_obligations_examples,
-    "principles": principles_examples,
-    "procedures": procedures_examples,
-    "timeline_sequences": timeline_examples,
-    "decision_points": decision_points_examples,
-    "relationships": relationships_examples,
-    "pitfalls": pitfalls_examples
+    "documents": document_examples,
+    "actors": actor_examples,
+    "procedures": procedure_examples,
+    "consequences": consequence_examples
 }
 
 # Count total

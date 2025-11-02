@@ -1,13 +1,15 @@
 """
 Extraction engine for processing documents with Lang Extract.
 Orchestrates multi-pass extraction across all categories.
+
+Version: 2.0 - Atomic extraction approach
 """
 
 import logging
 from pathlib import Path
 from typing import List, Dict, Optional
 import langextract as lx
-from .schemas import ExtractionCategory, ALL_CATEGORIES
+from .schemas_v2_atomic import ExtractionCategory, ALL_CATEGORIES, get_category
 
 
 class ExtractionEngine:
@@ -171,40 +173,17 @@ class ExtractionEngine:
         return results
 
     def _create_category_def(self, category_name: str, examples: List) -> ExtractionCategory:
-        """Create category definition with examples."""
+        """
+        Create category definition with examples.
 
-        # Import category creator functions
-        from .schemas import (
-            create_concepts_category,
-            create_statutory_references_category,
-            create_deadlines_category,
-            create_timeline_sequences_category,
-            create_decision_points_category
-        )
-
-        # Map category names to creator functions
-        creators = {
-            "concepts": create_concepts_category,
-            "statutory_references": create_statutory_references_category,
-            "deadlines": create_deadlines_category,
-            "timeline_sequences": create_timeline_sequences_category,
-            "decision_points": create_decision_points_category
-        }
-
-        # Use creator if available, otherwise use generic
-        if category_name in creators:
-            return creators[category_name](examples)
-        else:
-            # Generic category
-            return ExtractionCategory(
-                name=category_name,
-                description=f"Extract {category_name.replace('_', ' ')}",
-                attributes=[],
-                prompt_template=f"Extract {category_name.replace('_', ' ')} from the text.",
-                examples=examples,
-                priority=2,
-                passes=2
-            )
+        Uses atomic schemas_v2 with get_category() function.
+        All categories are now registered in CATEGORY_CREATORS.
+        """
+        try:
+            return get_category(category_name, examples)
+        except ValueError as e:
+            self.logger.error(f"Unknown category: {category_name}")
+            raise
 
     def _save_result(self, result: lx.data.AnnotatedDocument, category_name: str, output_dir: Path):
         """Save extraction result to JSONL."""
