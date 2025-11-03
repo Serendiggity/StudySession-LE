@@ -1,0 +1,269 @@
+======================================================================
+BIA STATUTE EXTRACTION - Ultra-Minimal Approach
+======================================================================
+
+Loading text from: data/input/study_materials/bia_statute.txt
+✓ Loaded 1,290,927 characters
+Initialized ExtractionEngine with model: gemini-2.5-flash
+
+Starting extraction for 7 categories:
+  1. concepts
+  2. deadlines
+  3. documents
+  4. actors
+  5. statutory_references
+  6. procedures
+  7. consequences
+
+Using 1 pass (ultra-minimal = reliable on first pass)
+
+
+======================================================================
+FULL EXTRACTION - 7 categories
+Text length: 1,290,927 characters
+Passes per category: 1
+Output directory: data/output/bia_extraction
+======================================================================
+
+
+[1/7] Processing: concepts
+======================================================================
+Extracting category: concepts
+Examples: 3
+Passes: 1
+======================================================================
+Loaded provider plugin: gemini
+Loaded provider plugin: ollama
+Loaded provider plugin: openai
+Starting document annotation.
+Processing batch 0 with length 10
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Processing batch 1 with length 10
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Starting resolver process for input text.
+Starting string parsing.
+Completed parsing of string.
+Starting to extract and order extractions from data.
+Completed extraction and ordering of extractions.
+Starting alignment process for provided chunk text.
+Completed alignment process for the provided source_text.
+Processing batch 2 with length 10
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+AFC is enabled with max remote calls: 10.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+AFC remote call 1 is done.
+/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
