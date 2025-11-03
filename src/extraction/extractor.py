@@ -121,8 +121,7 @@ class ExtractionEngine:
 
         # Load examples
         import sys
-        from pathlib import Path
-        # Add data directory to path
+        # Add data directory to path (Path already imported at module level)
         data_dir = Path(__file__).parent.parent.parent / "data" / "examples"
         sys.path.insert(0, str(data_dir))
         from content_examples import ALL_EXAMPLES

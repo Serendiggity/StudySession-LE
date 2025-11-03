@@ -89,3 +89,15 @@ dmypy.json
 *_api_key.txt
 credentials.json
 service-account.json
+
+# Generated extraction outputs
+data/output/knowledge_base/
+data/output/*.db
+data/output/*.csv
+data/output/*.json
+!data/output/section_map.json
+!data/output/gemini_canonical_mappings.json
+
+# Temporary files
+*.log
+/tmp/

@@ -47,12 +47,50 @@ class KnowledgeBaseLoader:
         self.conn.commit()
         logger.info('Database schema initialized')
 
-    def load_all_categories(self, extraction_dir: Path):
+    def register_source(self, source_name: str, file_path: str,
+                       pages: int = None, total_chars: int = None, notes: str = None) -> int:
         """
-        Load all extraction categories.
+        Register a source document or get existing source ID.
+
+        Args:
+            source_name: Name of the source (e.g., "Study Material", "BIA Statute")
+            file_path: Path to the original PDF
+            pages: Number of pages in the document
+            total_chars: Total character count
+            notes: Optional notes about the source
+
+        Returns:
+            source_id: The ID of the registered source
+        """
+        # Check if source already exists
+        cursor = self.conn.execute(
+            'SELECT id FROM source_documents WHERE source_name = ?',
+            (source_name,)
+        )
+        result = cursor.fetchone()
+
+        if result:
+            logger.info(f'Source "{source_name}" already registered with ID {result[0]}')
+            return result[0]
+
+        # Insert new source
+        cursor = self.conn.execute('''
+            INSERT INTO source_documents (source_name, file_path, pages, total_chars, notes)
+            VALUES (?, ?, ?, ?, ?)
+        ''', (source_name, file_path, pages, total_chars, notes))
+
+        source_id = cursor.lastrowid
+        self.conn.commit()
+        logger.info(f'Registered new source "{source_name}" with ID {source_id}')
+        return source_id
+
+    def load_all_categories(self, extraction_dir: Path, source_id: int):
+        """
+        Load all extraction categories with source tracking.
 
         Args:
             extraction_dir: Directory containing JSONL files
+            source_id: ID of the source document (from register_source)
         """
         categories = {
             'concepts': self._load_concepts,
@@ -64,6 +102,7 @@ class KnowledgeBaseLoader:
             'consequences': self._load_consequences
         }
 
+        total_loaded = 0
         for category, loader_func in categories.items():
             jsonl_file = extraction_dir / category
             if not jsonl_file.exists():
@@ -71,12 +110,21 @@ class KnowledgeBaseLoader:
 
             if jsonl_file.exists():
                 logger.info(f'Loading {category}...')
-                count = loader_func(jsonl_file)
+                count = loader_func(jsonl_file, source_id)
                 logger.info(f'✓ Loaded {count} {category}')
+                total_loaded += count
             else:
                 logger.warning(f'File not found: {jsonl_file}')
 
+        # Update total_entities in source_documents
+        self.conn.execute('''
+            UPDATE source_documents
+            SET total_entities = ?
+            WHERE id = ?
+        ''', (total_loaded, source_id))
+
         self.conn.commit()
+        logger.info(f'Total entities loaded for source {source_id}: {total_loaded}')
 
     def _enrich_with_context(self, extraction: Dict) -> Dict:
         """Add section context to extraction."""
@@ -138,7 +186,7 @@ class KnowledgeBaseLoader:
         # Default: title case
         return normalized.title() if normalized.islower() or normalized.isupper() else normalized
 
-    def _load_concepts(self, jsonl_file: Path) -> int:
+    def _load_concepts(self, jsonl_file: Path, source_id: int) -> int:
         """Load concepts into database."""
         with open(jsonl_file, 'r') as f:
             data = json.load(f)
@@ -149,6 +197,7 @@ class KnowledgeBaseLoader:
             context = self._enrich_with_context(ext)
 
             rows.append((
+                source_id,
                 ext['extraction_text'],
                 attrs.get('term'),
                 attrs.get('definition'),
@@ -161,14 +210,14 @@ class KnowledgeBaseLoader:
             ))
 
         self.conn.executemany('''
-            INSERT INTO concepts (extraction_text, term, definition, importance,
+            INSERT INTO concepts (source_id, extraction_text, term, definition, importance,
                                 char_start, char_end, section_number, section_title, section_context)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', rows)
 
         return len(rows)
 
-    def _load_deadlines(self, jsonl_file: Path) -> int:
+    def _load_deadlines(self, jsonl_file: Path, source_id: int) -> int:
         """Load deadlines into database."""
         with open(jsonl_file, 'r') as f:
             data = json.load(f)
@@ -179,6 +228,7 @@ class KnowledgeBaseLoader:
             context = self._enrich_with_context(ext)
 
             rows.append((
+                source_id,
                 ext['extraction_text'],
                 attrs.get('timeframe'),
                 context['char_start'],
@@ -189,14 +239,14 @@ class KnowledgeBaseLoader:
             ))
 
         self.conn.executemany('''
-            INSERT INTO deadlines (extraction_text, timeframe, char_start, char_end,
+            INSERT INTO deadlines (source_id, extraction_text, timeframe, char_start, char_end,
                                  section_number, section_title, section_context)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ''', rows)
 
         return len(rows)
 
-    def _load_documents(self, jsonl_file: Path) -> int:
+    def _load_documents(self, jsonl_file: Path, source_id: int) -> int:
         """Load documents with normalization."""
         with open(jsonl_file, 'r') as f:
             data = json.load(f)
@@ -208,6 +258,7 @@ class KnowledgeBaseLoader:
             doc_name = attrs.get('document_name', '')
 
             rows.append((
+                source_id,
                 ext['extraction_text'],
                 doc_name,
                 doc_name,  # Canonical - same for now, can enhance later
@@ -219,14 +270,14 @@ class KnowledgeBaseLoader:
             ))
 
         self.conn.executemany('''
-            INSERT INTO documents (extraction_text, document_name, document_name_canonical,
+            INSERT INTO documents (source_id, extraction_text, document_name, document_name_canonical,
                                  char_start, char_end, section_number, section_title, section_context)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', rows)
 
         return len(rows)
 
-    def _load_actors(self, jsonl_file: Path) -> int:
+    def _load_actors(self, jsonl_file: Path, source_id: int) -> int:
         """Load actors with normalization."""
         with open(jsonl_file, 'r') as f:
             data = json.load(f)
@@ -239,6 +290,7 @@ class KnowledgeBaseLoader:
             role_canonical = self._normalize_actor(role_raw)
 
             rows.append((
+                source_id,
                 ext['extraction_text'],
                 role_raw,
                 role_canonical,
@@ -250,14 +302,14 @@ class KnowledgeBaseLoader:
             ))
 
         self.conn.executemany('''
-            INSERT INTO actors (extraction_text, role_raw, role_canonical,
+            INSERT INTO actors (source_id, extraction_text, role_raw, role_canonical,
                               char_start, char_end, section_number, section_title, section_context)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', rows)
 
         return len(rows)
 
-    def _load_statutory_refs(self, jsonl_file: Path) -> int:
+    def _load_statutory_refs(self, jsonl_file: Path, source_id: int) -> int:
         """Load statutory references."""
         with open(jsonl_file, 'r') as f:
             data = json.load(f)
@@ -272,6 +324,7 @@ class KnowledgeBaseLoader:
             act, section = self._parse_reference(ref)
 
             rows.append((
+                source_id,
                 ext['extraction_text'],
                 ref,
                 act,
@@ -284,9 +337,9 @@ class KnowledgeBaseLoader:
             ))
 
         self.conn.executemany('''
-            INSERT INTO statutory_references (extraction_text, reference, act, section,
+            INSERT INTO statutory_references (source_id, extraction_text, reference, act, section,
                                             char_start, char_end, section_number, section_title, section_context)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', rows)
 
         return len(rows)
@@ -304,7 +357,7 @@ class KnowledgeBaseLoader:
             return (parts[0], parts[1] if len(parts) > 1 else '')
         return (None, ref)
 
-    def _load_procedures(self, jsonl_file: Path) -> int:
+    def _load_procedures(self, jsonl_file: Path, source_id: int) -> int:
         """Load procedures."""
         with open(jsonl_file, 'r') as f:
             data = json.load(f)
@@ -315,6 +368,7 @@ class KnowledgeBaseLoader:
             context = self._enrich_with_context(ext)
 
             rows.append((
+                source_id,
                 ext['extraction_text'],
                 attrs.get('step_name'),
                 attrs.get('action'),
@@ -327,14 +381,14 @@ class KnowledgeBaseLoader:
             ))
 
         self.conn.executemany('''
-            INSERT INTO procedures (extraction_text, step_name, action, step_order,
+            INSERT INTO procedures (source_id, extraction_text, step_name, action, step_order,
                                   char_start, char_end, section_number, section_title, section_context)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', rows)
 
         return len(rows)
 
-    def _load_consequences(self, jsonl_file: Path) -> int:
+    def _load_consequences(self, jsonl_file: Path, source_id: int) -> int:
         """Load consequences."""
         with open(jsonl_file, 'r') as f:
             data = json.load(f)
@@ -345,6 +399,7 @@ class KnowledgeBaseLoader:
             context = self._enrich_with_context(ext)
 
             rows.append((
+                source_id,
                 ext['extraction_text'],
                 attrs.get('outcome'),
                 context['char_start'],
@@ -355,9 +410,9 @@ class KnowledgeBaseLoader:
             ))
 
         self.conn.executemany('''
-            INSERT INTO consequences (extraction_text, outcome, char_start, char_end,
+            INSERT INTO consequences (source_id, extraction_text, outcome, char_start, char_end,
                                     section_number, section_title, section_context)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ''', rows)
 
         return len(rows)
@@ -373,15 +428,25 @@ class KnowledgeBaseLoader:
 
 
 if __name__ == '__main__':
-    # Test loading
+    # Test loading with source tracking
     db_path = Path('data/output/insolvency_knowledge.db')
     section_map = Path('data/output/section_map.json')
     extraction_dir = Path('data/output/knowledge_base')
 
-    print('Loading knowledge base into SQLite...')
+    print('Loading knowledge base into SQLite with source tracking...')
 
     loader = KnowledgeBaseLoader(db_path, section_map)
-    loader.load_all_categories(extraction_dir)
+
+    # Register the source document
+    source_id = loader.register_source(
+        source_name='Study Material',
+        file_path='data/input/study_materials/InsolvencyStudyGuide.pdf',
+        pages=291,
+        notes='Complete insolvency study guide with 18 chapters'
+    )
+
+    # Load all categories with source tracking
+    loader.load_all_categories(extraction_dir, source_id)
 
     stats = loader.get_stats()
     print('\nDatabase loaded successfully!')
