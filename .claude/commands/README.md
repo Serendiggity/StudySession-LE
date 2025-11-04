@@ -1,103 +1,79 @@
-# Custom Slash Commands - Insolvency Knowledge Base
+# Slash Commands - Insolvency Knowledge Base
 
-These commands provide quick access to the knowledge base with consistent formatting.
+## Available Commands (Tool Execution Only)
 
-## Available Commands
+**Why so few?** The `.claude/CLAUDE.md` file handles all query behavior automatically. These commands are only for running tools.
 
-### Query Commands
+### `/diagram [topic] [section-pattern] [type]`
+Generate Mermaid diagram
 
-**`/bia [section-number]`**
-- Query specific BIA section with all relationships
-- Example: `/bia 50.4`
-- Shows: Section text, duties, documents, full quotes
-
-**`/duties [actor]`**
-- Find all duties for an actor
-- Example: `/duties Trustee`
-- Shows: What they must/may do, when, consequences, BIA quotes
-
-**`/docs [keyword]`**
-- Find required documents for procedures
-- Example: `/docs proposal`
-- Shows: Which docs needed, mandatory vs optional, context
-
-**`/search [keyword]`**
-- Search across all sources (BIA + Study Materials)
-- Example: `/search discharge`
-- Shows: Relationships, sections, entities with keyword
-
-**`/exam [question]`**
-- Answer exam question using knowledge base
-- Example: `/exam When is first-time bankrupt with surplus discharged?`
-- Shows: Answer + direct BIA quote + section reference
-
-### Visualization Commands
-
-**`/diagram [topic] [section-pattern] [type]`**
-- Generate Mermaid diagram
-- Example: `/diagram "Division I NOI" "50.4%" flowchart`
-- Types: flowchart, swimlane, duty-chain, timeline, erd
-
-### System Commands
-
-**`/coverage`**
-- Show extraction coverage statistics
-- Shows: Relationships by source, BIA coverage %, top sections
-
-**`/extract-bia`**
-- Run BIA relationship extraction
-- Processes all 385 sections (~20-30 min)
-
-**`/extract-study`**
-- Run study material relationship extraction
-- Processes all study sections (~20-40 min)
-
-**`/quick-ref`**
-- Show this quick reference guide
-
-## Output Format Standards
-
-All commands follow consistent formatting:
-
-**Tables:**
-- Header row with column names
-- Separator line
-- Data rows
-- Source citations
-
-**Quotes:**
-- Direct BIA text in "quotes"
-- Section reference: "Section X.X"
-- Source: BIA Statute / Study Materials
-
-**Traceability:**
-- Every answer includes section number
-- Every quote is exact text from source
-- Every relationship links to entities
-
-## Usage Tips
-
-**Chain commands:**
+**Example:**
 ```
-/bia 168.1
-/duties Trustee
+/diagram "Division I NOI" "50.4%" flowchart
 ```
 
-**Use for exam prep:**
+**Types:** flowchart, swimlane, duty-chain, timeline, erd
+
+---
+
+### `/coverage`
+Show extraction coverage statistics
+
+**Shows:**
+- Relationships by source (BIA vs Study Materials)
+- BIA section coverage percentage
+- Top 10 sections by relationship count
+
+---
+
+### `/extract-bia`
+Run BIA relationship extraction (if needed to re-extract or catch missed sections)
+
+**Time:** ~15-30 minutes
+**Cost:** ~$0.15-0.20
+
+---
+
+### `/extract-study`
+Run study material relationship extraction
+
+**Time:** ~20-40 minutes
+**Cost:** ~$0.20-0.25
+
+---
+
+## For All Other Queries
+
+**Just ask normally!**
+
+The `.claude/CLAUDE.md` file ensures I always:
+- ✅ Provide direct BIA quotes
+- ✅ Cite section references
+- ✅ Follow cross-references
+- ✅ Show SQL queries
+- ✅ Use fixed format
+
+**No slash command needed for:**
+- Exam questions (CLAUDE.md handles formatting)
+- BIA section lookups (CLAUDE.md handles queries)
+- Actor duty queries (CLAUDE.md handles queries)
+- Document searches (CLAUDE.md handles queries)
+
+---
+
+## Quick Start
+
+**Ask any exam question:**
 ```
-/exam [paste question]
-→ Get answer with BIA quote + section
+When is first-time bankrupt with surplus discharged?
 ```
 
-**Generate study aids:**
-```
-/diagram "Your Topic" "50%" flowchart
-→ Visual diagram in Mermaid format
-```
+**I will automatically:**
+1. Query database
+2. Show direct BIA quote
+3. Follow cross-references (e.g., section 68)
+4. Cite sections
+5. Show SQL used
+6. Format consistently
 
-## Files
-
-Commands are in: `.claude/commands/`
-- Edit any `.md` file to customize
-- Filename = command name
-- Simple Markdown format
+**Every time. No command needed.**
