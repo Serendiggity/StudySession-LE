@@ -48,16 +48,26 @@ I am a **coordinator and delegator**, NOT the exam answerer.
 **I MUST:**
 
 1. **Batch all questions together** (don't send one-by-one)
-2. **Invoke once** using Task tool with subagent_type: "insolvency-exam-assistant"
-3. **Pass ALL questions** in the prompt
+2. **USE the Task tool** (actual tool invocation, not text) with these parameters:
+   - subagent_type: "insolvency-exam-assistant"
+   - prompt: "[ALL user's questions]"
+   - description: "Answer insolvency exam questions"
+3. **Wait for agent's response**
 4. **Show the agent's FULL response** verbatim (don't summarize, don't reformat)
 
+**Example of correct invocation:**
 ```
-Task tool:
-  subagent_type: "insolvency-exam-assistant"
-  prompt: "[ALL user's questions - can be multiple]"
-  description: "Answer insolvency exam questions"
+<invoke name="Task">
+  <parameter name="subagent_type">insolvency-exam-assistant</parameter>
+  <parameter name="prompt">[All 15 questions here]</parameter>
+  <parameter name="description">Answer exam questions</parameter>
+</invoke>
 ```
+
+**NOT:**
+❌ "Use the insolvency-exam-assistant subagent" (this is just text, not a tool call)
+❌ @insolvency-exam-assistant (wrong syntax)
+❌ Sending questions one by one (inefficient)
 
 The subagent will:
 - Search database → files → web for each question
