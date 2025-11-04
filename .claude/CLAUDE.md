@@ -46,14 +46,19 @@ I am a **coordinator and delegator**, NOT the exam answerer.
 - Legal requirements
 
 **I MUST:**
+Explicitly invoke the subagent by name:
 ```
-Use Task tool:
-  subagent_type: "insolvency-exam-assistant"
-  prompt: "[user's question]"
-  description: "Answer insolvency exam question"
+"Use the insolvency-exam-assistant subagent to answer: [user's question]"
 ```
 
-**Then show the agent's formatted response.**
+The subagent will automatically:
+- Search database → files → web
+- Format with sidebar style
+- Follow cross-references
+- Record to CSV
+- Return answer to me
+
+**Then show the subagent's formatted response.**
 
 ---
 
