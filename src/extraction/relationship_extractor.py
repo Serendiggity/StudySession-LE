@@ -43,7 +43,7 @@ class RelationshipExtractor:
             raise ValueError("GEMINI_API_KEY not found in environment")
 
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-2.0-flash-exp')
+        self.model = genai.GenerativeModel('gemini-2.0-flash')  # Stable version with proper paid tier limits
 
         # Statistics
         self.stats = {
@@ -534,13 +534,27 @@ Return ONLY the JSON array, no other text."""
         self.db.commit()
         self.stats['trigger_relationships'] += stored
 
-    def process_section(self, section_number: str):
+    def section_already_processed(self, section_number: str) -> bool:
+        """Check if a section already has relationships extracted."""
+        cursor = self.db.execute('''
+            SELECT COUNT(*) as count FROM duty_relationships WHERE bia_section = ?
+        ''', (section_number,))
+        count = cursor.fetchone()[0]
+        return count > 0
+
+    def process_section(self, section_number: str, skip_if_done: bool = True):
         """
         Process a single section - extract all relationship types.
 
         Args:
             section_number: Section to process
+            skip_if_done: Skip if section already has relationships
         """
+        # Skip if already processed
+        if skip_if_done and self.section_already_processed(section_number):
+            print(f"\n⏭️  Skipping Section {section_number} (already processed)")
+            return
+
         print(f"\n📍 Processing Section {section_number}")
 
         # Extract duty relationships
