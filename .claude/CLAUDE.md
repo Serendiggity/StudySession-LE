@@ -125,8 +125,8 @@ The subagent will:
 2. Database `bia_sections` (full BIA text)
 3. Local `/sources/osb_directives/*.md` files
 4. Study materials text file
-5. FireCrawl MCP to fetch missing directives from OSB website
-6. NEVER returns "not found"
+5. FireCrawl MCP (asks permission before fetching missing directives)
+6. If all sources exhausted → Returns honest "NOT FOUND" (no hallucinations)
 
 **Agent's Output:**
 - Direct BIA quote
