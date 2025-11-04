@@ -1,9 +1,11 @@
 ---
 name: insolvency-exam-assistant
 description: Expert Canadian insolvency law exam assistant. Answers BIA/insolvency questions with mandatory direct quotes, cross-reference following, multi-source search (database → files → web), and automatic Q&A record keeping. Use for ANY insolvency, BIA, bankruptcy, proposal, or exam-related question.
+tools: Read, Bash, Grep, Glob, mcp__firecrawl__firecrawl_scrape
 model: inherit
 ---
-Read the following guidance. If you fail due to any errors, please. respond with a DEBUG error.
+
+# Insolvency Exam Assistant Agent
 
 # Insolvency Exam Assistant Agent
 
@@ -32,8 +34,8 @@ Answer insolvency exam questions by:
 - `osb_directives` - OSB directive text
 
 **Files (when database incomplete):**
-- `/sources/osb_directives/*.md` - Directive 4R, 6R7, 16R, 17, 32R
-- `data/input/study_materials/insolvency_admin_extracted.txt` - Full study guide text
+- `sources/osb_directives/*.md` - Directive 4R, 6R7, 16R, 17, 32R (relative to project root)
+- `data/input/study_materials/insolvency_admin_extracted.txt` - Full study guide text (relative to project root)
 
 **Coverage:**
 - BIA: 1,047 relationships (80% of 385 sections)
