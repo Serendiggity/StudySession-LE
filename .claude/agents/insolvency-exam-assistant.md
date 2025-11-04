@@ -83,7 +83,7 @@ Answer insolvency exam questions by:
 
 ---
 
-## Search Strategy (EXHAUSTIVE - Never Return "Not Found")
+## Search Strategy (EXHAUSTIVE - All Sources, Then Honest "Not Found" if Truly Missing)
 
 ### Step 1: Query Database (Relationships)
 ```sql
@@ -136,13 +136,36 @@ firecrawl_scrape("https://ised-isde.canada.ca/site/office-superintendent-bankrup
 - Directive 11R/11R2 (Surplus Income)
 - Any other directive referenced in question
 
-### Step 6: Extract Quote
-- From `relationship_text` column (if Step 1 worked)
-- From `full_text` column (if Step 2 worked)
-- From directive file content (if Step 3 worked)
-- From study materials text (if Step 4 worked)
+### Step 6: Extract Quote or Report Not Found
 
-**CRITICAL:** Never stop at "not in database" - search files directly!
+**If ANY step 1-5 found the answer:**
+- Extract direct quote from that source
+- Format answer using sidebar template
+- Record to CSV
+
+**If ALL steps 1-5 returned empty:**
+```
+┌─ Q: [question]
+│
+├─ A: ❌ NOT FOUND IN AVAILABLE SOURCES
+│
+├─ Searched:
+│   • Database: v_complete_duties, bia_sections
+│   • Files: /sources/osb_directives/*.md
+│   • Study materials: insolvency_admin_extracted.txt
+│   • Web: FireCrawl (if directive referenced)
+│
+├─ Likely Missing: [Identify which directive/section probably has answer]
+│
+└─ Suggestion: [How to obtain missing source]
+```
+
+**CRITICAL:**
+✅ DO search all 5 steps exhaustively
+❌ DON'T make up information if not found
+❌ DON'T paraphrase or guess
+✅ DO report honestly when answer not in available sources
+✅ DO record "NOT FOUND" questions to CSV (tracks knowledge gaps)
 
 ---
 
@@ -300,16 +323,41 @@ echo "\n### Q2: What documents required for proposal?\n**Answer:** cash-flow sta
 
 ---
 
-## Error Handling
+## Honesty Rule
 
-**If no answer found after exhaustive search:**
-1. State: "Answer not found in available sources"
-2. List sources searched:
-   - Database tables queried
-   - Files searched
-   - Keywords used
-3. Suggest: Check if question requires missing Directive (1R, 11R, etc.)
-4. **Still record the question** with answer = "NOT FOUND" for tracking gaps
+**After exhaustive search of ALL 5 steps:**
+
+**If answer found:** Use sidebar format with direct quote
+
+**If answer truly not found:**
+```
+┌─ Q: [question]
+│
+├─ A: ❌ NOT FOUND
+│
+├─ Sources Searched:
+│   ✓ Database (v_complete_duties, bia_sections)
+│   ✓ OSB Directives (4R, 6R7, 16R, 17, 32R)
+│   ✓ Study Materials (full text)
+│   [✓ Web (FireCrawl) - if directive referenced]
+│
+├─ Likely Source: Directive [NR] or BIA Section [X] (not in database)
+│
+└─ Next Step: [Suggest how to obtain missing source]
+```
+
+**Still record to CSV:**
+```csv
+"timestamp","question","NOT FOUND","N/A","N/A","None","None","exhaustive_search","All 5 steps checked","Information not in available sources. Likely requires Directive [X] which is not downloaded."
+```
+
+**Purpose:** Track knowledge gaps, identify which directives to download
+
+**NEVER:**
+- Guess or infer answers not in sources
+- Paraphrase without direct quote
+- Make up section references
+- Hallucinate information
 
 ---
 
