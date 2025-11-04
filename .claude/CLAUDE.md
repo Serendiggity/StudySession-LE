@@ -4,6 +4,36 @@
 
 This is an AI-powered knowledge extraction system for Canadian insolvency law (BIA) and study materials. Built for exam preparation with emphasis on traceability and accuracy.
 
+## DELEGATION RULE (Primary)
+
+**For ANY insolvency, BIA, bankruptcy, proposal, or exam question:**
+
+✅ **DELEGATE to the `insolvency-exam-assistant` subagent**
+
+**Do NOT answer directly** - use the Task tool to invoke the specialized agent:
+
+```
+User asks insolvency question
+→ I detect it's about BIA/insolvency/exam
+→ I use Task tool with subagent_type: "insolvency-exam-assistant"
+→ Agent searches database + directives + study materials
+→ Agent formats answer with quotes + cross-refs
+→ Agent records to CSV
+→ Agent returns formatted answer
+→ I show result to user
+```
+
+**Why delegate:**
+- Agent has specialized search strategy (database → files → web)
+- Agent enforces mandatory format automatically
+- Agent records every Q&A for tracking
+- Keeps main conversation context clean
+- Agent can do exhaustive searches without cluttering our chat
+
+**Only answer directly if:**
+- Question is about the SYSTEM itself (not exam content)
+- User explicitly asks me not to delegate
+
 ---
 
 ## Core Principles (ALWAYS FOLLOW)

@@ -1,7 +1,7 @@
 ---
 name: insolvency-exam-assistant
-description: Expert Canadian insolvency law exam assistant. Answers BIA/insolvency questions with mandatory direct quotes, cross-reference following, multi-source search, and automatic Q&A record keeping. Use for ANY insolvency, BIA, bankruptcy, proposal, or exam-related question.
-tools: Read, Bash, Grep, Glob
+description: Expert Canadian insolvency law exam assistant. Answers BIA/insolvency questions with mandatory direct quotes, cross-reference following, multi-source search (database → files → web), and automatic Q&A record keeping. Use for ANY insolvency, BIA, bankruptcy, proposal, or exam-related question.
+tools: Read, Bash, Grep, Glob, mcp__firecrawl__firecrawl_scrape
 model: inherit
 ---
 
@@ -114,7 +114,27 @@ grep -l "Directive [N]R" /sources/osb_directives/*.md
 grep -B 5 -A 10 "[keyword]" data/input/study_materials/insolvency_admin_extracted.txt
 ```
 
-### Step 5: Extract Quote
+### Step 5: Fetch Missing Directive (FireCrawl MCP)
+```
+# If directive referenced but not in /sources/osb_directives/
+# Use FireCrawl MCP to fetch from OSB website
+firecrawl_scrape("https://ised-isde.canada.ca/site/office-superintendent-bankruptcy/en/directives-and-circulars")
+# Search for "Directive [N]R" link
+# Scrape that directive page
+# Extract text and use for answer
+```
+
+**OSB Directives URL:** https://ised-isde.canada.ca/site/office-superintendent-bankruptcy/en/directives-and-circulars
+
+**Available in repository:**
+- Directive 4R, 6R7, 16R, 17, 32R
+
+**May need to fetch:**
+- Directive 1R (Counselling)
+- Directive 11R/11R2 (Surplus Income)
+- Any other directive referenced in question
+
+### Step 6: Extract Quote
 - From `relationship_text` column (if Step 1 worked)
 - From `full_text` column (if Step 2 worked)
 - From directive file content (if Step 3 worked)
@@ -157,18 +177,25 @@ cat /sources/osb_directives/Directive_[N]R*.md
 
 **Format:**
 ```csv
-timestamp,question,answer_choice,primary_quote,section_reference,source,cross_references,search_method,sql_query
+timestamp,question,answer_choice,primary_quote,section_reference,source,cross_references,search_method,sql_query,interpretation_rationale
 ```
 
 **Example row:**
 ```csv
-"2025-11-04T01:00:00","When is first-time bankrupt with surplus discharged?","21 months","on the expiry of 21 months after the date of bankruptcy unless...","Section 168.1(1)(a)(ii)","BIA Statute","Section 68 (surplus income)","database_query","SELECT relationship_text FROM v_complete_duties WHERE bia_section = '168.1'"
+"2025-11-04T01:00:00","When is first-time bankrupt with surplus discharged?","21 months","on the expiry of 21 months after the date of bankruptcy unless...","Section 168.1(1)(a)(ii)","BIA Statute","Section 68 (surplus income)","database_query","SELECT relationship_text FROM v_complete_duties WHERE bia_section = '168.1'","Quote states 21 months in clause (ii) for first-time WITH surplus income. Clause (i) is 9 months WITHOUT surplus. Cross-ref to Section 68 confirms surplus income means section 68 payments. Key distinction: WITH vs WITHOUT surplus."
 ```
+
+**Interpretation/Rationale Column (REQUIRED):**
+Explain your reasoning (2-3 sentences):
+- WHY this answer is correct based on the quote
+- What distinguishes it from wrong choices
+- Key facts that determined the answer
+- Logical connection from quote to answer choice
 
 **Implementation:**
 ```bash
-# After answering, append to CSV
-echo '"[timestamp]","[question]","[answer]","[quote]","[section]","[source]","[cross-refs]","[method]","[sql]"' >> data/output/exam_questions_answered.csv
+# After answering, append to CSV with rationale
+echo '"[timestamp]","[question]","[answer]","[quote]","[section]","[source]","[cross-refs]","[method]","[sql]","[rationale]"' >> data/output/exam_questions_answered.csv
 ```
 
 ### B. Update Study Session Log
