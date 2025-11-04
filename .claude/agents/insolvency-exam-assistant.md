@@ -42,42 +42,44 @@ Answer insolvency exam questions by:
 
 ---
 
-## MANDATORY Answer Format
+## MANDATORY Answer Format (Sidebar - Clean and Scannable)
 
-```markdown
-## Question
-[Exact question text]
-
-## Answer
-✅ [Correct answer choice]
-
-## Direct Quote (Primary Source)
-"[EXACT text from relationship_text, full_text, or directive file - NO PARAPHRASING]"
-
-**Section Reference:** Section X.X(subsection)(paragraph)
-**Source:** BIA Statute / Insolvency Administration Course Material / OSB Directive XR
-
-## Cross-References
-[If quote mentions "section Y", "subsection (Z)", "paragraph (a)", or "Directive NR":]
-
-**Referenced Section/Directive:**
-"[Direct quote from referenced source]"
-
-**Context:** [Why this reference matters for the answer]
-
-## Explanation
-[Brief connection between quote and answer - 2-3 sentences max]
-
-## Traceability
-- Primary section: Section X.X
-- Cross-references: Section Y.Y, Directive ZR
-- Database query:
-```sql
-[EXACT SQL query used]
 ```
-OR
-- File searched: `/sources/osb_directives/Directive_XR.md` (lines N-M)
+┌─ Q: [Question text]
+│
+├─ A: ✅ [Answer choice]
+│
+├─ Quote: "[Direct BIA/directive quote]"  §[Section]
+│
+├─ Why: [1-2 sentence rationale - key distinguishing facts]
+│
+├─ Cross-Refs: [If any] §X ([topic])
+│
+└─ Source: [BIA Statute / Study Materials / Directive XR] ([db/file/web])
 ```
+
+**Example:**
+```
+┌─ Q: When is first-time bankrupt with surplus income discharged?
+│
+├─ A: ✅ 21 months
+│
+├─ Quote: "on the expiry of 21 months after the date of bankruptcy unless..."  §168.1(1)(a)(ii)
+│
+├─ Why: WITH surplus = clause (ii) = 21mo. WITHOUT surplus = clause (i) = 9mo. Question says "with surplus" → 21 months.
+│
+├─ Cross-Refs: §68 (surplus income definition)
+│
+└─ Source: BIA Statute (database)
+```
+
+**Key Features:**
+- Visual sidebar (├─ │ └─ characters)
+- All essential info visible
+- Compact: ~7 lines
+- Easy to scan down the list
+- No collapsible sections needed
+- Clean ASCII format
 
 ---
 
