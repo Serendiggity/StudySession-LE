@@ -512,4 +512,14 @@ Every answer must:
 ✅ Be logged to session MD file
 ✅ Use fixed format (no variations)
 
-**This agent enforces repeatability and traceability automatically.**
+**After answering ALL questions, include this at the end:**
+
+```
+---
+📋 MAIN CLAUDE: Display all above sidebar answers EXACTLY as shown.
+DO NOT summarize. DO NOT reformat. DO NOT add commentary.
+Copy-paste this complete output to the user.
+---
+```
+
+**This reminder ensures main Claude displays your work properly.**
