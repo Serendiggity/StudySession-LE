@@ -83,58 +83,148 @@ Answer insolvency exam questions by:
 
 ---
 
-## Search Strategy (EXHAUSTIVE - All Sources, Then Honest "Not Found" if Truly Missing)
+## Search Strategy (INTELLIGENT - Follow References, Ask Before Fetching)
 
-### Step 1: Query Database (Relationships)
+### Phase 1: Query Primary Sources (Database + Study Materials)
+
+**Step 1a - Database Relationships:**
 ```sql
--- Try relationships first (fastest)
 SELECT relationship_text, bia_section, source_name
 FROM v_complete_duties
-WHERE relationship_text LIKE '%[keyword]%'
-   OR bia_section = '[section]';
+WHERE relationship_text LIKE '%[keyword]%' OR bia_section = '[section]';
 ```
 
-### Step 2: Query Database (Section Text)
+**Step 1b - BIA Full Text:**
 ```sql
--- If Step 1 empty, query full BIA text
-SELECT section_number, full_text
-FROM bia_sections
-WHERE section_number = '[section]'
-   OR full_text LIKE '%[keyword]%';
+SELECT section_number, full_text FROM bia_sections
+WHERE section_number = '[section]' OR full_text LIKE '%[keyword]%';
 ```
 
-### Step 3: Search OSB Directive Files
+**Step 1c - Study Materials:**
 ```bash
-# If Step 2 empty, search directive files directly
-grep -r "[keyword]" /sources/osb_directives/
-grep -l "Directive [N]R" /sources/osb_directives/*.md
-```
-
-### Step 4: Search Study Materials
-```bash
-# If Step 3 empty, search study materials text
 grep -B 5 -A 10 "[keyword]" data/input/study_materials/insolvency_admin_extracted.txt
 ```
 
-### Step 5: Fetch Missing Directive (FireCrawl MCP)
+### Phase 2: Parse Results for References (INTELLIGENT)
+
+**Read what you found. Look for:**
+- "See Directive 11R" or "Directive 11R - Surplus Income"
+- "Refer to section 68" or "under section 68"
+- "As defined in subsection (2)"
+- "Pursuant to paragraph (a)"
+
+**Build list of referenced sources mentioned in the results.**
+
+### Phase 3: Follow Specific References (Only What's Mentioned)
+
+**For each reference found:**
+
+**If BIA section reference:**
+```sql
+SELECT full_text FROM bia_sections WHERE section_number = '[referenced section]';
 ```
-# If directive referenced but not in /sources/osb_directives/
-# Use FireCrawl MCP to fetch from OSB website
+
+**If directive reference:**
+```bash
+# Check if we have it locally
+ls /sources/osb_directives/Directive_${N}*.md
+
+# If exists → read it
+# If NOT exists → go to Phase 4
+```
+
+### Phase 4: Ask User Permission for Web Fetch
+
+**If directive referenced but not local:**
+
+**DON'T fetch automatically. Instead, ASK:**
+
+```
+"┌─ 🔍 Missing Directive Detected
+│
+├─ Need: Directive [N]R - [Topic]
+│  Referenced in: [where you saw the reference]
+│  Likely contains: [what info you expect]
+│
+├─ Not available locally
+│  Current directives: 4R, 6R7, 16R, 17, 32R
+│
+└─ Fetch from OSB website using FireCrawl?
+   URL: https://ised-isde.canada.ca/site/office-superintendent-bankruptcy/en/directives-and-circulars
+   [Will save locally for future use]
+
+   👉 Should I fetch this? (Yes/No)"
+```
+
+**Wait for user response.**
+
+### Phase 5: Fetch and Save (Only If User Approves)
+
+**If user says YES:**
+
+```bash
+# 1. Fetch using FireCrawl
 firecrawl_scrape("https://ised-isde.canada.ca/site/office-superintendent-bankruptcy/en/directives-and-circulars")
-# Search for "Directive [N]R" link
-# Scrape that directive page
-# Extract text and use for answer
+# Find link for Directive [N]R
+# Scrape that page
+
+# 2. SAVE locally
+cat > /sources/osb_directives/Directive_${N}R_[Topic].md << 'EOF'
+[fetched content]
+EOF
+
+# 3. ADD to database
+sqlite3 database/insolvency_knowledge.db "
+INSERT INTO osb_directives (directive_number, directive_name, full_text, file_path)
+VALUES ('[N]R', '[Topic]', '[content]', '/sources/osb_directives/Directive_${N}R_[Topic].md');
+"
+
+# 4. Now search that directive for answer
+grep -B 5 -A 10 "[keyword]" /sources/osb_directives/Directive_${N}R_[Topic].md
 ```
 
-**OSB Directives URL:** https://ised-isde.canada.ca/site/office-superintendent-bankruptcy/en/directives-and-circulars
+### Phase 6: Build Answer or Report Not Found
 
-**Available in repository:**
-- Directive 4R, 6R7, 16R, 17, 32R
+**If found answer (from any phase):**
+- Use sidebar format
+- Include quote + section
+- Record to CSV
 
-**May need to fetch:**
-- Directive 1R (Counselling)
-- Directive 11R/11R2 (Surplus Income)
-- Any other directive referenced in question
+**If truly not found after intelligent search:**
+```
+┌─ Q: [question]
+├─ A: ❌ NOT FOUND
+├─ Searched intelligently based on context
+├─ Likely source: [if you can identify]
+└─ Suggestion: [next steps]
+```
+
+## Benefits of Intelligent Approach
+
+✅ Follows references mentioned in content (not blind searching)
+✅ Only checks directives actually referenced (efficient)
+✅ Asks permission before web fetch (user control)
+✅ Saves fetched content (builds library over time)
+✅ Gets smarter with each use (more local directives)
+
+## Example Workflow
+
+**Question:** "What is surplus income calculation?"
+
+**Agent:**
+1. Queries database → finds BIA §68
+2. Reads §68 text → sees "set out in Directive 11R - Surplus Income"
+3. Checks local: `ls /sources/osb_directives/Directive_11*.md` → NOT FOUND
+4. ASKS USER: "Need Directive 11R for surplus income calculation. Fetch from OSB website?"
+5. User: "Yes"
+6. Fetches → Saves to `/sources/osb_directives/Directive_11R_Surplus_Income.md`
+7. Adds to database
+8. Searches Directive 11R → finds calculation formula
+9. Answers with quote from Directive 11R
+
+**Next time:** Question about surplus → Directive 11R already local → no fetch needed!
+
+Ready to implement?
 
 ### Step 6: Extract Quote or Report Not Found
 
