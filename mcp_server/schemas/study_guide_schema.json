@@ -1,0 +1,379 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Comprehensive Study Guide",
+  "description": "Schema for generating complete, structured study guides from knowledge base",
+  "type": "object",
+  "required": [
+    "topic",
+    "overview",
+    "eligibility",
+    "process",
+    "timelines",
+    "references",
+    "practice_questions"
+  ],
+  "properties": {
+    "topic": {
+      "type": "string",
+      "description": "Main topic of the study guide (e.g., 'Consumer Proposals')"
+    },
+
+    "overview": {
+      "type": "object",
+      "required": ["definition", "purpose", "key_features"],
+      "properties": {
+        "definition": {
+          "type": "string",
+          "description": "Clear, concise definition of the topic",
+          "minLength": 50
+        },
+        "purpose": {
+          "type": "string",
+          "description": "Why this topic exists/what problem it solves",
+          "minLength": 50
+        },
+        "key_features": {
+          "type": "array",
+          "description": "3-5 key distinguishing features",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": {
+            "type": "string",
+            "minLength": 20
+          }
+        },
+        "differences_from": {
+          "type": "array",
+          "description": "Comparison with related concepts (e.g., bankruptcy vs proposal)",
+          "items": {
+            "type": "object",
+            "required": ["concept", "key_difference"],
+            "properties": {
+              "concept": {
+                "type": "string",
+                "description": "Related concept to compare against"
+              },
+              "key_difference": {
+                "type": "string",
+                "description": "Main distinguishing factor",
+                "minLength": 30
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "eligibility": {
+      "type": "object",
+      "required": ["requirements", "exclusions"],
+      "properties": {
+        "requirements": {
+          "type": "array",
+          "description": "Who can use this / what qualifies",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["requirement", "bia_section"],
+            "properties": {
+              "requirement": {
+                "type": "string",
+                "description": "Eligibility requirement",
+                "minLength": 20
+              },
+              "bia_section": {
+                "type": "string",
+                "description": "BIA section reference (e.g., '§50')",
+                "pattern": "^§\\d+(\\.\\d+)?$"
+              },
+              "details": {
+                "type": "string",
+                "description": "Additional details or examples"
+              }
+            }
+          }
+        },
+        "exclusions": {
+          "type": "array",
+          "description": "Who cannot use this / what disqualifies",
+          "items": {
+            "type": "object",
+            "required": ["exclusion"],
+            "properties": {
+              "exclusion": {
+                "type": "string",
+                "description": "Disqualifying factor"
+              },
+              "bia_section": {
+                "type": "string",
+                "description": "BIA section reference"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "process": {
+      "type": "array",
+      "description": "Step-by-step process/procedure",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["stage_name", "actor", "actions", "bia_sections"],
+        "properties": {
+          "stage_name": {
+            "type": "string",
+            "description": "Name of this process stage"
+          },
+          "actor": {
+            "type": "string",
+            "description": "Who performs this stage (debtor, trustee, court, etc.)"
+          },
+          "actions": {
+            "type": "array",
+            "description": "Actions taken in this stage",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 20
+            }
+          },
+          "bia_sections": {
+            "type": "array",
+            "description": "Relevant BIA sections for this stage",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^§\\d+(\\.\\d+)?$"
+            }
+          },
+          "deadlines": {
+            "type": "array",
+            "description": "Time limits for this stage",
+            "items": {
+              "type": "object",
+              "required": ["deadline", "description"],
+              "properties": {
+                "deadline": {
+                  "type": "string",
+                  "description": "Time limit (e.g., '10 days', 'within 30 days')"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "What must be done by this deadline"
+                },
+                "consequence_if_missed": {
+                  "type": "string",
+                  "description": "What happens if deadline is missed"
+                }
+              }
+            }
+          },
+          "forms": {
+            "type": "array",
+            "description": "Required forms for this stage",
+            "items": {
+              "type": "string",
+              "description": "Form name or number"
+            }
+          },
+          "directives": {
+            "type": "array",
+            "description": "Relevant OSB directives",
+            "items": {
+              "type": "string",
+              "description": "Directive number"
+            }
+          }
+        }
+      }
+    },
+
+    "timelines": {
+      "type": "object",
+      "required": ["summary", "detailed_timeline"],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "High-level timeline overview",
+          "minLength": 50
+        },
+        "detailed_timeline": {
+          "type": "array",
+          "description": "Detailed timeline with all deadlines",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["event", "timeframe"],
+            "properties": {
+              "event": {
+                "type": "string",
+                "description": "What happens"
+              },
+              "timeframe": {
+                "type": "string",
+                "description": "When it happens (relative or absolute)"
+              },
+              "bia_section": {
+                "type": "string",
+                "description": "BIA section specifying this deadline"
+              },
+              "critical": {
+                "type": "boolean",
+                "description": "Whether this is a critical deadline",
+                "default": false
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "references": {
+      "type": "object",
+      "required": ["bia_sections", "forms", "directives"],
+      "properties": {
+        "bia_sections": {
+          "type": "array",
+          "description": "All relevant BIA sections",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["section", "title"],
+            "properties": {
+              "section": {
+                "type": "string",
+                "pattern": "^§\\d+(\\.\\d+)?$"
+              },
+              "title": {
+                "type": "string",
+                "description": "Section title or short description"
+              },
+              "importance": {
+                "type": "string",
+                "enum": ["primary", "secondary", "supporting"],
+                "description": "How important this section is to the topic"
+              }
+            }
+          }
+        },
+        "forms": {
+          "type": "array",
+          "description": "All relevant forms",
+          "items": {
+            "type": "object",
+            "required": ["form_name", "purpose"],
+            "properties": {
+              "form_name": {
+                "type": "string",
+                "description": "Form name or number"
+              },
+              "purpose": {
+                "type": "string",
+                "description": "When/why this form is used"
+              }
+            }
+          }
+        },
+        "directives": {
+          "type": "array",
+          "description": "All relevant OSB directives",
+          "items": {
+            "type": "object",
+            "required": ["directive", "topic"],
+            "properties": {
+              "directive": {
+                "type": "string",
+                "description": "Directive number"
+              },
+              "topic": {
+                "type": "string",
+                "description": "What the directive covers"
+              }
+            }
+          }
+        },
+        "cross_references": {
+          "type": "array",
+          "description": "Related topics to study",
+          "items": {
+            "type": "string",
+            "description": "Related topic"
+          }
+        }
+      }
+    },
+
+    "practice_questions": {
+      "type": "array",
+      "description": "Practice exam questions with answers",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["question", "correct_answer", "explanation", "source"],
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "The practice question",
+            "minLength": 30
+          },
+          "options": {
+            "type": "array",
+            "description": "Multiple choice options (if applicable)",
+            "items": {
+              "type": "string"
+            }
+          },
+          "correct_answer": {
+            "type": "string",
+            "description": "The correct answer"
+          },
+          "explanation": {
+            "type": "string",
+            "description": "Why this is the correct answer",
+            "minLength": 50
+          },
+          "source": {
+            "type": "string",
+            "description": "BIA section or source for the answer",
+            "pattern": "^§\\d+(\\.\\d+)?$"
+          },
+          "difficulty": {
+            "type": "string",
+            "enum": ["easy", "medium", "hard"],
+            "description": "Question difficulty level"
+          }
+        }
+      }
+    },
+
+    "common_pitfalls": {
+      "type": "array",
+      "description": "Common mistakes or misconceptions",
+      "items": {
+        "type": "object",
+        "required": ["pitfall", "correct_approach"],
+        "properties": {
+          "pitfall": {
+            "type": "string",
+            "description": "Common mistake or misconception"
+          },
+          "correct_approach": {
+            "type": "string",
+            "description": "The correct way to handle this"
+          }
+        }
+      }
+    },
+
+    "exam_tips": {
+      "type": "array",
+      "description": "Tips for exam preparation on this topic",
+      "items": {
+        "type": "string",
+        "minLength": 30
+      }
+    }
+  }
+}

@@ -1,14 +1,15 @@
-# Phase 0 Research: Knowledge Extraction Architecture
+# Research Documentation Index
 
-**Research Date**: November 5, 2025
-**Status**: ✅ Complete
-**Researcher**: Claude (Autonomous Research Agent)
+**Repository**: Insolvency Knowledge Base
+**Last Updated**: January 6, 2025
 
 ---
 
 ## Quick Navigation
 
-### Primary Documents
+### Phase 0: Knowledge Extraction Architecture (November 2025)
+
+**Status**: ✅ Complete
 
 1. **[Executive Summary](Phase0-Summary.md)** (5 min read)
    - TL;DR findings and recommendations
@@ -31,6 +32,34 @@
    - Original research objectives
    - Success criteria
    - Deliverable requirements
+
+### Diagram Generation Research (January 2025)
+
+**Status**: ✅ Complete
+
+5. **[Executive Summary](Diagram-Generation-Executive-Summary.md)** (10 min read)
+   - TL;DR: Use Mermaid + Plotly
+   - Tool comparison matrix
+   - Implementation timeline (1 week)
+   - ROI analysis and cost savings
+   - Quick decision guide
+
+6. **[Full Research Report](Diagram-Generation-Research-2025.md)** (60 min read)
+   - Comprehensive survey of automated diagram generation tools
+   - LLM-to-diagram frameworks
+   - RAG visualization pipelines
+   - Database-to-diagram tools
+   - Mermaid, PlantUML, Graphviz ecosystem
+   - MCP integration strategies
+   - 20+ production-ready tools evaluated
+   - Implementation roadmap with code examples
+
+7. **[Implementation Guide](Diagram-Implementation-Guide.md)** (15 min read)
+   - Quick start guide (5 minutes to first diagram)
+   - Ready-to-use code for 5 use cases
+   - MCP server integration
+   - Testing and troubleshooting
+   - Performance optimization
 
 ---
 
@@ -220,18 +249,41 @@ Current extraction approach validated. Continue as planned.
 
 ```
 docs/research/
-├── README.md                      (This file - Navigation)
-├── Phase0-Summary.md              (Executive summary)
-├── Phase0-Research-Report.md      (Full report)
-├── Test-Methodology.md            (Testing details)
-└── Research-Prompt-Phase0.md      (Original objectives)
+├── README.md                              (This file - Navigation)
+│
+├── Phase 0: Knowledge Extraction (Nov 2025)
+│   ├── Phase0-Summary.md                  (Executive summary)
+│   ├── Phase0-Research-Report.md          (Full report)
+│   ├── Test-Methodology.md                (Testing details)
+│   └── Research-Prompt-Phase0.md          (Original objectives)
+│
+└── Diagram Generation Research (Jan 2025)
+    ├── Diagram-Generation-Executive-Summary.md (TL;DR + recommendations)
+    ├── Diagram-Generation-Research-2025.md     (Comprehensive research)
+    └── Diagram-Implementation-Guide.md         (Quick start guide)
 ```
 
-**Total Documentation**: 2,538 lines (15,000+ words)
+**Total Documentation**: 5,000+ lines (30,000+ words)
 
 ---
 
-**Generated**: November 5, 2025
-**Research Status**: ✅ Complete
-**Architecture Status**: ✅ Validated (No changes needed)
-**Recommended Enhancements**: 3 (Optional, prioritized)
+## Research Summary
+
+### Phase 0: Knowledge Extraction Architecture
+- **Date**: November 5, 2025
+- **Status**: ✅ Complete
+- **Finding**: Current hybrid architecture validated - no changes needed
+- **Enhancements**: 3 optional improvements identified
+
+### Diagram Generation Research
+- **Date**: January 6, 2025
+- **Status**: ✅ Complete
+- **Finding**: Mermaid + Plotly recommended for core use cases
+- **Tools Evaluated**: 20+ production-ready frameworks
+- **Deliverable**: Implementation guide with working code
+
+---
+
+**Last Updated**: January 6, 2025
+**Research Status**: 2 phases complete
+**Next**: TBD based on project priorities

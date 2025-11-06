@@ -16,9 +16,14 @@ from typing import Dict, List, Any, Optional
 # Add shared/src to path
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root / "shared" / "src"))
+sys.path.insert(0, str(repo_root / "src"))
 
 from project import ProjectManager, Project
 from extraction import SourceManager, ExtractionRunner, DatabaseLoader
+
+# Import new modules for Tier 1 features
+from analysis.coverage_analyzer import CoverageAnalyzer
+from visualization.diagram_generator import MermaidDiagramGenerator
 
 # Import MCP SDK
 try:
@@ -187,6 +192,91 @@ async def list_tools() -> List[Tool]:
                 },
                 "required": ["question"]
             }
+        ),
+
+        Tool(
+            name="analyze_study_guide_coverage",
+            description=(
+                "Analyze study guide completeness against database entities. "
+                "Checks coverage of concepts, procedures, deadlines, forms, actors, consequences, and cross-references. "
+                "Returns comprehensive coverage metrics with identified gaps and recommendations. "
+                "Use to verify study guide quality before finalizing."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "topic": {
+                        "type": "string",
+                        "description": "Topic being analyzed (e.g., 'consumer proposals')"
+                    },
+                    "study_guide_text": {
+                        "type": "string",
+                        "description": "Full text of the study guide to analyze"
+                    }
+                },
+                "required": ["topic", "study_guide_text"]
+            }
+        ),
+
+        Tool(
+            name="generate_timeline_diagram",
+            description=(
+                "Generate Mermaid Gantt chart timeline diagram from database deadlines. "
+                "Automatically creates visual timeline showing all deadlines for a topic. "
+                "Returns Mermaid diagram code that can be rendered in markdown."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "topic": {
+                        "type": "string",
+                        "description": "Topic to generate timeline for (e.g., 'consumer proposals')"
+                    }
+                },
+                "required": ["topic"]
+            }
+        ),
+
+        Tool(
+            name="generate_process_diagram",
+            description=(
+                "Generate Mermaid flowchart diagram from database procedures. "
+                "Automatically creates visual process flow showing all steps for a topic. "
+                "Returns Mermaid diagram code that can be rendered in markdown."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "topic": {
+                        "type": "string",
+                        "description": "Topic to generate process diagram for (e.g., 'consumer proposals')"
+                    }
+                },
+                "required": ["topic"]
+            }
+        ),
+
+        Tool(
+            name="generate_comparison_diagram",
+            description=(
+                "Generate comparison table between two topics. "
+                "Extracts key features from database and creates markdown comparison table. "
+                "Useful for understanding differences between similar concepts."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "topic1": {
+                        "type": "string",
+                        "description": "First topic to compare"
+                    },
+                    "topic2": {
+                        "type": "string",
+                        "description": "Second topic to compare"
+                    }
+                },
+                "required": ["topic1", "topic2"]
+            }
         )
     ]
 
@@ -212,6 +302,18 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> List[TextContent]:
 
     elif name == "answer_exam_question":
         return await tool_answer_exam_question(arguments)
+
+    elif name == "analyze_study_guide_coverage":
+        return await tool_analyze_coverage(arguments)
+
+    elif name == "generate_timeline_diagram":
+        return await tool_generate_timeline(arguments)
+
+    elif name == "generate_process_diagram":
+        return await tool_generate_process(arguments)
+
+    elif name == "generate_comparison_diagram":
+        return await tool_generate_comparison(arguments)
 
     else:
         return [TextContent(type="text", text=f"Unknown tool: {name}")]
@@ -1065,6 +1167,191 @@ def format_sidebar_answer(
 4. Mention cross-references if relevant: {cross_refs_text}"""
 
     return answer
+
+
+async def tool_analyze_coverage(args: Dict[str, Any]) -> List[TextContent]:
+    """
+    Analyze study guide coverage against database.
+    """
+    topic = args.get("topic", "")
+    study_guide_text = args.get("study_guide_text", "")
+
+    # Get current project
+    project = pm.get_current_project()
+    if not project:
+        return [TextContent(
+            type="text",
+            text="No active project. Use switch_project to select a project first."
+        )]
+
+    # Check database exists
+    db_path = Path(project.database_path)
+    if not db_path.exists():
+        return [TextContent(
+            type="text",
+            text=f"No database found for {project.project_name}."
+        )]
+
+    # Analyze coverage
+    try:
+        analyzer = CoverageAnalyzer(db_path)
+        report = analyzer.analyze(topic, study_guide_text)
+
+        # Format report
+        response = f"**Coverage Analysis: {topic}**\n\n"
+        response += f"**Overall Score**: {report.overall_score:.1f}%\n\n"
+
+        # Entity coverage summary
+        response += f"**Entity Coverage**:\n"
+        for entity_type, metrics in report.entity_coverage.items():
+            status = "✅" if metrics.coverage_percentage >= 80 else "⚠️" if metrics.coverage_percentage >= 60 else "❌"
+            response += f"{status} {entity_type}: {metrics.coverage_percentage:.1f}% ({metrics.mentioned}/{metrics.total_relevant})\n"
+
+        # Cross-references
+        cr = report.cross_reference_coverage
+        status = "✅" if cr['coverage_percentage'] >= 80 else "⚠️"
+        response += f"\n{status} **Cross-References**: {cr['coverage_percentage']:.1f}% ({cr['mentioned_in_guide']}/{cr['total_db_refs']})\n"
+
+        # Timelines
+        tl = report.timeline_coverage
+        status = "✅" if tl['coverage_percentage'] >= 80 else "⚠️"
+        response += f"{status} **Timelines**: {tl['coverage_percentage']:.1f}% ({tl['mentioned']}/{tl['total_deadlines']})\n"
+
+        # Forms
+        fm = report.form_coverage
+        status = "✅" if fm['coverage_percentage'] >= 80 else "⚠️"
+        response += f"{status} **Forms**: {fm['coverage_percentage']:.1f}% ({fm['mentioned']}/{fm['total_forms']})\n"
+
+        # Gaps
+        if report.gaps:
+            response += f"\n**Identified Gaps**:\n"
+            for gap in report.gaps[:5]:
+                response += f"- {gap}\n"
+
+        # Recommendations
+        response += f"\n**Recommendations**:\n"
+        for rec in report.recommendations[:5]:
+            response += f"- {rec}\n"
+
+        return [TextContent(type="text", text=response)]
+
+    except Exception as e:
+        return [TextContent(
+            type="text",
+            text=f"Error analyzing coverage: {e}"
+        )]
+
+
+async def tool_generate_timeline(args: Dict[str, Any]) -> List[TextContent]:
+    """
+    Generate timeline diagram for a topic.
+    """
+    topic = args.get("topic", "")
+
+    # Get current project
+    project = pm.get_current_project()
+    if not project:
+        return [TextContent(
+            type="text",
+            text="No active project. Use switch_project to select a project first."
+        )]
+
+    db_path = Path(project.database_path)
+    if not db_path.exists():
+        return [TextContent(
+            type="text",
+            text=f"No database found for {project.project_name}."
+        )]
+
+    # Generate diagram
+    try:
+        generator = MermaidDiagramGenerator(db_path)
+        diagram = generator.generate_timeline_diagram(topic)
+
+        response = f"**Timeline Diagram: {topic}**\n\n"
+        response += f"```mermaid\n{diagram}\n```\n"
+
+        return [TextContent(type="text", text=response)]
+
+    except Exception as e:
+        return [TextContent(
+            type="text",
+            text=f"Error generating timeline diagram: {e}"
+        )]
+
+
+async def tool_generate_process(args: Dict[str, Any]) -> List[TextContent]:
+    """
+    Generate process flowchart for a topic.
+    """
+    topic = args.get("topic", "")
+
+    # Get current project
+    project = pm.get_current_project()
+    if not project:
+        return [TextContent(
+            type="text",
+            text="No active project. Use switch_project to select a project first."
+        )]
+
+    db_path = Path(project.database_path)
+    if not db_path.exists():
+        return [TextContent(
+            type="text",
+            text=f"No database found for {project.project_name}."
+        )]
+
+    # Generate diagram
+    try:
+        generator = MermaidDiagramGenerator(db_path)
+        diagram = generator.generate_process_flowchart(topic)
+
+        response = f"**Process Diagram: {topic}**\n\n"
+        response += f"```mermaid\n{diagram}\n```\n"
+
+        return [TextContent(type="text", text=response)]
+
+    except Exception as e:
+        return [TextContent(
+            type="text",
+            text=f"Error generating process diagram: {e}"
+        )]
+
+
+async def tool_generate_comparison(args: Dict[str, Any]) -> List[TextContent]:
+    """
+    Generate comparison table between two topics.
+    """
+    topic1 = args.get("topic1", "")
+    topic2 = args.get("topic2", "")
+
+    # Get current project
+    project = pm.get_current_project()
+    if not project:
+        return [TextContent(
+            type="text",
+            text="No active project. Use switch_project to select a project first."
+        )]
+
+    db_path = Path(project.database_path)
+    if not db_path.exists():
+        return [TextContent(
+            type="text",
+            text=f"No database found for {project.project_name}."
+        )]
+
+    # Generate comparison
+    try:
+        generator = MermaidDiagramGenerator(db_path)
+        table = generator.generate_comparison_table(topic1, topic2)
+
+        return [TextContent(type="text", text=table)]
+
+    except Exception as e:
+        return [TextContent(
+            type="text",
+            text=f"Error generating comparison: {e}"
+        )]
 
 
 # ============================================================================
