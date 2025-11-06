@@ -906,6 +906,54 @@ def search_content_universal(db_path: Path, query: str, domain_config: Dict) -> 
                     'type': row[1]
                 })
 
+        # 3. Search atomic entity tables (study materials)
+        entity_tables = [
+            ('concepts', 'concepts_fts', ['term', 'definition', 'extraction_text']),
+            ('actors', 'actors_fts', ['role_canonical', 'extraction_text']),
+            ('deadlines', 'deadlines_fts', ['extraction_text']),
+            ('documents', 'documents_fts', ['extraction_text']),
+            ('procedures', 'procedures_fts', ['extraction_text']),
+            ('consequences', 'consequences_fts', ['extraction_text']),
+            ('statutory_references', 'statutory_references_fts', ['extraction_text'])
+        ]
+
+        for table_name, fts_name, columns in entity_tables:
+            # Check if FTS table exists
+            cursor.execute("""
+                SELECT name FROM sqlite_master
+                WHERE type='table' AND name=?
+            """, (fts_name,))
+
+            if cursor.fetchone():
+                # Build column selection (use COALESCE for optional fields)
+                col_select = ', '.join([f"COALESCE(e.{col}, '')" for col in columns])
+
+                cursor.execute(f"""
+                    SELECT {col_select}, e.section_number, e.section_title
+                    FROM {table_name} e
+                    JOIN {fts_name} ON e.id = {fts_name}.rowid
+                    WHERE {fts_name} MATCH ?
+                    ORDER BY rank
+                    LIMIT 3
+                """, (query,))
+
+                for row in cursor.fetchall():
+                    # Combine all text fields
+                    text_parts = [str(part) for part in row[:-2] if part]
+                    section_ref = row[-2] if row[-2] else ""
+                    section_title = row[-1] if row[-1] else ""
+
+                    combined_text = " | ".join(text_parts)
+                    if section_ref:
+                        combined_text += f" [Study Materials §{section_ref}]"
+                    if section_title:
+                        combined_text += f" ({section_title})"
+
+                    relationship_results.append({
+                        'text': combined_text,
+                        'type': table_name.replace('_', ' ').title()
+                    })
+
         return (structured_results, relationship_results)
 
     finally:

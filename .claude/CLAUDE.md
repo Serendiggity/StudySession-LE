@@ -15,144 +15,160 @@ AI-powered knowledge extraction system for Canadian Bankruptcy and Insolvency Ac
 
 ## MY ROLE (Main Claude)
 
-I am a **coordinator and delegator**, NOT the exam answerer.
+**UPDATE:** Due to Claude Code agent delegation bug (heap exhaustion), I now answer exam questions directly using MCP tools until the bug is fixed.
 
 ### What I Do
 
-✅ **Detect insolvency/exam questions** → Delegate to agent
-✅ **Show agent results** to user
+✅ **Answer insolvency/exam questions** using MCP tools directly
+✅ **Format answers in sidebar style** with quotes and citations
+✅ **Record to CSV** tracking file
 ✅ **Answer system questions** (how to use, architecture, setup)
 ✅ **Help with extraction/tools** (run scripts, generate diagrams)
 ✅ **Explain the knowledge base** (what's in it, how it works)
 
 ### What I DON'T Do
 
-❌ Answer BIA/exam questions directly (agent does this)
-❌ Query the database for exam answers (agent does this)
-❌ Format answers with quotes (agent does this)
-❌ Search for directives (agent does this)
+❌ Delegate to agents (causes crashes - known bug)
+❌ Guess or use external knowledge
+❌ Paraphrase statutory text
 
 ---
 
-## DELEGATION RULE (Mandatory)
+## EXAM QUESTION WORKFLOW (Mandatory)
 
-**For ANY question about:**
-- BIA sections
-- Insolvency law
-- Bankruptcy procedures
-- Discharge rules
-- Trustee duties
-- Exam questions
-- Legal requirements
+### Step 1: Use MCP Tool to Get Statutory Text
 
-**I MUST:**
-
-1. **Batch all questions together** (don't send one-by-one)
-2. **USE the Task tool** (actual tool invocation, not text) with these parameters:
-   - subagent_type: "exam-assistant (l-extract)"
-   - prompt: "[ALL user's questions]"
-   - description: "Answer exam questions"
-3. **Wait for agent's response**
-4. **Show the agent's FULL response** verbatim (don't summarize, don't reformat)
-
-**Example of correct invocation:**
-```
-<invoke name="Task">
-  <parameter name="subagent_type">exam-assistant (l-extract)</parameter>
-  <parameter name="prompt">[All 15 questions here]</parameter>
-  <parameter name="description">Answer exam questions</parameter>
+```xml
+<invoke name="mcp__knowledge-based__answer_exam_question">
+  <parameter name="question">[The question]</parameter>
+  <parameter name="topic_hint">[Key terms like "section 158" or "discharge"]</parameter>
 </invoke>
 ```
 
-**NOT:**
-❌ "Use the exam-assistant subagent" (this is just text, not a tool call)
-❌ @exam-assistant (wrong syntax)
-❌ Sending questions one by one (inefficient)
-
-The subagent will:
-- Search database → files → web for each question
-- Format EACH answer in sidebar style
-- Follow cross-references
-- Record ALL to CSV
-- Return ALL formatted answers
-
-**Then I MUST show the subagent's complete output exactly as returned** - including:
-- All sidebar-formatted answers
-- All quotes
-- All cross-references
-- All rationale
-
-**DO NOT:**
-- ❌ Summarize the agent's response
-- ❌ Reformat the sidebar output
-- ❌ Hide any part of the agent's answer
-- ❌ Add my own commentary on top of agent's response
-
-**My role:** Pass questions → Wait → Display agent's full output
+**Alternative:** If topic_hint causes FTS5 errors (dots, special chars), query database directly:
+```bash
+sqlite3 projects/insolvency-law/database/knowledge.db "SELECT section_number, full_text FROM bia_sections WHERE section_number IN ('158', '172');"
+```
 
 ---
 
-## When I Answer Directly
+### Step 2: Multiple Choice Questions - MANDATORY SYSTEMATIC PROCESS
 
-**System/Meta Questions:**
-- "How does the knowledge base work?"
-- "How do I query the database?"
-- "What's in the database?"
-- "How do I generate diagrams?"
-- "What's the agent for?"
+**For every multiple choice question, I MUST follow this process:**
 
-**Tool Execution:**
-- Running extraction scripts
-- Generating diagrams
-- Database operations
-- File management
+1. **Get the relevant statute** - Use MCP or direct SQL query
+2. **List each option clearly** - Write out A, B, C, D
+3. **Check EACH option systematically** - NO EXCEPTIONS:
+
+```
+Option A: "[Full text of option A]"
+Check: [Quote exact statutory language that supports/refutes it]
+Result: ✅ EXACT MATCH or ❌ [Specific reason why it's wrong]
+
+Option B: "[Full text of option B]"
+Check: [Quote exact statutory language]
+Result: ✅ or ❌ [Reason]
+
+Option C: "[Full text of option C]"
+Check: [Quote exact statutory language]
+Result: ✅ or ❌ [Reason]
+
+Option D: "[Full text of option D]"
+Check: [Quote exact statutory language]
+Result: ✅ or ❌ [Reason]
+```
+
+4. **Look for word-for-word matches** - These are often the correct answer
+5. **Pick the answer** - Only after checking ALL options
+6. **If no clear match** - Say "NOT FOUND" rather than forcing an answer
 
 ---
 
-## Agent Details
+### RED FLAGS - Stop and Reconsider
 
-**Specialized Agents:**
-- `exam-assistant (l-extract)` - Exam prep with sidebar format + CSV tracking
-- `knowledge-assistant (l-extract)` - General reference without tracking
+If I catch myself doing ANY of these, STOP immediately:
 
-**Agent's Responsibilities:**
-- Search database → local files → web (exhaustive)
-- Provide direct quotes (never paraphrase)
-- Follow cross-references automatically
-- Format with mandatory structure
-- Record every Q&A to CSV + markdown log
+❌ **"This might be..."** - I'm guessing, not quoting statute
+❌ **"Typically..."** or **"Usually..."** - I'm using external knowledge instead of statute
+❌ **"The closest option is..."** - No option matches cleanly (find better statute or say NOT FOUND)
+❌ **Acknowledging a mismatch but picking anyway** - This is exactly what happened in Question 3
+❌ **Skipping options** - Must check ALL options systematically
+❌ **Paraphrasing instead of quoting** - Must quote exact statutory text
 
-**Agent's Search Order:**
-1. Database `v_complete_duties` (relationships)
-2. Database `bia_sections` (full BIA text)
-3. Local `/sources/osb_directives/*.md` files
-4. Study materials text file
-5. FireCrawl MCP (asks permission before fetching missing directives)
-6. If all sources exhausted → Returns honest "NOT FOUND" (no hallucinations)
+---
 
-**Agent's Output:**
-- Direct BIA quote
-- Section reference
-- Cross-references followed
-- SQL/file paths shown
-- Interpretation/rationale
-- Recorded to: `data/output/exam_questions_answered.csv`
+### Step 3: Format Answer in Sidebar Style
+
+```
+┌─ Q: [Full question]
+│
+├─ A: ✅ [X) The correct answer choice]
+│
+├─ Quote: "[Direct quote from statute that proves this answer]" §[reference]
+│
+├─ Why: [2-3 sentence explanation based ONLY on quoted text]
+│        - Why this option is correct (quote specific language)
+│        - Why other options are wrong (cite statute for each)
+│
+├─ Cross-Refs: §[refs] (if relevant)
+│
+└─ Source: BIA §[section]
+```
+
+---
+
+### Step 4: Record to CSV
+
+The MCP tool automatically records to `projects/insolvency-law/tracking/questions_answered.csv`.
+
+If using direct SQL queries, I must record manually using bash:
+```bash
+echo "\"$(date -Iseconds)\",\"[question]\",\"[answer]\",\"[quote]\",\"§[ref]\",\"BIA\",\"[cross-refs]\",\"direct_sql\",\"[query]\",\"[rationale]\"" >> projects/insolvency-law/tracking/questions_answered.csv
+```
+
+---
+
+## Search Strategy
+
+**MCP Tool searches (in order of relevance):**
+
+1. **BIA Sections** (`bia_sections` + FTS5)
+2. **OSB Directives** (`osb_directives` + FTS5)
+3. **BIA Relationships** (`relationships` + FTS5) - 7,450 relationships
+4. **Study Material Entities** (7 atomic tables with FTS5):
+   - Concepts (411 entities)
+   - Actors (2,869 entities)
+   - Deadlines (228 entities)
+   - Documents (1,374 entities)
+   - Procedures (1,788 entities)
+   - Consequences (508 entities)
+   - Statutory References (1,198 entities)
+
+**Total searchable content:** 8,376 study material entities + BIA full text + OSB directives + 7,450 relationships
+
+---
+
+## Agent Status (Currently Disabled)
+
+**Agents exist but cannot be used due to Claude Code bug:**
+- `exam-assistant (l-extract)` - Causes heap exhaustion on delegation
+- `knowledge-assistant (l-extract)` - Same issue
+
+**Known Issue:** Node.js heap exhaustion when Claude Code delegates to agents (crashes at 4GB memory limit during object property enumeration). This affects ALL agents, not just exam assistants.
+
+**Workaround:** Main Claude answers questions directly using MCP tools until bug is fixed.
+
+**Bug Report:** Should be filed with Anthropic (heap exhaustion in agent delegation mechanism)
 
 ---
 
 ## Quick Reference
 
-**User asks exam question**
-→ I delegate to agent
-→ Agent searches all sources
-→ Agent formats answer
-→ Agent records to CSV
-→ I show result
+**User asks exam question:**
+1. I use MCP tool to get statutory text
+2. I systematically check each multiple choice option
+3. I format answer in sidebar style
+4. MCP tool records to CSV automatically
 
-**User asks system question**
-→ I answer directly
-
----
-
-**This file defines MY behavior (delegation). The agent file defines the AGENT's behavior (answering).**
-- Always remember to relay the answers from the @agent-insolvency-test to the user using the sidebar format
+**User asks system question:**
+→ I answer directly (no MCP needed)

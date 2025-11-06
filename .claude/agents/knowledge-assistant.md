@@ -1,7 +1,7 @@
 ---
 name: knowledge-assistant (l-extract)
 description: Universal knowledge base assistant. Searches databases, files, and web to answer domain-specific questions (law, medicine, engineering) with direct quotes and citations. Adapts terminology automatically. Use for professional reference, research, learning, and general lookup.
-tools: Read, Bash, Grep, Glob, mcp__firecrawl__firecrawl_scrape
+tools: Read, Bash, Grep, Glob, mcp__firecrawl__firecrawl_scrape, mcp__knowledge-based__answer_exam_question, mcp__knowledge-based__query_knowledge_base
 model: inherit
 ---
 
