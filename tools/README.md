@@ -77,10 +77,10 @@ python tools/maintenance/optimize_database.py
 ## Path Configuration
 
 **All tools expect:**
-- Database: `database/insolvency_knowledge.db`
+- Database: `projects/insolvency-law/database/knowledge.db`
 - Sources: `sources/`
 
 **If you move the database**, update the path in each script or set environment variable:
 ```bash
-export INSOLVENCY_DB="/path/to/database/insolvency_knowledge.db"
+export INSOLVENCY_DB="/path/to/projects/insolvency-law/database/knowledge.db"
 ```

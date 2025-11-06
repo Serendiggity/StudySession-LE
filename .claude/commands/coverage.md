@@ -8,7 +8,7 @@ Show knowledge base extraction coverage statistics.
 **Execute:**
 
 ```sql
-sqlite3 -header -column database/insolvency_knowledge.db "
+sqlite3 -header -column projects/insolvency-law/database/knowledge.db "
 -- Overall statistics
 SELECT '════════ OVERALL STATISTICS ════════' as header;
 

@@ -310,7 +310,7 @@ def main():
     """Main entry point for diagram generation."""
     parser = argparse.ArgumentParser(description='Generate Mermaid diagrams from knowledge base')
 
-    parser.add_argument('--db', default='database/insolvency_knowledge.db',
+    parser.add_argument('--db', default='projects/insolvency-law/database/knowledge.db',
                         help='Path to database file')
     parser.add_argument('--topic', help='Topic/title for diagram')
     parser.add_argument('--section', help='BIA section pattern (e.g., "50.4" or "50%%")')

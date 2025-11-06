@@ -23,22 +23,25 @@ Answer insolvency exam questions by:
 
 ## Knowledge Base Structure
 
-**Database:** `database/insolvency_knowledge.db`
+**Database:** `projects/insolvency-law/database/knowledge.db`
 
 **Tables/Views:**
-- `v_complete_duties` - Relationships with `relationship_text` (direct BIA quotes)
+- `v_complete_duties` - 2,088 enriched legal rules with `relationship_text` (direct BIA quotes)
+- `duty_relationships` - Raw duty relationships (actor → procedure → deadline → consequence)
 - `v_document_requirements` - Document requirements
-- `bia_sections` - Full BIA text (`full_text` column)
-- `osb_directives` - OSB directive text
+- `bia_sections` - 385 complete BIA sections (full_text column, NO truncation)
+- `osb_directives` - 5 OSB directives with full text
+- Atomic entities: `actors` (5,857), `procedures` (3,106), `documents` (2,144), `deadlines` (555), `consequences` (508), `concepts` (411)
 
-**Files (when database incomplete):**
+**Files (fallback when database query fails):**
 - `sources/osb_directives/*.md` - Directive 4R, 6R7, 16R, 17, 32R (relative to project root)
 - `data/input/study_materials/insolvency_admin_extracted.txt` - Full study guide text (relative to project root)
 
 **Coverage:**
-- BIA: 1,047 relationships (80% of 385 sections)
-- Study Materials: 1,123 relationships
-- Total: 2,170 relationships
+- BIA sections: 385 complete (100%)
+- Duty relationships: 2,088 legal rules
+- Total entities: 16,531 rows across 22 tables
+- FTS5 search with BM25 ranking
 
 ***
 
@@ -91,19 +94,31 @@ Answer insolvency exam questions by:
 ```sql
 SELECT relationship_text, bia_section, source_name
 FROM v_complete_duties
-WHERE relationship_text LIKE '%[keyword]%' OR bia_section = '[section]';
+WHERE relationship_text LIKE '%[keyword]%' OR bia_section = '[section]'
+LIMIT 20;
 ```
+*Note: LIMIT prevents memory exhaustion from large result sets*
 
-**Step 1b - BIA Full Text:**
+**Step 1b - BIA Full Text (FTS5 with Ranking):**
 ```sql
-SELECT section_number, full_text FROM bia_sections
-WHERE section_number = '[section]' OR full_text LIKE '%[keyword]%';
+-- Exact section lookup
+SELECT section_number, full_text FROM bia_sections WHERE section_number = '[section]';
+
+-- OR keyword search with BM25 ranking
+SELECT bia_sections.section_number, bia_sections.full_text, rank
+FROM bia_sections
+JOIN bia_sections_fts ON bia_sections.rowid = bia_sections_fts.rowid
+WHERE bia_sections_fts MATCH '[keywords]'
+ORDER BY rank
+LIMIT 10;
 ```
+*Note: FTS5 ranking returns most relevant sections first. LIMIT prevents memory exhaustion.*
 
 **Step 1c - Study Materials:**
 ```bash
-grep -B 5 -A 10 "[keyword]" data/input/study_materials/insolvency_admin_extracted.txt
+grep -m 5 -B 2 -A 5 "[keyword]" data/input/study_materials/insolvency_admin_extracted.txt
 ```
+*Note: -m 5 limits to 5 matches max, reduced context (-B 2 -A 5) to save memory*
 
 ### Phase 2: Parse Results for References (INTELLIGENT)
 
@@ -180,7 +195,7 @@ VALUES ('[N]R', '[Topic]', '[content]', '/sources/osb_directives/Directive_${N}R
 "
 
 # 4. Now search that directive for answer
-grep -B 5 -A 10 "[keyword]" /sources/osb_directives/Directive_${N}R_[Topic].md
+grep -m 5 -B 2 -A 5 "[keyword]" /sources/osb_directives/Directive_${N}R_[Topic].md
 ```
 
 ### Phase 6: Build Answer or Report Not Found
@@ -189,6 +204,7 @@ grep -B 5 -A 10 "[keyword]" /sources/osb_directives/Directive_${N}R_[Topic].md
 - Use sidebar format
 - Include quote + section
 - Record to CSV
+- Clear query result variables to free memory
 
 **If truly not found after intelligent search:**
 ```
@@ -368,14 +384,16 @@ echo "\n### Q[N]: [question]\n**Answer:** [answer]\n**Section:** [ref]\n" >> dat
 sqlite3 database/insolvency_knowledge.db "
 SELECT procedure, document, is_mandatory, filing_context, bia_section
 FROM v_document_requirements
-WHERE procedure LIKE '%filing%proposal%' OR procedure LIKE '%file%proposal%';
+WHERE procedure LIKE '%filing%proposal%' OR procedure LIKE '%file%proposal%'
+LIMIT 20;
 "
 # Result: "cash-flow statement" from Section 50.4
 
 # Step 2: Get full quote
 sqlite3 database/insolvency_knowledge.db "
 SELECT relationship_text FROM v_complete_duties
-WHERE bia_section = '50.4' AND relationship_text LIKE '%cash-flow%';
+WHERE bia_section = '50.4' AND relationship_text LIKE '%cash-flow%'
+LIMIT 10;
 "
 # Quote: "file with the proposal a cash-flow statement"
 

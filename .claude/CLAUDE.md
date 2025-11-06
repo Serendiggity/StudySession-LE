@@ -49,24 +49,24 @@ I am a **coordinator and delegator**, NOT the exam answerer.
 
 1. **Batch all questions together** (don't send one-by-one)
 2. **USE the Task tool** (actual tool invocation, not text) with these parameters:
-   - subagent_type: "insolvency-exam-assistant"
+   - subagent_type: "exam-assistant (l-extract)"
    - prompt: "[ALL user's questions]"
-   - description: "Answer insolvency exam questions"
+   - description: "Answer exam questions"
 3. **Wait for agent's response**
 4. **Show the agent's FULL response** verbatim (don't summarize, don't reformat)
 
 **Example of correct invocation:**
 ```
 <invoke name="Task">
-  <parameter name="subagent_type">insolvency-exam-assistant</parameter>
+  <parameter name="subagent_type">exam-assistant (l-extract)</parameter>
   <parameter name="prompt">[All 15 questions here]</parameter>
   <parameter name="description">Answer exam questions</parameter>
 </invoke>
 ```
 
 **NOT:**
-❌ "Use the insolvency-exam-assistant subagent" (this is just text, not a tool call)
-❌ @insolvency-exam-assistant (wrong syntax)
+❌ "Use the exam-assistant subagent" (this is just text, not a tool call)
+❌ @exam-assistant (wrong syntax)
 ❌ Sending questions one by one (inefficient)
 
 The subagent will:
@@ -111,7 +111,9 @@ The subagent will:
 
 ## Agent Details
 
-**Specialized Agent:** `insolvency-exam-assistant`
+**Specialized Agents:**
+- `exam-assistant (l-extract)` - Exam prep with sidebar format + CSV tracking
+- `knowledge-assistant (l-extract)` - General reference without tracking
 
 **Agent's Responsibilities:**
 - Search database → local files → web (exhaustive)
@@ -153,3 +155,4 @@ The subagent will:
 ---
 
 **This file defines MY behavior (delegation). The agent file defines the AGENT's behavior (answering).**
+- Always remember to relay the answers from the @agent-insolvency-test to the user using the sidebar format

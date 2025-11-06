@@ -17,7 +17,7 @@ An AI-powered knowledge extraction and relationship mapping system for the Canad
 
 ```bash
 # Open SQLite database
-sqlite3 database/insolvency_knowledge.db
+sqlite3 projects/insolvency-law/database/knowledge.db
 
 # What must trustee do?
 SELECT actor, procedure, deadline, bia_section
@@ -49,7 +49,7 @@ python tools/diagram/generate_mermaid.py \
 
 ## System Architecture
 
-### Database (`database/insolvency_knowledge.db`)
+### Database (`projects/insolvency-law/database/knowledge.db`)
 
 **Source Documents (3):**
 - Insolvency Administration Course Material (291 pages)
@@ -145,7 +145,7 @@ python src/extraction/relationship_extractor.py --mode all
 python src/extraction/relationship_extractor.py --mode priority
 
 # Specify database
-python src/extraction/relationship_extractor.py --mode all --db database/insolvency_knowledge.db
+python src/extraction/relationship_extractor.py --mode all --db projects/insolvency-law/database/knowledge.db
 ```
 
 **Study Materials:**
@@ -155,7 +155,7 @@ python src/extraction/study_material_relationship_extractor.py
 
 # Specify files
 python src/extraction/study_material_relationship_extractor.py \
-  --db database/insolvency_knowledge.db \
+  --db projects/insolvency-law/database/knowledge.db \
   --text data/input/study_materials/insolvency_admin_extracted.txt
 ```
 
@@ -165,7 +165,7 @@ python src/extraction/study_material_relationship_extractor.py \
 
 **Open database:**
 ```bash
-sqlite3 database/insolvency_knowledge.db
+sqlite3 projects/insolvency-law/database/knowledge.db
 ```
 
 **Useful queries:**
@@ -381,7 +381,7 @@ python src/extraction/relationship_extractor.py --mode all
 python src/extraction/study_material_relationship_extractor.py
 
 # 3. Query database
-sqlite3 database/insolvency_knowledge.db
+sqlite3 projects/insolvency-law/database/knowledge.db
 > SELECT * FROM v_complete_duties WHERE actor = 'Trustee';
 
 # 4. Generate diagram
@@ -389,7 +389,7 @@ python tools/diagram/generate_mermaid.py \
   --topic "Your Topic" --section "50%" --type flowchart
 
 # 5. Check coverage
-sqlite3 database/insolvency_knowledge.db \
+sqlite3 projects/insolvency-law/database/knowledge.db \
   "SELECT * FROM v_relationship_stats;"
 ```
 
@@ -403,13 +403,13 @@ sqlite3 database/insolvency_knowledge.db \
 - Design docs in `docs/` (for understanding architecture)
 
 **Key Files to Remember:**
-- Database: `database/insolvency_knowledge.db`
+- Database: `projects/insolvency-law/database/knowledge.db`
 - BIA extractor: `src/extraction/relationship_extractor.py`
 - Study extractor: `src/extraction/study_material_relationship_extractor.py`
 - Diagram tool: `tools/diagram/generate_mermaid.py`
 
 **For exam prep, you mainly need:**
-1. SQL queries to `database/insolvency_knowledge.db`
+1. SQL queries to `projects/insolvency-law/database/knowledge.db`
 2. Diagram generation for visualization
 3. That's it!
 

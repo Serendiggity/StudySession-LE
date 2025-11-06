@@ -1,37 +1,62 @@
-# Insolvency Knowledge Base
+# Database Directory
 
-**This is the main product** - a multi-source, AI-queryable database for insolvency exam preparation.
+**Current Architecture:** Multi-project structure (as of January 2025)
 
-## Database File
+## Active Database
 
-**`insolvency_knowledge.db`** - SQLite database containing:
+**Location:** `../projects/insolvency-law/database/knowledge.db`
+
+The active database has been moved to the project-specific location to support multi-domain architecture.
+
+**Contents:**
+- 16,531 rows across 22 tables
+- 385 complete BIA sections (full text, no truncation)
+- 2,088 duty_relationships (legal rules with context)
+- 5,857 actors, 3,106 procedures, 2,144 documents
+- 17 views including v_complete_duties (enriched relationships)
+- 5 OSB Directives with FTS5 search
+
+## Archived Database (LAST STABLE VERSION)
+
+**Location:** `backups/insolvency_knowledge_STABLE_pre_migration_20251105.db`
+
+**Purpose:** Rollback point if issues arise with current database
+
+This is the last stable version before migration to the new project structure. It contains:
 - 13,779 entities from 3 sources
 - 385 complete BIA statutory provisions
 - 5 OSB Directives with full text
-- Cross-reference links between sources
+- All atomic entities and relationships
+
+**When to use:** Only if the current database has critical issues. To restore:
+```bash
+cp backups/insolvency_knowledge_STABLE_pre_migration_20251105.db ../projects/insolvency-law/database/knowledge.db
+```
 
 ## Quick Start
 
-### Query the Database
+### Query the Active Database
 
 ```bash
 # Simple query
-sqlite3 insolvency_knowledge.db "SELECT full_text FROM bia_sections WHERE section_number = '50.4';"
+sqlite3 ../projects/insolvency-law/database/knowledge.db "SELECT full_text FROM bia_sections WHERE section_number = '50.4';"
 
-# Cross-source comparison
-sqlite3 insolvency_knowledge.db "
-SELECT source_name, COUNT(*)
-FROM actors a
-JOIN source_documents sd ON a.source_id = sd.id
-WHERE role_canonical = 'Trustee'
-GROUP BY source_name;
+# Search with FTS5 ranking
+sqlite3 ../projects/insolvency-law/database/knowledge.db "
+SELECT section_number, section_title, rank
+FROM bia_sections
+JOIN bia_sections_fts ON bia_sections.rowid = bia_sections_fts.rowid
+WHERE bia_sections_fts MATCH 'extension proposal'
+ORDER BY rank
+LIMIT 5;
 "
 
-# Full-text search
-sqlite3 insolvency_knowledge.db "
-SELECT section_number, section_title
-FROM bia_sections_fts
-WHERE full_text MATCH 'extension AND proposal';
+# Query duty relationships (legal rules)
+sqlite3 ../projects/insolvency-law/database/knowledge.db "
+SELECT actor, modal_verb, substr(relationship_text, 1, 100)
+FROM v_complete_duties
+WHERE bia_section = '172'
+LIMIT 5;
 "
 ```
 
