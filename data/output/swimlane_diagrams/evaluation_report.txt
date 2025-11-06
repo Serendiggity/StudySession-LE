@@ -1,0 +1,102 @@
+
+APPROACH 1: PlantUML via Kroki.io
+---------------------------------
+✓ Pros:
+  - True horizontal swimlanes with lanes
+  - Professional appearance
+  - Widely supported format
+  - Free API (Kroki.io)
+  - Can export SVG, PNG, PDF
+
+✗ Cons:
+  - Requires API call (network dependency)
+  - Rate limits on free tier
+  - PlantUML syntax learning curve
+
+RECOMMENDATION: ⭐⭐⭐⭐⭐ BEST OPTION
+Use for production. Fallback to local PlantUML JAR if API unavailable.
+
+
+APPROACH 2: Direct SVG Generation
+---------------------------------
+✓ Pros:
+  - No external dependencies
+  - Full control over layout
+  - Works offline
+  - Can customize every pixel
+
+✗ Cons:
+  - Manual layout calculations
+  - More code to maintain
+  - Limited automatic positioning
+  - No standard format
+
+RECOMMENDATION: ⭐⭐⭐ GOOD FOR CUSTOM NEEDS
+Use when full control required or network unavailable.
+
+
+APPROACH 3: BPMN 2.0 XML
+---------------------------------
+✓ Pros:
+  - Industry standard
+  - Native swimlane support (pools/lanes)
+  - Compatible with many tools
+  - Formal specification
+
+✗ Cons:
+  - Requires external viewer
+  - Complex XML structure
+  - Layout not auto-calculated
+  - Harder to embed in markdown
+
+RECOMMENDATION: ⭐⭐⭐ GOOD FOR FORMAL DOCS
+Use for official process documentation.
+
+
+APPROACH 4: Mermaid Gantt
+---------------------------------
+✓ Pros:
+  - Already integrated in project
+  - GitHub markdown compatible
+  - Simple syntax
+
+✗ Cons:
+  - NOT true swimlanes (just grouped tasks)
+  - No cross-lane arrows
+  - Limited layout control
+
+RECOMMENDATION: ⭐⭐ ACCEPTABLE FALLBACK
+Only use if PlantUML unavailable.
+
+
+FINAL RECOMMENDATION
+====================
+PRIMARY: PlantUML via Kroki.io API
+  - Best visual quality
+  - True swimlane support
+  - Easy to maintain
+
+FALLBACK: Direct SVG generation
+  - Use when offline/API unavailable
+  - Full control over appearance
+
+INTEGRATION STEPS
+=================
+1. Add to MCP server as new tool:
+   - diagram_swimlane(topic, section_pattern)
+
+2. Query database for process steps
+3. Generate PlantUML code
+4. Call Kroki.io API → SVG
+5. Save to data/output/diagrams/
+6. Return markdown with embedded SVG
+
+CODE SNIPPET:
+```python
+def generate_swimlane_diagram(topic: str, section: str):
+    steps = query_database(section)
+    plantuml = generate_plantuml_swimlane(steps)
+    svg = kroki_api_call(plantuml)
+    save_svg(f"{topic}_swimlane.svg")
+    return f"![{topic}]({svg_path})"
+```

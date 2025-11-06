@@ -1,0 +1,231 @@
+@startuml
+title Consumer Proposal Process - Complete Swimlane (Division II)
+
+skinparam backgroundColor white
+skinparam swimlaneWidth 200
+
+|👤 Consumer Debtor|
+start
+:Consult administrator
+Day -7 to -1;
+note right: Directive 6R7\nAssessment
+:Prepare documents
+Forms 47, 65, 79;
+:Sign proposal
+Day -1;
+
+|💼 Administrator|
+:Assess eligibility
+≤$250k debt excl home
+Dir 6R7;
+:Assist prepare docs;
+:File with Official Receiver
+**DAY 0**;
+note right: BIA §66.13\n🛡️ STAY begins §69.2
+
+|🏛️ Official Receiver|
+:Receive filing
+Record proposal;
+
+|💼 Administrator|
+:Prepare Form 51 report
+**Within 10 days**;
+note right: Administrator's opinion\nFair & reasonable?
+:Send notice package
+to ALL creditors
+**Within 10 days**;
+note right: Forms 31, 37.1, 49\nBIA §66.14
+
+|💰 Creditors|
+:Receive notice package
+Days 1-10;
+:File proof of claim
+Form 31
+Days 1-45;
+:Submit voting letter
+Form 37.1 (optional);
+:Request meeting?
+Need ≥25% of claims;
+note right: BIA §66.15(2)(b)\n25% threshold
+
+|💼 Administrator|
+:Count meeting requests
+Days 1-45;
+
+if (≥25% requested?) then (yes)
+  |💼 Administrator|
+  :Call meeting of creditors
+  **Day 45**;
+  note right: BIA §66.15\nMust hold within 21 days
+
+  |💰 Creditors|
+  :Attend meeting;
+
+  if (Quorum present?) then (yes)
+    :Vote on proposal
+    Simple majority
+    $1 = 1 vote;
+    note right: BIA §66.19\nOrdinary resolution
+
+    if (>50% vote YES?) then (yes)
+      |💼 Administrator|
+      :ACCEPTED;
+      note right: BIA §66.19(1)
+    else (no)
+      |💼 Administrator|
+      :REFUSED;
+      note right: NOT auto bankruptcy
+
+      |💼 Administrator|
+      :Notify all parties
+      §66.27;
+      stop
+    endif
+  else (no quorum)
+    |💼 Administrator|
+    :DEEMED ACCEPTED;
+    note right: BIA §66.18(2)\nDir 22R4
+  endif
+else (no - <25%)
+  |💼 Administrator|
+  :DEEMED ACCEPTED
+  **Day 45**;
+  note right: BIA §66.18(1)\nNo meeting needed
+endif
+
+|💼 Administrator|
+:Report acceptance to OR;
+
+|🏛️ Official Receiver|
+:Monitor compliance
+Days 46-60;
+
+if (Court review requested?) then (yes)
+  |⚖️ Court|
+  :Hold hearing
+  §66.23;
+  note right: Admin files report\n15 days notice
+
+  :Hear all parties;
+
+  if (Approve?) then (yes)
+    :APPROVED;
+  else (no)
+    :REFUSED;
+    |💼 Administrator|
+    :Notify parties §66.27;
+    stop
+  endif
+else (no)
+  |⚖️ Court|
+  :DEEMED APPROVED
+  **Day 60**;
+  note right: BIA §66.22\n15 days after acceptance
+endif
+
+|💼 Administrator|
+:Arrange counselling
+Dir 1R8;
+
+|🎓 Counsellor|
+:Provide Session 1
+Days 10-90 from filing;
+note right: Topics:\n- Budgeting\n- Credit use\n- Financial goals
+
+|👤 Consumer Debtor|
+:Attend Session 1;
+
+|👤 Consumer Debtor|
+:Begin making payments
+**Day 60+**;
+
+|💼 Administrator|
+:Receive payments;
+:Distribute dividends
+to creditors;
+
+|💰 Creditors|
+:Receive periodic
+dividends;
+
+|🎓 Counsellor|
+:Wait 30 days minimum;
+:Provide Session 2
+Before certificate;
+
+|👤 Consumer Debtor|
+:Attend Session 2;
+
+|🎓 Counsellor|
+:Confirm both sessions
+completed to admin;
+
+repeat
+  |👤 Consumer Debtor|
+  :Make monthly payment;
+
+  |💼 Administrator|
+  :Receive & hold;
+  :Distribute to creditors;
+
+  |💰 Creditors|
+  :Receive dividend;
+
+repeat while (Proposal term complete?) is (no) not (yes - max 5 years)
+
+|💼 Administrator|
+:Verify all payments made;
+:Verify counselling done;
+
+if (Counselling completed?) then (yes)
+  :Issue Certificate
+  Form 46
+  §66.38;
+  note right: Certificate to:\n- Debtor\n- Official Receiver
+
+  |👤 Consumer Debtor|
+  :Receive Certificate;
+  :DEBTS DISCHARGED;
+  note right: Except §173 debts:\n- Student loans <7yr\n- Fraud\n- Alimony
+
+  |🏛️ Official Receiver|
+  :Receive certificate copy;
+
+  |💼 Administrator|
+  :Prepare Form 14
+  Final Statement
+  R&D;
+
+  |🏛️ Official Receiver|
+  :Review Form 14;
+  :Issue comment letter;
+
+  |💼 Administrator|
+  :Send Form 16
+  Deemed Taxation Notice;
+
+  |💰 Creditors|
+  :Receive Form 16;
+  :30-day objection period;
+
+  if (Objections?) then (no)
+    |💼 Administrator|
+    :Wait 3 months;
+    :DEEMED DISCHARGED
+    §66.39;
+    stop
+  else (yes)
+    |🏛️ Official Receiver|
+    :Resolve or hearing;
+    stop
+  endif
+
+else (no - counselling refused)
+  |💼 Administrator|
+  :NO CERTIFICATE
+  §66.38(2);
+  note right: Debts NOT discharged\nMust complete counselling
+  stop
+endif
+
+@enduml

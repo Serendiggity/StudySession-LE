@@ -154,6 +154,118 @@ gantt
     Debts discharged                  :milestone, done, 2029-03-08, 0d
 ```
 
+### Complete Swimlane Diagram (All Actors & Their Processes)
+
+**Full professional swimlane diagram (PlantUML):**
+
+![Consumer Proposal Swimlane](../../data/output/diagrams/consumer_proposal_comprehensive_swimlane.svg)
+
+**Diagram shows:**
+- ✅ 6 horizontal actor lanes
+- ✅ Complete chronological flow (Day -7 → Day 0 → Day 45 → Day 60 → 5 years → completion)
+- ✅ All decision points (meeting requested?, quorum?, vote result?, court review?, counselling done?)
+- ✅ Cross-lane interactions with notes
+- ✅ All key milestones (filing, deemed acceptance, deemed approval, certificate)
+- ✅ BIA section references on each step
+- ✅ Form numbers where applicable
+
+**Alternative view below (if SVG doesn't render):**
+
+**Note:** Since Mermaid doesn't support true swimlane diagrams, this is shown as a horizontal process flow with actor lanes. For a traditional swimlane, see the table below.
+
+```mermaid
+graph LR
+    subgraph CD["👤 CONSUMER DEBTOR LANE"]
+        CD1[Day -7 to -1:<br/>Consult Admin] --> CD2[Day -1:<br/>Sign docs]
+        CD2 --> CD3[Day 0:<br/>FILING]
+        CD3 --> CD4[Days 10-90:<br/>Counselling S1]
+        CD4 --> CD5[Day 60+:<br/>Start payments]
+        CD5 --> CD6[+30 days:<br/>Counselling S2]
+        CD6 --> CD7[Up to 5 years:<br/>Continue paying]
+        CD7 --> CD8[Completion:<br/>Get Certificate]
+    end
+
+    subgraph AD["💼 ADMINISTRATOR LANE"]
+        AD1[Day -7:<br/>Assess] --> AD2[Day 0:<br/>File with OR]
+        AD2 --> AD3[Days 1-10:<br/>Prepare Form 51]
+        AD3 --> AD4[Days 1-10:<br/>Send notices]
+        AD4 --> AD5[Days 1-45:<br/>Receive claims]
+        AD5 --> AD6[Day 45:<br/>Check ≥25%?]
+        AD6 -->|Yes| AD7[Day 45:<br/>Call meeting]
+        AD6 -->|No| AD8[Day 45:<br/>Deemed accepted]
+        AD7 --> AD9[Day 45:<br/>Chair meeting]
+        AD9 --> AD8
+        AD8 --> AD10[Day 60+:<br/>Receive payments]
+        AD10 --> AD11[Day 60+:<br/>Distribute dividends]
+        AD11 --> AD12[Completion:<br/>Issue cert §66.38]
+        AD12 --> AD13[+30 days:<br/>Form 14]
+        AD13 --> AD14[+3 months:<br/>Discharged]
+    end
+
+    subgraph OR["🏛️ OFFICIAL RECEIVER LANE"]
+        OR1[Day 0:<br/>Receive filing] --> OR2[Days 1-10:<br/>Get Form 51]
+        OR2 --> OR3[Days 1-45:<br/>Monitor]
+        OR3 --> OR4[Days 46-60:<br/>May request review]
+        OR4 --> OR5[Completion:<br/>Get certificate]
+        OR5 --> OR6[+30 days:<br/>Review Form 14]
+        OR6 --> OR7[Issue comment]
+    end
+
+    subgraph CR["💰 CREDITORS LANE"]
+        CR1[Days 1-10:<br/>Get notices] --> CR2[Days 1-45:<br/>File claims]
+        CR2 --> CR3[Days 1-45:<br/>Request meeting?]
+        CR3 -->|If called| CR4[Day 45:<br/>Vote]
+        CR3 -->|If not| CR5[Day 45:<br/>Auto-accepted]
+        CR4 --> CR5
+        CR5 --> CR6[Day 60+:<br/>Receive dividends]
+        CR6 --> CR7[End:<br/>Get Form 16]
+        CR7 --> CR8[30 days:<br/>Can object]
+    end
+
+    subgraph CO["🎓 COUNSELLOR LANE"]
+        CO1[Days 10-90:<br/>Provide S1] --> CO2[+30 days:<br/>Provide S2]
+        CO2 --> CO3[Confirm<br/>to admin]
+    end
+
+    subgraph CT["⚖️ COURT LANE"]
+        CT1[Days 46-60:<br/>Deemed approved] --> CT2{Review<br/>requested?}
+        CT2 -->|Yes| CT3[Hearing]
+        CT2 -->|No| CT4[Day 60:<br/>Approved]
+        CT3 --> CT4
+    end
+
+    %% Cross-lane connections
+    AD2 -.-> OR1
+    AD4 -.-> CR1
+    CR3 -.-> AD6
+    CR4 -.-> AD9
+    AD8 -.-> OR3
+    OR4 -.-> CT2
+    CO3 -.-> AD12
+    AD12 -.-> OR5
+    AD13 -.-> OR6
+
+    style CD3 fill:#FFE4B5
+    style AD2 fill:#FFE4B5
+    style AD8 fill:#87CEEB
+    style CT4 fill:#87CEEB
+    style AD12 fill:#FFD700
+    style CD8 fill:#90EE90
+```
+
+**Horizontal Swimlane Table (Traditional Format):**
+
+| Timeline → | Day -7 to -1 | Day 0 | Days 1-10 | Days 11-45 | Day 45 | Days 46-60 | Day 60+ | Completion |
+|-----------|-------------|-------|-----------|------------|---------|------------|---------|------------|
+| **👤 Debtor** | Consult admin<br/>Prepare docs | Sign & file | | | May attend meeting | Counselling S1<br/>(Days 10-90) | Pay monthly<br/>Counselling S2 | Receive certificate |
+| **💼 Administrator** | Assessment | File with OR | Prepare Form 51<br/>Send notices | Receive claims<br/>Count requests | Chair meeting<br/>OR report deemed | | Receive payments<br/>Distribute dividends | Issue cert §66.38<br/>Form 14<br/>Discharged |
+| **🏛️ Off. Receiver** | | Receive filing | Receive Form 51 | Monitor | Record acceptance | May request review | | Review Form 14<br/>Comment letter |
+| **💰 Creditors** | | | Receive notices | File claims Form 31<br/>Voting letters<br/>Request meeting | Vote if meeting<br/>OR deemed accept | | Receive dividends | Form 16<br/>30-day objection |
+| **🎓 Counsellor** | | | | | | Provide Session 1<br/>(Days 10-90) | Wait 30d<br/>Provide Session 2 | Confirm to admin |
+| **⚖️ Court** | | | | | | Deemed approved<br/>OR hearing | | |
+
+---
+
 ### Process Flow with Decision Points
 
 ```mermaid

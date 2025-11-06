@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="760"
+     height="330"
+     viewBox="0 0 760 330">
+
+    <!-- Title -->
+    <text x="380.0" y="30"
+          text-anchor="middle"
+          font-size="20"
+          font-weight="bold"
+          font-family="Arial, sans-serif"
+          fill="#333">
+        Consumer Proposal Process
+    </text>
+
+    <!-- Swimlanes -->
+
+    <rect x="50" y="50"
+          width="220"
+          height="240"
+          fill="#e3f2fd"
+          stroke="#333"
+          stroke-width="2"
+          fill-opacity="0.1"/>
+
+    <!-- Lane header -->
+    <rect x="50" y="50"
+          width="220"
+          height="50"
+          fill="#e3f2fd"
+          stroke="#333"
+          stroke-width="2"
+          fill-opacity="0.4"/>
+
+    <text x="160.0" y="80"
+          text-anchor="middle"
+          font-size="14"
+          font-weight="bold"
+          font-family="Arial, sans-serif"
+          fill="#333">
+        creditors
+    </text>
+
+    <rect x="60" y="120"
+          width="200"
+          height="70"
+          fill="white"
+          stroke="#333"
+          stroke-width="2"
+          rx="5"/>
+
+    <text x="160.0" y="140"
+          text-anchor="middle"
+          font-size="11"
+          font-family="Arial, sans-serif"
+          fill="#333">
+        Lessor's vote on proposal
+    </text>
+
+    <text x="160.0" y="168"
+          text-anchor="middle"
+          font-size="8"
+          fill="#999"
+          font-style="italic"
+          font-family="Arial, sans-serif">
+        BIA §66.19
+    </text>
+
+    <rect x="270" y="50"
+          width="220"
+          height="240"
+          fill="#f3e5f5"
+          stroke="#333"
+          stroke-width="2"
+          fill-opacity="0.1"/>
+
+    <!-- Lane header -->
+    <rect x="270" y="50"
+          width="220"
+          height="50"
+          fill="#f3e5f5"
+          stroke="#333"
+          stroke-width="2"
+          fill-opacity="0.4"/>
+
+    <text x="380.0" y="80"
+          text-anchor="middle"
+          font-size="14"
+          font-weight="bold"
+          font-family="Arial, sans-serif"
+          fill="#333">
+        lessors
+    </text>
+
+    <rect x="280" y="120"
+          width="200"
+          height="70"
+          fill="white"
+          stroke="#333"
+          stroke-width="2"
+          rx="5"/>
+
+    <text x="380.0" y="140"
+          text-anchor="middle"
+          font-size="11"
+          font-family="Arial, sans-serif"
+          fill="#333">
+        Lessor's vote on proposal
+    </text>
+
+    <text x="380.0" y="168"
+          text-anchor="middle"
+          font-size="8"
+          fill="#999"
+          font-style="italic"
+          font-family="Arial, sans-serif">
+        BIA §66.19
+    </text>
+
+    <rect x="490" y="50"
+          width="220"
+          height="240"
+          fill="#e8f5e9"
+          stroke="#333"
+          stroke-width="2"
+          fill-opacity="0.1"/>
+
+    <!-- Lane header -->
+    <rect x="490" y="50"
+          width="220"
+          height="50"
+          fill="#e8f5e9"
+          stroke="#333"
+          stroke-width="2"
+          fill-opacity="0.4"/>
+
+    <text x="600.0" y="80"
+          text-anchor="middle"
+          font-size="14"
+          font-weight="bold"
+          font-family="Arial, sans-serif"
+          fill="#333">
+        administrator
+    </text>
+
+    <rect x="500" y="120"
+          width="200"
+          height="70"
+          fill="white"
+          stroke="#333"
+          stroke-width="2"
+          rx="5"/>
+
+    <text x="600.0" y="140"
+          text-anchor="middle"
+          font-size="11"
+          font-family="Arial, sans-serif"
+          fill="#333">
+        Inform Creditors and O...
+    </text>
+
+    <text x="600.0" y="168"
+          text-anchor="middle"
+          font-size="8"
+          fill="#999"
+          font-style="italic"
+          font-family="Arial, sans-serif">
+        BIA §66.3
+    </text>
+
+    <rect x="500" y="205"
+          width="200"
+          height="70"
+          fill="white"
+          stroke="#333"
+          stroke-width="2"
+          rx="5"/>
+
+    <text x="600.0" y="225"
+          text-anchor="middle"
+          font-size="11"
+          font-family="Arial, sans-serif"
+          fill="#333">
+        Report Preparation and...
+    </text>
+
+    <text x="600.0" y="253"
+          text-anchor="middle"
+          font-size="8"
+          fill="#999"
+          font-style="italic"
+          font-family="Arial, sans-serif">
+        BIA §66.3
+    </text>
+
+</svg>

@@ -1,0 +1,32 @@
+@startuml
+title Division I Consumer Proposal Process
+
+skinparam backgroundColor white
+skinparam ActivityBackgroundColor white
+skinparam ActivityBorderColor #333333
+skinparam ActivityFontSize 11
+skinparam ArrowColor #666666
+
+|secured creditor|
+start
+
+:Making application;
+note right: BIA §50.1
+
+:Filing Proof of Claim;
+note right: BIA §50.1
+
+|secured creditors|
+:Filing Proof of Claim;
+note right: BIA §50.1
+
+|creditor|
+:Cash-Flow Statement Acquisition;
+note right: BIA §50.4
+
+|creditors|
+:Cash-Flow Statement Acquisition;
+note right: BIA §50.4
+
+stop
+@enduml

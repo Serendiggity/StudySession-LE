@@ -1,0 +1,28 @@
+@startuml
+title Consumer Proposal Process
+
+skinparam backgroundColor white
+skinparam ActivityBackgroundColor white
+skinparam ActivityBorderColor #333333
+skinparam ActivityFontSize 11
+skinparam ArrowColor #666666
+
+|creditors|
+start
+
+:Lessor's vote on proposal;
+note right: BIA §66.19
+
+|lessors|
+:Lessor's vote on proposal;
+note right: BIA §66.19
+
+|administrator|
+:Inform Creditors and Official Receiver;
+note right: BIA §66.3
+
+:Report Preparation and Filing;
+note right: BIA §66.3
+
+stop
+@enduml

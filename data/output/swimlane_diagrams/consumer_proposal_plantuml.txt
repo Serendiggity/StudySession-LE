@@ -1,0 +1,51 @@
+@startuml
+title Consumer Proposal Process - Swimlane Diagram
+
+|Consumer Debtor|
+start
+
+|Consumer Debtor|
+:Consult with administrator\n[Day -7];
+
+:Sign proposal documents\n[Day -1];
+
+|Administrator|
+:File proposal with Official Receiver\n[Day 0];
+
+|Official Receiver|
+:Receive and process filing\n[Day 0];
+
+|Administrator|
+:Send notice to creditors (Form 51)\n(within 10 days)\n[Day 1];
+
+:Prepare cash-flow statement\n(within 10 days)\n[Day 1];
+
+|Creditors|
+:Receive notice and cash-flow statement\n[Day 10];
+
+|Administrator|
+:File affidavit of sending notices\n(within 10 days)\n[Day 10];
+
+|Creditors|
+:File proof of claim\n(within 30 days)\n[Day 30];
+
+|Administrator|
+:Convene meeting of creditors\n(within 21 days)\n[Day 21];
+
+|Creditors|
+:Vote on proposal at meeting\n[Day 21];
+
+|Court|
+:Review proposal (if required)\n[Day 45];
+
+|Administrator|
+:Supervise payments (if approved)\n[Day 60];
+
+|Counsellor|
+:Provide mandatory counselling\n[Day 90];
+
+|Administrator|
+:File completion certificate\n(5 years)\n[Day 1825];
+
+stop
+@enduml

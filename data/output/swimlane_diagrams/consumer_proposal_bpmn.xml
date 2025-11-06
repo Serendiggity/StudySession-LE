@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             targetNamespace="http://insolvency.example.com/consumer-proposal">
+
+    <process id="ConsumerProposal" name="Consumer Proposal Process">
+
+        <!-- Pools (Participants) -->
+
+        <laneSet id="LaneSet_0">
+            <lane id="Lane_Consumer_Debtor" name="Consumer Debtor">
+
+                <flowNodeRef>Task_Consumer_Debtor_0</flowNodeRef>
+
+                <flowNodeRef>Task_Consumer_Debtor_1</flowNodeRef>
+
+            </lane>
+        </laneSet>
+
+        <laneSet id="LaneSet_1">
+            <lane id="Lane_Administrator" name="Administrator">
+
+                <flowNodeRef>Task_Administrator_0</flowNodeRef>
+
+                <flowNodeRef>Task_Administrator_1</flowNodeRef>
+
+                <flowNodeRef>Task_Administrator_2</flowNodeRef>
+
+                <flowNodeRef>Task_Administrator_3</flowNodeRef>
+
+                <flowNodeRef>Task_Administrator_4</flowNodeRef>
+
+                <flowNodeRef>Task_Administrator_5</flowNodeRef>
+
+                <flowNodeRef>Task_Administrator_6</flowNodeRef>
+
+            </lane>
+        </laneSet>
+
+        <laneSet id="LaneSet_2">
+            <lane id="Lane_Official_Receiver" name="Official Receiver">
+
+                <flowNodeRef>Task_Official_Receiver_0</flowNodeRef>
+
+            </lane>
+        </laneSet>
+
+        <laneSet id="LaneSet_3">
+            <lane id="Lane_Creditors" name="Creditors">
+
+                <flowNodeRef>Task_Creditors_0</flowNodeRef>
+
+                <flowNodeRef>Task_Creditors_1</flowNodeRef>
+
+                <flowNodeRef>Task_Creditors_2</flowNodeRef>
+
+            </lane>
+        </laneSet>
+
+        <laneSet id="LaneSet_4">
+            <lane id="Lane_Court" name="Court">
+
+                <flowNodeRef>Task_Court_0</flowNodeRef>
+
+            </lane>
+        </laneSet>
+
+        <laneSet id="LaneSet_5">
+            <lane id="Lane_Counsellor" name="Counsellor">
+
+                <flowNodeRef>Task_Counsellor_0</flowNodeRef>
+
+            </lane>
+        </laneSet>
+
+        <task id="Task_Consumer_Debtor_0" name="Consult with administrator">
+            <documentation>
+                Section: N/A
+                Timeframe: N/A
+                Day: -7
+            </documentation>
+        </task>
+
+        <task id="Task_Consumer_Debtor_1" name="Sign proposal documents">
+            <documentation>
+                Section: N/A
+                Timeframe: N/A
+                Day: -1
+            </documentation>
+        </task>
+
+        <task id="Task_Administrator_2" name="File proposal with Official Receiver">
+            <documentation>
+                Section: N/A
+                Timeframe: N/A
+                Day: N/A
+            </documentation>
+        </task>
+
+        <task id="Task_Official_Receiver_3" name="Receive and process filing">
+            <documentation>
+                Section: N/A
+                Timeframe: N/A
+                Day: N/A
+            </documentation>
+        </task>
+
+        <task id="Task_Administrator_4" name="Send notice to creditors (Form 51)">
+            <documentation>
+                Section: N/A
+                Timeframe: within 10 days
+                Day: 1
+            </documentation>
+        </task>
+
+        <task id="Task_Administrator_5" name="Prepare cash-flow statement">
+            <documentation>
+                Section: N/A
+                Timeframe: within 10 days
+                Day: 1
+            </documentation>
+        </task>
+
+        <task id="Task_Creditors_6" name="Receive notice and cash-flow statement">
+            <documentation>
+                Section: N/A
+                Timeframe: N/A
+                Day: 10
+            </documentation>
+        </task>
+
+        <task id="Task_Administrator_7" name="File affidavit of sending notices">
+            <documentation>
+                Section: N/A
+                Timeframe: within 10 days
+                Day: 10
+            </documentation>
+        </task>
+
+        <task id="Task_Creditors_8" name="File proof of claim">
+            <documentation>
+                Section: N/A
+                Timeframe: within 30 days
+                Day: 30
+            </documentation>
+        </task>
+
+        <task id="Task_Administrator_9" name="Convene meeting of creditors">
+            <documentation>
+                Section: N/A
+                Timeframe: within 21 days
+                Day: 21
+            </documentation>
+        </task>
+
+        <task id="Task_Creditors_10" name="Vote on proposal at meeting">
+            <documentation>
+                Section: N/A
+                Timeframe: N/A
+                Day: 21
+            </documentation>
+        </task>
+
+        <task id="Task_Court_11" name="Review proposal (if required)">
+            <documentation>
+                Section: N/A
+                Timeframe: N/A
+                Day: 45
+            </documentation>
+        </task>
+
+        <task id="Task_Administrator_12" name="Supervise payments (if approved)">
+            <documentation>
+                Section: N/A
+                Timeframe: N/A
+                Day: 60
+            </documentation>
+        </task>
+
+        <task id="Task_Counsellor_13" name="Provide mandatory counselling">
+            <documentation>
+                Section: N/A
+                Timeframe: N/A
+                Day: 90
+            </documentation>
+        </task>
+
+        <task id="Task_Administrator_14" name="File completion certificate">
+            <documentation>
+                Section: N/A
+                Timeframe: 5 years
+                Day: 1825
+            </documentation>
+        </task>
+
+    </process>
+</definitions>
