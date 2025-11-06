@@ -1,0 +1,151 @@
+timestamp,question,answer_choice,primary_quote,reference,source,cross_references,search_method,keywords,rationale,correct_answer,is_correct
+2025-11-05T13:57:56.846734,"Which one of the following statements pertains to a bankrupt's discharge applied for by the bankrupt prior to the automatic discharge date? A) A bankrupt may apply to court for a discharge prior to the automatic discharge date; if refused, there will be no automatic discharge B) The court must be satisfied that not receiving an early discharge will have an effect on the bankrupt's ability to earn a living C) The debtor must obtain permission from the trustee to apply to the court for an early discharge D) The trustee must be the one to apply to the court for an early discharge for the bankrupt in every circumstance",,"168.1 (1) Subject to subsections ( 2) and 157.1(3), the
+following provisions apply in respect of an individual
+bankrupt other than a bankrupt referred to in subsection
+172.1(1):
+(a) in the case of a bankrupt who has never before
+been bankrupt under the laws of Canada or of any pre-
+scribed jurisdiction, the bankrupt is automatically dis-
+charged
+(i) on the expiry of 9 months after the date of
+bankruptcy unless, in that 9-month period, an op-
+position to the discharge has been filed or the
+bankru",168.1,statute,,Universal FTS5 search,section 172 bankrupt application discharge,Based on insolvency domain knowledge base,,
+2025-11-05T14:14:42.439213,Which statement pertains to a bankrupt's discharge applied for by the bankrupt prior to the automatic discharge date?,,"168.1 (1) Subject to subsections ( 2) and 157.1(3), the
+following provisions apply in respect of an individual
+bankrupt other than a bankrupt referred to in subsection
+172.1(1):
+(a) in the case of a bankrupt who has never before
+been bankrupt under the laws of Canada or of any pre-
+scribed jurisdiction, the bankrupt is automatically dis-
+charged
+(i) on the expiry of 9 months after the date of
+bankruptcy unless, in that 9-month period, an op-
+position to the discharge has been filed or the
+bankru",168.1,statute,,Universal FTS5 search,discharge before automatic discharge date,Based on insolvency domain knowledge base,,
+2025-11-05T14:14:46.412851,Can a bankrupt apply to court for a discharge prior to the automatic discharge date? What are the conditions and requirements?,,NOT FOUND,N/A,statute,,Universal FTS5 search,bankrupt early discharge application court,Based on insolvency domain knowledge base,,
+2025-11-05T14:14:50.114123,What happens if a bankrupt applies for discharge before the automatic discharge date and is refused? Will automatic discharge still occur?,,NOT FOUND,N/A,statute,,Universal FTS5 search,discharge refusal bankrupt application,Based on insolvency domain knowledge base,,
+2025-11-05T14:17:10.098361,What happens when a bankrupt applies for discharge?,,"168.1 (1) Subject to subsections ( 2) and 157.1(3), the
+following provisions apply in respect of an individual
+bankrupt other than a bankrupt referred to in subsection
+172.1(1):
+(a) in the case of a bankrupt who has never before
+been bankrupt under the laws of Canada or of any pre-
+scribed jurisdiction, the bankrupt is automatically dis-
+charged
+(i) on the expiry of 9 months after the date of
+bankruptcy unless, in that 9-month period, an op-
+position to the discharge has been filed or the
+bankru",168.1,statute,,Universal FTS5 search,bankrupt applies for discharge,Based on insolvency domain knowledge base,,
+2025-11-05T14:21:08.159173,What happens when a bankrupt applies for discharge?,,NOT FOUND,N/A,statute,,Universal FTS5 search,bankrupt applies for discharge consequences,Based on insolvency domain knowledge base,,
+2025-11-05T14:21:10.922988,"When a bankrupt applies to court for discharge, what effect does this have on automatic discharge provisions?",,"68 (1) The Superintendent shall, by directive, establish
+in respect of the provinces or one or more bankruptcy
+districts or parts of bankruptcy districts, the standards
+for determining the surplus income of an individual
+bankrupt and the amount that a bankrupt who has sur-
+plus income is required to pay to the estate of the
+bankrupt.
+68 (1) Le surintendant fixe, par instruction, pour les
+provinces ou pour un ou plusieurs districts ou parties de
+(2) The following definitions apply in this section",68,statute,,Universal FTS5 search,automatic discharge ceases to apply,Based on insolvency domain knowledge base,,
+2025-11-05T14:21:18.830939,What provisions apply when a bankrupt applies to court for discharge before automatic discharge date under section 168?,,NOT FOUND,N/A,statute,,Universal FTS5 search,discharge application court 169 170 171 172 173 174 175 176,Based on insolvency domain knowledge base,,
+2025-11-05T14:21:22.613023,What is the discharge hearing and what provisions apply to it?,,"168.2 (1) The following provisions apply in respect of
+oppositions to the automatic discharge of an individual
+bankrupt:
+(a) if the Superintendent opposes the discharge, the
+Superintendent must give notice of the opposition, to-
+gether with the grounds for it, to the trustee and to the
+bankrupt before the automatic discharge would other-
+wise take effect;
+(b) if a creditor opposes the discharge, the creditor
+must give notice of the opposition, together with the
+grounds for it, to the Superintend",168.2,statute,,Universal FTS5 search,discharge hearing section 169,Based on insolvency domain knowledge base,,
+2025-11-05T14:21:28.343406,What are the conditions and grounds for refusing a discharge under BIA section 173?,,NOT FOUND,N/A,statute,,Universal FTS5 search,section 173 grounds refuse discharge,Based on insolvency domain knowledge base,,
+2025-11-05T14:21:31.027492,Court discharge grounds conditions absolute conditional suspended refused,,"168.2 (1) The following provisions apply in respect of
+oppositions to the automatic discharge of an individual
+bankrupt:
+(a) if the Superintendent opposes the discharge, the
+Superintendent must give notice of the opposition, to-
+gether with the grounds for it, to the trustee and to the
+bankrupt before the automatic discharge would other-
+wise take effect;
+(b) if a creditor opposes the discharge, the creditor
+must give notice of the opposition, together with the
+grounds for it, to the Superintend",168.2,statute,,Universal FTS5 search,discharge grounds,Based on insolvency domain knowledge base,,
+2025-11-05T15:08:20.589417,What type of discharge is available to a bankrupt where no facts are proven under BIA s. 173?,,"2 In this Act,
+af/f_idavit includes statutory declaration and solemn af-
+firmation; ( af/f_idavit)
+aircraft objects [Repealed, 2012, c. 31, s. 414]
+application, with respect to a bankruptcy application
+filed in a court in the Province of Quebec, means a mo-
+tion; ( Version anglaise seulement)
+assignment means an assignment filed with the official
+receiver; ( cession)
+bank means
+(a) every bank and every authorized foreign bank
+within the meaning of section 2 of the Bank Act,
+(b) every other membe",2,statute,,Universal FTS5 search,discharge BIA section 173,Based on insolvency domain knowledge base,,
+2025-11-05T15:08:24.222577,"Under BIA section 173, if no facts are proven by the bankrupt, what is the discharge available?",,"2 In this Act,
+af/f_idavit includes statutory declaration and solemn af-
+firmation; ( af/f_idavit)
+aircraft objects [Repealed, 2012, c. 31, s. 414]
+application, with respect to a bankruptcy application
+filed in a court in the Province of Quebec, means a mo-
+tion; ( Version anglaise seulement)
+assignment means an assignment filed with the official
+receiver; ( cession)
+bank means
+(a) every bank and every authorized foreign bank
+within the meaning of section 2 of the Bank Act,
+(b) every other membe",2,statute,,Universal FTS5 search,section 173 absolute discharge no facts proven,Based on insolvency domain knowledge base,,
+2025-11-05T16:53:15.909420,What type of discharge is available to a bankrupt where no facts are proven under BIA s. 173?,,"1 This Act may be cited as the Bankruptcy and Insol-
+vency Act.
+R.S., 1985, c. B-3, s. 1; 1992, c. 27, s. 2.",1,statute,,Universal FTS5 search,discharge BIA 173 bankruptcy,Based on insolvency domain knowledge base,,
+2025-11-05T16:53:19.432355,BIA section 173 absolute discharge suspended discharge prescribed discharge court refuse discharge,,"170.1 (1) If the discharge of a bankrupt individual is
+opposed by a creditor or the trustee solely on grounds re-
+ferred to in either one or both of paragraphs 173(1)(m)
+and (n), the trustee shall send an application for media-
+tion, in the prescribed form, to the official receiver within
+five days after the day on which the bankrupt would have
+been automatically discharged had the opposition not
+been filed or within any further time after that day that
+the official receiver may allow.
+(2) A med",170.1,statute,,Universal FTS5 search,section 173 discharge,Based on insolvency domain knowledge base,,
+2025-11-05T16:53:22.480486,What discharge is available when no facts are proven in bankruptcy proceedings?,,"2 In this Act,
+af/f_idavit includes statutory declaration and solemn af-
+firmation; ( af/f_idavit)
+aircraft objects [Repealed, 2012, c. 31, s. 414]
+application, with respect to a bankruptcy application
+filed in a court in the Province of Quebec, means a mo-
+tion; ( Version anglaise seulement)
+assignment means an assignment filed with the official
+receiver; ( cession)
+bank means
+(a) every bank and every authorized foreign bank
+within the meaning of section 2 of the Bank Act,
+(b) every other membe",2,statute,,Universal FTS5 search,discharge absolute suspended no facts proven,Based on insolvency domain knowledge base,,
+2025-11-05T16:55:49.570483,"What type of discharge is available to a bankrupt where no facts are proven under BIA s. 173? Options: 1. An absolute discharge 2. A suspended discharge for a period of six months 3. A prescribed discharge, upon the payment of a specified amount to the estate 4. The court may refuse the discharge",,"173 (1) The facts referred to in section 172 are:
+(a) the assets of the bankrupt are not of a value equal
+to fifty cents on the dollar on the amount of the
+bankrupt’s unsecured liabilities, unless the bankrupt
+satisfies the court that the fact that the assets are not
+of a value equal to fifty cents on the dollar on the
+
+quante cents par dollar de ses obligations non garan-
+PART VI Bankrupts PARTIE VI Faillis
+Section 173 Article 173
+Current to/uni00A0August/uni00A011, 2025
+Last amended on Decembe",173,statute,,Universal FTS5 search,discharge section 173,Based on insolvency domain knowledge base,,
+2025-11-05T16:56:44.241342,"Under BIA section 172, what type of discharge must the court grant when no facts under section 173 are proven?",,"172 (1) On the hearing of an application of a bankrupt
+for a discharge, other than a bankrupt referred to in sec-
+tion 172.1, the court may
+selon le cas :
+PART VI Bankrupts PARTIE VI Faillis
+Sections 172-172.1 Articles 172-172.1
+Current to/uni00A0August/uni00A011, 2025
+Last amended on December 12, 2024
+(a) grant or refuse an absolute order of discharge;
+(b) suspend the operation of an absolute order of dis-
+charge for a specified time; or
+(c) grant an order of discharge subject to any terms or
+c",172,statute,,Universal FTS5 search,section 172 discharge absolute,Based on insolvency domain knowledge base,,

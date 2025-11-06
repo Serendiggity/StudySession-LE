@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "knowledge-platform": {
+      "command": "python3",
+      "args": [
+        "/ABSOLUTE/PATH/TO/insolvency-knowledge/mcp_server/server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/ABSOLUTE/PATH/TO/insolvency-knowledge"
+      }
+    }
+  }
+}

@@ -1,0 +1,189 @@
+Radiology Imaging Guidelines - Sample Material
+
+1. CHEST X-RAY (CXR)
+
+1.1 Indications
+The radiologist shall order a chest x-ray when the patient presents with:
+- Suspected pneumonia or respiratory infection
+- Persistent cough lasting more than 3 weeks
+- Chest pain or shortness of breath
+- Suspected cardiac abnormality
+
+1.2 Procedure
+The technologist shall position the patient in posterior-anterior (PA) view.
+The patient must hold their breath for 3-5 seconds during exposure.
+Two views are required: PA and lateral.
+
+1.3 Common Findings
+- Consolidation: Indicates possible pneumonia
+- Pleural effusion: Fluid accumulation in pleural space
+- Cardiomegaly: Enlarged heart, cardiothoracic ratio > 0.5
+- Nodules: Require follow-up CT if diameter > 8mm
+
+1.4 Reporting Requirements
+The radiologist must issue a report within 24 hours of imaging.
+For critical findings (pneumothorax, large mass), the radiologist shall notify the referring physician immediately.
+
+
+2. COMPUTED TOMOGRAPHY (CT)
+
+2.1 CT Chest - High Resolution (HRCT)
+
+Indications:
+- Interstitial lung disease
+- Suspected pulmonary embolism (with contrast)
+- Characterization of nodules found on chest x-ray
+
+Procedure:
+The technologist shall administer contrast agent if ordered.
+The patient must lie supine with arms raised above head.
+Slice thickness: 1-2mm for high resolution studies.
+
+Contraindications:
+- Renal insufficiency (eGFR < 30) for contrast studies
+- Pregnancy (relative contraindication)
+- Allergy to iodinated contrast without prophylaxis
+
+Radiation Dose:
+Typical effective dose: 7-8 mSv (chest CT)
+Dose reduction protocols should be used for pediatric patients.
+
+2.2 Findings Requiring Urgent Action
+
+If the radiologist identifies any of the following, they must contact the referring physician within 1 hour:
+- Pulmonary embolism
+- Pneumothorax
+- Large pleural effusion requiring drainage
+- Suspected aortic dissection
+- Large mass with mediastinal invasion
+
+
+3. MAGNETIC RESONANCE IMAGING (MRI)
+
+3.1 MRI Brain
+
+Indications:
+- Suspected stroke or transient ischemic attack
+- Headache with neurological signs
+- Suspected brain tumor or metastasis
+- Multiple sclerosis evaluation
+
+Contraindications:
+- Pacemaker or implantable cardioverter-defibrillator (ICD)
+- Metallic foreign body in eye
+- Cochlear implants (most models)
+- First trimester of pregnancy (relative)
+
+Sequences Required:
+- T1-weighted: Anatomy, hemorrhage
+- T2-weighted: Edema, inflammation
+- FLAIR: White matter lesions
+- DWI: Acute infarction (within 6 hours)
+- Post-contrast T1: Enhancement patterns (tumors, inflammation)
+
+3.2 Reporting Timeline
+The radiologist shall issue preliminary report within 2 hours for suspected stroke.
+Final report must be issued within 24 hours for routine studies.
+
+
+4. ULTRASOUND
+
+4.1 Abdominal Ultrasound
+
+Common Indications:
+- Right upper quadrant pain (suspected gallstones)
+- Hepatomegaly or suspected liver disease
+- Abdominal mass or ascites
+- Renal evaluation
+
+Procedure:
+Patient must fast for 6 hours prior to examination.
+The sonographer shall document liver, gallbladder, pancreas, spleen, kidneys, and aorta.
+
+Common Findings:
+- Cholelithiasis: Gallstones with posterior acoustic shadowing
+- Hepatic steatosis: Bright liver echotexture
+- Renal calculi: Echogenic foci with shadowing
+- Hydronephrosis: Dilated renal collecting system
+
+Follow-up Recommendations:
+If a solid mass is identified, the radiologist should recommend:
+- CT or MRI for further characterization
+- Biopsy if malignancy suspected
+- Follow-up ultrasound in 3-6 months for indeterminate findings
+
+
+5. QUALITY ASSURANCE
+
+5.1 Image Quality Standards
+All images must meet diagnostic quality criteria.
+The radiologist may reject suboptimal studies and request repeat imaging.
+Acceptable repeat rate: < 5% of all examinations.
+
+5.2 Radiation Safety
+The medical physicist shall conduct annual surveys of radiation dose levels.
+Dose reference levels (DRLs) must be established for each examination type.
+Any patient receiving dose > 2x DRL must be documented and reviewed.
+
+
+6. CONTRAST REACTIONS
+
+6.1 Risk Categories
+
+Low Risk (< 1% incidence):
+- Nausea
+- Hives
+- Flushing
+
+Moderate Risk (0.1-1% incidence):
+- Bronchospasm
+- Laryngeal edema
+- Hypotension
+
+High Risk (< 0.01% incidence):
+- Anaphylaxis
+- Cardiac arrest
+- Death
+
+6.2 Management Protocol
+
+For mild reactions:
+- Monitor patient for 30 minutes
+- Administer antihistamines if needed
+
+For moderate reactions:
+- Notify physician immediately
+- Administer epinephrine 0.3mg IM if bronchospasm
+- Supplemental oxygen
+
+For severe reactions:
+- Activate emergency response team
+- Administer epinephrine 1mg IV
+- Initiate CPR if needed
+- Transfer to emergency department
+
+
+7. CROSS-SECTIONAL IMAGING COMPARISON
+
+Modality Selection Guidelines:
+
+Chest Imaging:
+- Initial evaluation: Chest X-ray
+- Pulmonary embolism: CT angiography
+- Mediastinal mass: CT or MRI
+- Cardiac: MRI or Echocardiography
+
+Abdominal Imaging:
+- Initial RUQ pain: Ultrasound
+- Trauma: CT
+- Liver lesion characterization: MRI
+- Appendicitis: CT (adults), Ultrasound (pediatric)
+
+Neurological Imaging:
+- Acute stroke: CT head (initial), MRI (follow-up)
+- Multiple sclerosis: MRI brain and spine
+- Headache: MRI if neurological signs, otherwise CT
+- Trauma: CT
+
+
+END OF SAMPLE MATERIAL

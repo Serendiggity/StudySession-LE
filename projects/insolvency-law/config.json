@@ -1,0 +1,130 @@
+{
+  "project_name": "Insolvency Law",
+  "project_id": "insolvency-law",
+  "created_at": "2025-01-05T00:00:00Z",
+  "description": "Canadian Bankruptcy and Insolvency Act study materials",
+
+  "subject_area": "law",
+  "domain": "insolvency",
+
+  "domain_terminology": {
+    "primary_content_table": "bia_sections",
+    "hierarchy_table": "bia_parts",
+    "hierarchy_levels": ["Part", "Section", "Subsection"],
+    "reference_format": "§{section_number}",
+    "reference_prefix": "BIA",
+    "source_type": "statute",
+    "answer_format": "legal_sidebar",
+    "tracking_prefix": "exam"
+  },
+
+  "entity_schema": {
+    "categories": [
+      {
+        "name": "actors",
+        "attributes": ["role_canonical", "extraction_text"],
+        "description": "Roles that perform actions in insolvency proceedings"
+      },
+      {
+        "name": "procedures",
+        "attributes": ["step_name", "action"],
+        "description": "Actions and processes in insolvency law"
+      },
+      {
+        "name": "deadlines",
+        "attributes": ["timeframe", "trigger_event"],
+        "description": "Time constraints and deadlines"
+      },
+      {
+        "name": "consequences",
+        "attributes": ["outcome", "severity"],
+        "description": "Results, penalties, and outcomes"
+      },
+      {
+        "name": "documents",
+        "attributes": ["document_name_canonical", "form_number"],
+        "description": "Required forms and documents"
+      },
+      {
+        "name": "concepts",
+        "attributes": ["definition"],
+        "description": "Legal concepts and definitions"
+      },
+      {
+        "name": "statutory_references",
+        "attributes": ["reference_text"],
+        "description": "Citations to sections, acts, regulations"
+      }
+    ],
+    "relationship_types": [
+      {
+        "name": "duty_relationships",
+        "structure": "actor → procedure → deadline → consequence",
+        "critical_field": "relationship_text",
+        "description": "Links actors to their duties with original BIA text"
+      },
+      {
+        "name": "document_requirements",
+        "structure": "procedure → document",
+        "description": "Links procedures to required documents"
+      },
+      {
+        "name": "trigger_relationships",
+        "structure": "trigger_entity → consequence",
+        "description": "Links triggering conditions to consequences"
+      }
+    ]
+  },
+
+  "sources": [
+    {
+      "source_id": 2,
+      "name": "BIA Statute",
+      "type": "statute",
+      "enabled": true,
+      "file_path": "../../sources/bia_statute/",
+      "tags": ["primary", "statutory"],
+      "extraction_status": "complete",
+      "entities_extracted": 8234,
+      "relationships_extracted": 1047
+    },
+    {
+      "source_id": 3,
+      "name": "Study Materials - Insolvency Administration",
+      "type": "study",
+      "enabled": true,
+      "file_path": "../../sources/study_material/",
+      "tags": ["study", "comprehensive"],
+      "extraction_status": "complete",
+      "entities_extracted": 5545,
+      "relationships_extracted": 1123
+    },
+    {
+      "source_id": 4,
+      "name": "OSB Directives",
+      "type": "directive",
+      "enabled": true,
+      "file_path": "../../sources/osb_directives/",
+      "tags": ["regulatory", "supplementary"],
+      "extraction_status": "partial",
+      "entities_extracted": 0,
+      "relationships_extracted": 0
+    }
+  ],
+
+  "database_path": "database/knowledge.db",
+
+  "agent_config": {
+    "search_phases": ["database", "full_text", "study_materials", "directives", "web"],
+    "auto_follow_references": true,
+    "answer_format": "sidebar",
+    "logging_enabled": true
+  },
+
+  "statistics": {
+    "total_entities": 13779,
+    "total_relationships": 2170,
+    "total_questions_answered": 25,
+    "average_query_time_ms": 12
+  }
+}

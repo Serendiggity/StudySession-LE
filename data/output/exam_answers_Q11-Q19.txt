@@ -1,0 +1,120 @@
+INSOLVENCY EXAM QUESTIONS - ANSWERS (Q11, Q15-Q19)
+
+┌─ Q11: If all the members of an unlimited partnership decide to file an assignment in bankruptcy, who will execute the assignment documents?
+│
+├─ A: ⚠️  INSUFFICIENT INFORMATION FOUND
+│
+├─ Evidence Found:
+│   • Directive 16R: "Where a partnership is involved, a Statement of Affairs must be prepared for the business as well as for each of the partners making an assignment."
+│   • BIA Section 49(1): "An insolvent person...may make an assignment"
+│   • BIA Section 2: "person includes a partnership"
+│
+├─ Analysis: Directive 16R states "each of the partners making an assignment" (plural), suggesting all partners make assignments. However, NO DIRECT QUOTE found stating WHO SIGNS the assignment documents.
+│
+├─ Most Likely Answer: All the partners are required to sign all the assignment documents
+│   (Based on "each of the partners making an assignment" language)
+│
+├─ Source Searched:
+│   ✓ Database (v_complete_duties, bia_sections)
+│   ✓ BIA Statute (Sections 2, 49, 85)
+│   ✓ Directive 16R
+│   ✓ Study Materials (full text)
+│   ✗ BIA Rules PDF (no clear quote extracted)
+│
+└─ Status: PROBABLE but NOT DEFINITIVELY QUOTED
+
+***
+
+┌─ Q15: The trustee is required to publish the Notice of Bankruptcy and First Meeting of Creditors in a local newspaper. What is the purpose of this publication of the notice?
+│
+├─ A: ✅ To inform the general public with whom the debtor is dealing that he is no longer operating
+│
+├─ Quote: "The notice also explains the bankrupt's legal status to anyone who may do business with him."
+│
+├─ Full Context: "At least five days before the meeting (in an ordinary bankruptcy), the Trustee must publish a notice in the local newspaper announcing details of the meeting. This is for the benefit of any other creditors who may have been omitted from the list in the Statement of Affairs. The notice also explains the bankrupt's legal status to anyone who may do business with him."
+│
+├─ Why: The quote directly states the notice "explains the bankrupt's legal status to anyone who may do business with him" - this matches answer choice about informing general public with whom debtor is dealing. Primary purpose is to inform those who might deal with the bankrupt of their legal status.
+│
+├─ Cross-Refs: BIA §102(4) (publication requirement)
+│
+└─ Source: Insolvency Administration Course Material - Section 10.3.8 (study materials)
+
+***
+
+┌─ Q16/Q19: The trustee is required to publish the Notice of Bankruptcy and First Meeting of Creditors in a local newspaper. Which of the following are prescribed standards for the publication?
+│
+├─ A: ❌ NOT FOUND IN AVAILABLE SOURCES
+│
+├─ Evidence Found:
+│   • BIA §102(4): "A notice in the prescribed form shall...be published in a local newspaper"
+│   • Study Materials: "the Trustee must publish a notice in the local newspaper"
+│
+├─ Analysis: BIA refers to "prescribed form" which would be in BIA Rules or a Form, but specific standards about:
+│   - Trustee logo inclusion
+│   - 2x2 column size
+│   - One column width
+│   - Reasons for meeting
+│   ...were NOT FOUND in searched sources
+│
+├─ Sources Searched:
+│   ✓ BIA Statute §102
+│   ✓ Study Materials (full text search)
+│   ✓ Database
+│   ✓ BIA General Rules (partial)
+│   ⚠️  BIA Rules PDF C.R.C., c. 368 (unable to extract text clearly)
+│   ⚠️  Form 79 (not found in available files)
+│
+├─ Likely Source: BIA General Rules - Form 79 (Notice of Bankruptcy) would contain these standards
+│
+└─ Next Step: Need to extract Form 79 from BIA Rules PDF or obtain from OSB website
+
+***
+
+┌─ Q17: The trustee is required to publish the Notice of Bankruptcy and First Meeting of Creditors in a local newspaper. Which one of the following is included in the definition of a newspaper?
+│
+├─ A: ❌ NOT FOUND IN AVAILABLE SOURCES
+│
+├─ Evidence Found:
+│   • BIA §102(4): References "local newspaper" but no definition found
+│   • BIA §2 (Definitions): Does not define "newspaper"
+│
+├─ Analysis: While BIA uses term "local newspaper" and "newspaper", no definition of what constitutes a newspaper was found in:
+│   - BIA Section 2 (Definitions)
+│   - BIA General Rules
+│   - Study Materials
+│
+├─ Answer Choices Analysis (without source):
+│   - Magazine: Unlikely (periodical, not newspaper)
+│   - Weekly newspaper published locally: MOST LIKELY (fits "local newspaper")
+│   - Specialized publication: Unlikely
+│   - Weekend edition: Possible
+│
+├─ Sources Searched:
+│   ✓ BIA §2 (Definitions)
+│   ✓ BIA §102
+│   ✓ Study Materials
+│   ✓ Database
+│   ⚠️  BIA General Rules (partial - definition not found)
+│
+├─ Likely Source: BIA General Rules - Interpretation section or Form 79 notes
+│
+└─ Next Step: Need full BIA General Rules text or Directive on publication requirements
+
+***
+
+SUMMARY OF SEARCH RESULTS:
+
+Found with Direct Quote: 1/5 questions
+- Q15: ✅ ANSWERED (study materials quote)
+
+Found with Strong Evidence: 1/5 questions
+- Q11: ⚠️  PROBABLE (Directive 16R suggests all partners, but no direct quote on signing)
+
+Not Found: 3/5 questions
+- Q16/Q19: ❌ Publication standards (likely in Form 79 - not accessible)
+- Q17: ❌ Definition of newspaper (likely in BIA General Rules - not in excerpt)
+
+Required Next Steps:
+1. Extract full text from BIA Rules PDF (C.R.C., c. 368)
+2. Locate Form 79 (Notice of Bankruptcy)
+3. Check for OSB directive on publication requirements

@@ -1,0 +1,118 @@
+<mxfile host="app.diagrams.net" modified="2025-01-04T00:00:00.000Z" agent="Claude" version="22.1.0" type="device">
+  <diagram name="Key Innovation - relationship_text" id="key-innovation">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- EXTRACTION SUBGRAPH -->
+        <mxCell id="extraction-container" value="During Extraction" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff4ce;strokeColor=#f59e0b;strokeWidth=2;fontSize=14;fontStyle=1;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="600" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- BIA Section Node -->
+        <mxCell id="bia-section" value="BIA Section 50.4(1):&lt;br&gt;&lt;br&gt;'The insolvent person shall, within&lt;br&gt;10 days after filing, submit cash flow'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5ff;strokeColor=#0078d4;strokeWidth=2;fontSize=12;align=center;" vertex="1" parent="extraction-container">
+          <mxGeometry x="40" y="60" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- AI Analyzes Node -->
+        <mxCell id="ai-analyze" value="Gemini AI analyzes section" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#3b82f6;strokeWidth=2;fontSize=12;align=center;" vertex="1" parent="extraction-container">
+          <mxGeometry x="320" y="60" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Entities Node -->
+        <mxCell id="entities" value="Extracts entities:&lt;br&gt;&lt;br&gt;Actor: insolvent person&lt;br&gt;Procedure: submit cash flow&lt;br&gt;Deadline: 10 days after filing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#3b82f6;strokeWidth=2;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="extraction-container">
+          <mxGeometry x="40" y="180" width="240" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Relationship Node (Critical) -->
+        <mxCell id="relationship" value="Creates relationship record&lt;br&gt;&lt;br&gt;Links: actor_id + procedure_id + deadline_id&lt;br&gt;&lt;br&gt;★ STORES ORIGINAL TEXT ★&lt;br&gt;&lt;br&gt;relationship_text: 'The insolvent person&lt;br&gt;shall, within 10 days after filing,&lt;br&gt;submit cash flow'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;strokeWidth=3;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="extraction-container">
+          <mxGeometry x="320" y="180" width="240" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows in Extraction -->
+        <mxCell id="arrow-bia-ai" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#333333;endArrow=classic;endFill=1;" edge="1" parent="extraction-container" source="bia-section" target="ai-analyze">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow-ai-entities" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#333333;endArrow=classic;endFill=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="extraction-container" source="ai-analyze" target="entities">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="160" />
+              <mxPoint x="160" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-entities-relationship" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#333333;endArrow=classic;endFill=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="extraction-container" source="entities" target="relationship">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- QUERY SUBGRAPH -->
+        <mxCell id="query-container" value="During Query" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fce7f3;strokeColor=#db2777;strokeWidth=2;fontSize=14;fontStyle=1;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="760" y="40" width="600" height="380" as="geometry" />
+        </mxCell>
+
+        <!-- Question Node -->
+        <mxCell id="question" value="User: When must debtor&lt;br&gt;submit cash flow?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5ff;strokeColor=#0078d4;strokeWidth=2;fontSize=12;align=center;" vertex="1" parent="query-container">
+          <mxGeometry x="40" y="60" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- SQL Query Node -->
+        <mxCell id="sql" value="SELECT relationship_text, bia_section&lt;br&gt;FROM v_complete_duties&lt;br&gt;WHERE procedure LIKE '%cash flow%'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#3b82f6;strokeWidth=2;fontSize=11;align=left;spacingLeft=10;fontFamily=Courier New;" vertex="1" parent="query-container">
+          <mxGeometry x="320" y="60" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Quote Node (Critical) -->
+        <mxCell id="quote" value="Returns direct quote:&lt;br&gt;&lt;br&gt;'The insolvent person shall,&lt;br&gt;within 10 days after filing,&lt;br&gt;submit cash flow' §50.4(1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;strokeWidth=3;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="query-container">
+          <mxGeometry x="40" y="180" width="240" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Answer Node -->
+        <mxCell id="answer" value="Formatted answer with:&lt;br&gt;&lt;br&gt;✅ Direct BIA quote&lt;br&gt;✅ Section reference&lt;br&gt;✅ No paraphrasing&lt;br&gt;✅ Zero hallucination" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1fae5;strokeColor=#059669;strokeWidth=2;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="query-container">
+          <mxGeometry x="320" y="180" width="240" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows in Query -->
+        <mxCell id="arrow-question-sql" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#333333;endArrow=classic;endFill=1;" edge="1" parent="query-container" source="question" target="sql">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow-sql-quote" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#333333;endArrow=classic;endFill=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="query-container" source="sql" target="quote">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="160" />
+              <mxPoint x="160" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow-quote-answer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#333333;endArrow=classic;endFill=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="query-container" source="quote" target="answer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Cross-diagram dotted arrow (relationship_text enables source-grounded answers) -->
+        <mxCell id="arrow-relationship-sql" value="Enables&lt;br&gt;source-grounded&lt;br&gt;answers" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#f59e0b;endArrow=classic;endFill=1;dashed=1;dashPattern=8 8;fontSize=11;fontColor=#f59e0b;fontStyle=1;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="relationship" target="sql">
+          <mxGeometry x="-0.1" y="20" relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="720" y="340" />
+              <mxPoint x="720" y="140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Title -->
+        <mxCell id="title" value="Key Innovation: relationship_text Field" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="460" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Subtitle -->
+        <mxCell id="subtitle" value="Storing the original BIA sentence enables zero-hallucination answers" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="400" y="500" width="600" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
