@@ -1,0 +1,202 @@
+@startuml
+title Division I Proposal - Main Path Swimlane
+
+skinparam backgroundColor white
+skinparam swimlaneWidth 220
+skinparam ActivityFontSize 12
+skinparam NoteFontSize 11
+skinparam ArrowFontSize 11
+
+|👤 Insolvent Person|
+start
+:Consult trustee;
+:File Notice of Intention
+**Day 0** (optional);
+note right
+  **BIA §50.4:** Optional NOI for 30+ days protection
+  **Stay begins immediately:** §69.1
+  Gives time to prepare proposal
+  ----
+  //"Before filing a copy of a proposal//
+  //...an insolvent person may file a//
+  //notice of intention" (§50.4(1))//
+end note
+
+|💼 Trustee|
+:Prepare cash flow + reports
+**Within 10 days** (if NOI);
+note right
+  **BIA §50.4(2):** If NOI filed, required:
+  - Cash flow statement (monthly)
+  - Trustee report on reasonableness
+  - Debtor report on preparation
+end note
+
+:Prepare proposal
+**Within 30 days** of NOI;
+note right
+  **BIA §50.4(8):** File within 30 days
+  Can apply for extensions (max 5 months total)
+  **If missed:** Deemed assignment (auto bankruptcy)
+end note
+
+:File proposal with OR
+**BIA §62(1)**;
+note right
+  **BIA §62:** File with Official Receiver
+  - Proposal document
+  - Statement of affairs
+  - Cash flow (if NOI filed)
+end note
+
+|🏛️ Official Receiver|
+:Receive proposal;
+
+|💼 Trustee|
+:Call meeting of creditors
+**BIA §51**;
+note right
+  **BIA §51:** Meeting always required
+  (Unlike consumer proposal where deemed acceptance possible)
+end note
+
+:Send notice **≥10 days before**;
+
+|💰 Creditors|
+:Receive notice;
+:File proofs of claim;
+:Attend meeting;
+
+:Vote on proposal;
+note right
+  **BIA §54(2)(d):** Vote by class
+  **Required for acceptance:**
+  - Majority in NUMBER, AND
+  - Two-thirds in VALUE
+  (of each unsecured class voting)
+  ----
+  //"the proposal is deemed to be accepted//
+  //...by a majority in number and two//
+  //thirds in value of the unsecured//
+  //creditors of each class present"//
+end note
+
+if (Accepted?) then (YES)
+  :ACCEPTED;
+else (NO)
+  :REFUSED;
+
+  |👤 Insolvent Person|
+  :DEEMED ASSIGNMENT
+  Auto bankruptcy §57;
+  note right
+    **BIA §57(a):** Refusal = auto bankruptcy
+    (Unlike consumer proposal)
+    ----
+    //"the insolvent person is deemed//
+    //to have thereupon made an assignment"//
+  end note
+  stop
+endif
+
+|💼 Trustee|
+:Apply to court
+**Within 5 days** §58;
+note right
+  **BIA §58(a):** Trustee applies within 5 days
+  For court hearing appointment
+end note
+
+:Send hearing notice
+**≥15 days before**;
+note right
+  **BIA §58(b):** Notice to:
+  - Debtor, proven creditors, OR
+  At least 15 days before hearing
+end note
+
+:File report with court
+**≥10 days before**;
+note right
+  **BIA §58(c-d):** Trustee's report on:
+  - Proposal terms
+  - Debtor's conduct
+  To OR at least 10 days before
+end note
+
+|⚖️ Court|
+:Hold hearing;
+note right
+  **BIA §59(1):** Court hears:
+  - Trustee
+  - Debtor
+  - Opposing creditors
+  - All evidence required
+end note
+
+:Review reasonableness;
+
+if (Terms reasonable & benefit creditors?) then (YES)
+  :APPROVE §59;
+  note right
+    **BIA §59(5):** Court may approve
+    Proposal becomes binding §62(2)
+  end note
+else (NO)
+  :REFUSE §59(2);
+  note right
+    **BIA §59(2):** Court SHALL refuse if:
+    - Terms not reasonable
+    - Won't benefit creditors
+  end note
+  stop
+endif
+
+|👤 Insolvent Person|
+:Perform proposal terms;
+
+|💼 Trustee|
+:Receive payments;
+:Distribute to creditors §60(2);
+note right
+  **BIA §60(2):** All payments to trustee
+  Trustee distributes to creditors
+  ----
+  //"All moneys payable under the//
+  //proposal shall be paid to the//
+  //trustee and...shall be distributed//
+  //by him to the creditors"//
+end note
+
+|💰 Creditors|
+:Receive dividends;
+
+|💼 Trustee|
+:Proposal fully performed;
+
+:Issue Certificate
+**BIA §65.3**;
+note right
+  **BIA §65.3:** Trustee issues certificate
+  To: Debtor + Official Receiver
+  ----
+  //"Where a proposal is fully performed,//
+  //the trustee shall give a certificate//
+  //to that effect...to the debtor and//
+  //to the official receiver"//
+end note
+
+|👤 Insolvent Person|
+:Receive certificate;
+:Obligations complete;
+
+|💼 Trustee|
+:Prepare final accounting;
+:Apply to court for discharge;
+
+|⚖️ Court|
+:Discharge trustee;
+
+stop
+
+@enduml

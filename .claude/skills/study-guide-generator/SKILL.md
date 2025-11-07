@@ -156,13 +156,31 @@ stop
 @enduml
 ```
 
-**Rich annotation example:**
+**MANDATORY note format with statutory quotes:**
 ```plantuml
 |💼 Administrator|
 :Send notice package
 **Within 10 days**;
-note right: BIA §66.14(b)\n**Forms included:**\n- Form 31: Proof of Claim\n- Form 37.1: Voting Letter\n- Form 49: Explanatory Notice\n**Purpose:** Inform all creditors\n**Consequence:** Proposal may fail
+note right
+  **BIA §66.14(b) Package:**
+  - Form 31: Proof of Claim (blank)
+  - Form 37.1: Voting Letter
+  - Form 49: Explanatory Notice
+  **Purpose:** Notify every known creditor
+  ----
+  //"send to every known creditor,//
+  //in the prescribed form and manner..."//
+end note
 ```
+
+**Note format rules:**
+- Use `note right` ... `end note` (multi-line)
+- Practical explanation ABOVE separator
+- `----` separator line
+- `//Italic statutory quote//` BELOW separator
+- Always cite source (BIA §X.X) or (Directive YRZ) or (CAIRP Source X.X.X)
+- Include form numbers, deadlines, consequences
+
 
 3. **Convert to SVG via Kroki:**
 ```python

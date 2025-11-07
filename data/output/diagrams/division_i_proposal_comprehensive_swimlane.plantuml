@@ -1,0 +1,357 @@
+@startuml
+title Division I Proposal Process - Complete Swimlane
+
+skinparam backgroundColor white
+skinparam swimlaneWidth 200
+skinparam ActivityFontSize 12
+skinparam NoteFontSize 11
+skinparam ArrowFontSize 11
+
+|👤 Insolvent Person/Debtor|
+start
+:Consult trustee;
+note right
+  Optional but recommended
+  Assess viability of proposal
+
+:Decide: NOI or direct proposal?;
+
+if (File NOI first?) then (YES - More time)
+  :File Notice of Intention
+  **Day 0**;
+  note right
+    **BIA §50.4(1):** File NOI with OR
+    **Forms:** Notice + Trustee consent
+    **Effect:** Immediate stay (§69.1)
+    ----
+    //"an insolvent person may file a//
+    //notice of intention...stating the//
+    //insolvent person's intention to//
+    //make a proposal"//
+  end note
+
+  |💼 Trustee|
+  :Named in NOI;
+  :Prepare cash flow statement
+  **Within 10 days**;
+  note right
+    **BIA §50.4(2):** Required documents
+    - Cash flow statement (monthly basis)
+    - Trustee report on reasonableness
+    - Debtor report on preparation
+    **Deadline:** Within 10 days of NOI
+  end note
+
+  |🏛️ Official Receiver|
+  :Receive NOI + documents;
+  note right
+    **BIA §69.1:** Stay begins immediately
+    🛡️ Creditors cannot sue/enforce
+
+  |💼 Trustee|
+  :Monitor debtor's business
+  **Days 1-30**;
+  note right
+    **BIA §50.4(7):** Trustee must monitor
+    Report material adverse changes
+    Access to premises, books, records
+  end note
+
+  :Prepare proposal
+  **Within 30 days**
+  (or extension);
+  note right
+    **BIA §50.4(8-9):** File within 30 days
+    OR apply to court for extension
+    **Max extensions:** 45 days each
+    **Total max:** 5 months aggregate
+    ----
+    //"the trustee fails to file a proposal//
+    //...within a period of thirty days...//
+    //the insolvent person is...deemed to//
+    //have...made an assignment" (§50.4(8))//
+  end note
+
+else (NO - Direct proposal)
+  |👤 Insolvent Person/Debtor|
+  :Prepare proposal directly;
+endif
+
+|💼 Trustee|
+:File proposal with OR
+**BIA §62(1)**;
+note right
+  **BIA §62:** File with Official Receiver
+  - Copy of proposal
+  - Statement of affairs
+  - Cash flow statement (if NOI path)
+end note
+
+if (Debtor is bankrupt?) then (YES)
+  |👥 Inspectors|
+  :Review and approve proposal
+  **BIA §50(3)**;
+  note right
+    **BIA §50(3):** MANDATORY
+    Inspectors must approve before
+    any further action
+    ----
+    //"A proposal made in respect of a//
+    //bankrupt shall be approved by the//
+    //inspectors before any further//
+    //action is taken thereon"//
+  end note
+else (NO - just insolvent)
+  |💼 Trustee|
+  :Proceed without inspectors;
+endif
+
+|🏛️ Official Receiver|
+:Receive proposal;
+:Review documents;
+
+|💼 Trustee|
+:Call meeting of creditors
+**BIA §51**;
+note right
+  **BIA §51(1):** Meeting required
+  Trustee must call meeting
+  to consider proposal
+  **Timeline:** Within reasonable time
+end note
+
+:Send notice to creditors
+**At least 10 days before**;
+note right
+  **BIA §51:** Notice requirements
+  At least 10 days before meeting
+  Send to all known creditors
+end note
+
+|💰 Creditors|
+:Receive notice;
+:File proofs of claim;
+:Attend meeting
+(in person or proxy);
+
+if (Trustee/creditors request?) then (YES)
+  |💼 Trustee|
+  :Meeting adjourned
+  **BIA §52**;
+  note right
+    **BIA §52:** Adjournment allowed for:
+    (a) Further appraisal/investigation
+    (b) Examination under oath of debtor
+  end note
+
+  :Examine debtor under oath;
+
+  |💰 Creditors|
+  :Review additional info;
+  :Reconvene meeting;
+endif
+
+|💰 Creditors|
+:Vote on proposal;
+note right
+  **BIA §54(2)(d):** Vote by class
+  **Required:** Majority in number AND
+  two-thirds in value of unsecured
+  creditors (per class)
+  ----
+  //"accepted...by a majority in//
+  //number and two thirds in value//
+  //of the unsecured creditors of//
+  //each class present"//
+end note
+
+if (Vote passes?) then (YES - Accepted)
+  |💼 Trustee|
+  :Proposal ACCEPTED;
+  note right
+    **BIA §54(2)(d):**
+    All unsecured classes must pass
+  end note
+
+else (NO - Refused)
+  |💼 Trustee|
+  :Proposal REFUSED;
+  note right
+    **BIA §57:** Automatic consequences
+  end note
+
+  |👤 Insolvent Person/Debtor|
+  :DEEMED ASSIGNMENT
+  (automatic bankruptcy);
+  note right
+    **BIA §57(a):** Unlike consumer proposals,
+    Division I refusal = AUTO BANKRUPTCY
+    ----
+    //"Where the creditors refuse a//
+    //proposal...the insolvent person//
+    //is deemed to have thereupon//
+    //made an assignment"//
+  end note
+
+  |🏛️ Official Receiver|
+  :Issue certificate of assignment;
+  stop
+endif
+
+|💼 Trustee|
+:Apply to court for approval
+**Within 5 days**
+**BIA §58**;
+note right
+  **BIA §58(a):** Trustee must apply
+  within 5 days after acceptance
+  for court hearing appointment
+end note
+
+:Send notice of hearing
+**At least 15 days before**;
+note right
+  **BIA §58(b):** Send to:
+  - Debtor
+  - Every proven creditor
+  - Person making proposal
+  - Official Receiver
+  **Timing:** 15 days before hearing
+end note
+
+:File report with court
+**At least 10 days before**;
+note right
+  **BIA §58(c-d):** Trustee's report
+  on proposal terms and debtor conduct
+  To OR at least 10 days before hearing
+end note
+
+|⚖️ Court|
+:Hear proposal application;
+note right
+  **BIA §59(1):** Court hears:
+  - Trustee's report
+  - Trustee
+  - Debtor
+  - Person making proposal
+  - Opposing creditors
+  - Any evidence court requires
+end note
+
+:Review terms;
+
+if (Terms reasonable?) then (NO)
+  :REFUSE approval
+  **BIA §59(2)**;
+  note right
+    **BIA §59(2):** Court SHALL refuse if:
+    - Terms not reasonable
+    - Not calculated to benefit creditors
+    **MAY refuse if:** Debtor committed
+    offenses (§§198-200)
+  end note
+  stop
+endif
+
+if (§173 facts proven?) then (YES)
+  :Require security
+  ≥50 cents on dollar
+  **BIA §59(3)**;
+  note right
+    **BIA §59(3):** If §173 facts proven,
+    court SHALL refuse UNLESS proposal
+    provides reasonable security for
+    payment of ≥50¢ on dollar
+    ----
+    //"Where any of the facts mentioned//
+    //in section 173 are proved...the//
+    //court shall refuse to approve...//
+    //unless it provides reasonable//
+    //security for...not less than//
+    //fifty cents on the dollar"//
+  end note
+endif
+
+:APPROVE proposal
+**BIA §59(5)**;
+note right
+  **BIA §59(5):** Court may approve
+  Subject to subsections (1)-(3)
+  **Effect:** Proposal becomes binding
+end note
+
+|💼 Trustee|
+:Receive court approval;
+
+|👤 Insolvent Person/Debtor|
+:Perform proposal terms;
+note right
+  **Duration:** No statutory maximum
+  (unlike consumer proposal 5-year max)
+  **Terms:** As specified in proposal
+end note
+
+|💼 Trustee|
+:Receive payments from debtor;
+:Distribute dividends to creditors;
+note right
+  **BIA §60(2):** All payments to trustee
+  Trustee distributes after fees/expenses
+end note
+
+|💰 Creditors|
+:Receive periodic dividends;
+
+repeat
+  |👤 Insolvent Person/Debtor|
+  :Make payments per proposal;
+
+  |💼 Trustee|
+  :Receive & hold;
+  :Distribute to creditors;
+
+  |💰 Creditors|
+  :Receive dividend;
+
+repeat while (Proposal complete?) is (no) not (yes)
+
+|💼 Trustee|
+:Verify all terms performed;
+
+:Issue Certificate
+**BIA §65.3**;
+note right
+  **BIA §65.3:** Trustee issues certificate
+  **Form:** Prescribed form
+  **Sent to:** Debtor + Official Receiver
+  ----
+  //"Where a proposal is fully performed,//
+  //the trustee shall give a certificate//
+  //to that effect...to the debtor and//
+  //to the official receiver"//
+end note
+
+|👤 Insolvent Person/Debtor|
+:Receive certificate;
+:Obligations complete;
+
+|🏛️ Official Receiver|
+:Receive certificate;
+
+|💼 Trustee|
+:Prepare final accounting;
+:Apply to court for discharge;
+note right
+  **Division I:** Trustee discharge
+  Similar to bankruptcy trustee discharge
+  Court approval required
+end note
+
+|⚖️ Court|
+:Review trustee's administration;
+:Discharge trustee;
+
+stop
+
+@enduml
