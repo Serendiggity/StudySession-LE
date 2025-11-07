@@ -16,10 +16,13 @@ from typing import Dict, List, Any, Optional
 # Add shared/src to path
 repo_root = Path(__file__).parent.parent
 sys.path.insert(0, str(repo_root / "shared" / "src"))
-sys.path.insert(0, str(repo_root / "src"))
+# NOTE: Do NOT add src/ to path - causes import conflicts with shared/src/extraction
 
 from project import ProjectManager, Project
 from extraction import SourceManager, ExtractionRunner, DatabaseLoader
+
+# Add src/ to path AFTER shared imports for other modules
+sys.path.insert(0, str(repo_root / "src"))
 
 # Import new modules for Tier 1 features
 from analysis.coverage_analyzer import CoverageAnalyzer

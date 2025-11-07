@@ -40,7 +40,18 @@ note right: ****Form 51**:**\nAdministrator's Report to Creditors\n**Contains:**
 :Send notice package
 to ALL creditors
 **Within 10 days**;
-note right: ****BIA §66.14**(b) Package:**\n- **Form 31**: Proof of Claim (blank)\n- **Form 37.1**: Voting Letter\n- **Form 49**: Explanatory Notice\n- Copy of proposal\n- Copy of **Form 51**\n**Purpose:** Notify every known creditor
+note right
+  **BIA §66.14(b) Package:**
+  - **Form 31**: Proof of Claim (blank)
+  - **Form 37.1**: Voting Letter
+  - **Form 49**: Explanatory Notice
+  - Copy of proposal
+  - Copy of **Form 51**
+  **Purpose:** Notify every known creditor
+  ----
+  //"send to every known creditor,//
+  //in the prescribed form and manner..."//
+end note
 
 |💰 Creditors|
 :Receive notice package
@@ -62,7 +73,18 @@ if (≥25% requested?) then (YES - Meeting required)
   |💼 Administrator|
   :Call meeting + Send notice
   **Day 45**;
-  note right: **BIA §66.15(2)(b):** CALL meeting\nat expiration of 45-day period\n\n**BIA §66.15(3):** Send notice\nat least 10 days before meeting\n\n**BIA §66.15(2):** Meeting HELD\nwithin 21 days after called
+  note right
+    **BIA §66.15(2)(b):** CALL meeting at expiration of 45-day period
+    **BIA §66.15(3):** Send notice at least 10 days before meeting
+    **BIA §66.15(2):** Meeting HELD within 21 days after called
+    ----
+    //"at the expiration of the forty-five day//
+    //period...if at that time creditors having//
+    //in the aggregate at least twenty-five per//
+    //cent in value of the proven claims have so//
+    //requested...must be held within twenty-one//
+    //days after being called"//
+  end note
 
   |💰 Creditors|
   :Attend meeting
@@ -73,7 +95,14 @@ if (≥25% requested?) then (YES - Meeting required)
     :Vote on proposal
     Simple majority
     $1 = 1 vote;
-    note right: **BIA §66.19**\nOrdinary resolution
+    note right
+      **BIA §66.19(1):** Ordinary resolution required
+      Simple majority of creditors voting
+      ----
+      //"the creditors may by ordinary//
+      //resolution, voting all as one class,//
+      //accept or refuse the consumer proposal"//
+    end note
 
     if (>50% vote YES?) then (YES - Majority approves)
       |💼 Administrator|
@@ -88,27 +117,67 @@ if (≥25% requested?) then (YES - Meeting required)
       :Notify all parties
       **Within 5 days**
       §66.27;
-      note right: ****BIA §66.27**:**\nAdministrator must notify:\n- Consumer debtor\n- Every known creditor\n- Official Receiver\n**Deadline:** 5 days after refusal\n**Consequence:** Creditor rights\nrevived §66.32(2)
+      note right
+        **BIA §66.27:** Administrator must notify:
+        - Consumer debtor
+        - Every known creditor
+        - Official Receiver
+        **Deadline:** 5 days after refusal
+        **Consequence:** Creditor rights revived §66.32(2)
+        ----
+        //"The administrator shall, within five//
+        //days after...the refusal of a consumer//
+        //proposal by the creditors...notify...the//
+        //consumer debtor, every known creditor//
+        //and the official receiver"//
+      end note
       stop
     endif
   else (NO - No quorum)
     |💼 Administrator|
     :DEEMED ACCEPTED;
-    note right: **BIA §66.18**(2)\nDir 22R4\nUnique to consumer proposals!
+    note right
+      **BIA §66.18(2):** No quorum = deemed accepted
+      **Dir 22R4:** Unique to consumer proposals!
+      ----
+      //"Where there is no quorum at a//
+      //meeting of creditors, the consumer//
+      //proposal shall be deemed to be//
+      //accepted by the creditors"//
+    end note
   endif
 else (NO - Less than 25%)
   |💼 Administrator|
   :DEEMED ACCEPTED
   **Day 45**;
-  note right: **BIA §66.18**(1)\nNo meeting needed
+  note right
+    **BIA §66.18(1):** Deemed accepted after 45 days
+    No meeting needed
+    ----
+    //"at the expiration of the forty-five//
+    //day period...no obligation has arisen//
+    //...to call a meeting of creditors,//
+    //the consumer proposal is deemed to be//
+    //accepted by the creditors"//
+  end note
 endif
 
 |💼 Administrator|
 :Report acceptance to OR;
+note right: Acceptance date varies:\n- **Day 45** if deemed accepted\n- **Days 55-66** if meeting held
 
 |🏛️ Official Receiver|
-:Monitor compliance
-**Days 46-60**;
+:Monitor 15-day period
+**Starts day after acceptance**;
+note right
+  **BIA §66.22:** 15-day period starts AFTER acceptance
+  **If deemed (Day 45):** Days 46-60
+  **If meeting (Day 60):** Days 61-75
+  ----
+  //"at the expiration of the fifteenth//
+  //day after the day of acceptance//
+  //or deemed acceptance..."//
+end note
 
 if (Court review requested?) then (yes)
   |⚖️ Court|
@@ -121,28 +190,72 @@ if (Court review requested?) then (yes)
   if (Approve?) then (yes)
     :APPROVED;
   else (no)
-    :REFUSED;
+    :REFUSED BY COURT;
     |💼 Administrator|
-    :Notify parties §66.27;
+    :Notify all parties
+    **Within 5 days**
+    §66.27;
+    note right
+      **BIA §66.27(b):** Same 5-day deadline
+      Administrator must notify:
+      - Consumer debtor
+      - Every known creditor
+      - Official Receiver
+      ----
+      //"within five days after...//
+      //(b) the refusal of a consumer//
+      //proposal by the court...notify...//
+      //the consumer debtor, every known//
+      //creditor and the official receiver"//
+    end note
     stop
   endif
 else (no)
   |⚖️ Court|
   :DEEMED APPROVED BY COURT
-  **Day 60**;
-  note right: **BIA §66.22(2)**\nDeemed approved at expiration\nof 15th day after acceptance\nNo court application needed
+  **Day 60-81+** (varies);
+  note right
+    **BIA §66.22(2):** Deemed approved 15 days after acceptance
+    **If deemed (Day 45):** Day 60
+    **If meeting (Day 60):** Day 75+
+    No court application needed
+    ----
+    //"Where, at the expiration of the//
+    //fifteenth day after the day of//
+    //acceptance or deemed acceptance//
+    //of the consumer proposal by the//
+    //creditors, no obligation has arisen//
+    //...the consumer proposal is deemed//
+    //to be approved by the court"//
+  end note
 endif
 
 |💼 Administrator|
 :Arrange counselling
 **Dir 1R8**;
-note right: ****Directive 1R8**:**\nCounselling in Insolvency Matters\n**Mandatory:** 2 sessions required\n**Consequence:** No counselling\n= NO certificate §66.38(2)
-
+note right
+  **Directive 1R8:** Counselling in Insolvency Matters
+  **BIA §66.13(2)(b):** Administrator must provide
+  **Mandatory:** 2 sessions required
+  **Consequence:** No counselling = NO certificate (§66.38(2))
+  ----
+  //"provide, or provide for, counselling//
+  //in accordance with directives issued//
+  //by the Superintendent..." (BIA §66.13(2)(b))//
+end note
 |🎓 Counsellor|
 :Provide Session 1
 **Days 10-90** from filing;
-note right: **Session 1 Topics:**\n- Budgeting fundamentals\n- Responsible credit use\n- Financial goal setting\n- Spending habit analysis\n**May identify:** Gambling,\nsubstance abuse → refer specialists
-
+note right
+  **Directive 1R8:** Session 1 timing window
+  **Minimum:** Day 10 from filing
+  **Maximum:** Day 90 from filing
+  **Topics:** Budgeting, credit use, financial goals
+  ----
+  //"between ten (10) and ninety (90)//
+  //days following...the filing of a//
+  //consumer proposal" (Directive 1R8)//
+end note
 |👤 Consumer Debtor|
 :Attend Session 1;
 
@@ -154,6 +267,18 @@ note right: **Session 1 Topics:**\n- Budgeting fundamentals\n- Responsible credi
 :Receive payments;
 :Distribute dividends
 to creditors;
+note right
+  **Frequency:** Per individual proposal terms
+  **BIA §66.12(6)(c):** Must specify distribution method
+  **Practical guidance:** Every 6-12 months preferred
+  ----
+  //"Payments to proven creditors every//
+  //three months can be a costly endeavor//
+  //in a consumer proposal. The payment//
+  //of dividends every six months or year//
+  //is much more practical."//
+  //(CAIRP - Insolvency Administration 5.3.19)//
+end note
 
 |💰 Creditors|
 :Receive periodic
@@ -163,6 +288,17 @@ dividends;
 :Wait 30 days minimum;
 :Provide Session 2
 Before certificate;
+note right
+  **Directive 1R8:** Session 2 timing
+  **Minimum:** 30 days after Session 1
+  **Latest:** Before certificate issued
+  **Topics:** Progress review, credit rebuilding
+  ----
+  //"after a period of at least thirty//
+  //(30) days following the first session,//
+  //but prior to...certificate of full//
+  //performance" (Directive 1R8)//
+end note
 
 |👤 Consumer Debtor|
 :Attend Session 2;
@@ -170,6 +306,15 @@ Before certificate;
 |🎓 Counsellor|
 :Confirm both sessions
 completed to admin;
+note right
+  **Critical:** Admin cannot issue certificate
+  without counselling confirmation
+  ----
+  //"Subsection (1) does not apply in//
+  //respect of a consumer debtor who has//
+  //refused or neglected to receive//
+  //counselling..." (BIA §66.38(2))//
+end note
 
 repeat
   |👤 Consumer Debtor|
@@ -192,12 +337,28 @@ if (Counselling completed?) then (yes)
   :Issue Certificate
   **Form 46**
   §66.38;
-  note right: Certificate to:\n- Debtor\n- Official Receiver
+  note right
+    **Form 46:** Certificate of Full Performance
+    Sent to: Debtor + Official Receiver
+    **Requirements:** All payments + counselling done
+    ----
+    //"Where a proposal is fully performed,//
+    //the trustee shall give a certificate//
+    //to that effect...to the debtor and//
+    //to the official receiver"//
+  end note
 
   |👤 Consumer Debtor|
   :Receive Certificate;
   :DEBTS DISCHARGED;
-  note right: Except §173 debts:\n- Student loans <7yr\n- Fraud\n- Alimony
+  note right
+    **Effect:** Debts forgiven!
+    **Except §173 non-dischargeable:**
+    - Student loans (<7 years)
+    - Fraud/embezzlement
+    - Court fines
+    - Alimony/child support
+  end note
 
   |🏛️ Official Receiver|
   :Receive certificate copy;
