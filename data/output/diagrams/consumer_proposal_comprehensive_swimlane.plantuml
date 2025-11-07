@@ -4,93 +4,103 @@ title Consumer Proposal Process - Complete Swimlane (Division II)
 skinparam backgroundColor white
 skinparam swimlaneWidth 200
 
+skinparam ActivityFontSize 12
+skinparam NoteFontSize 11
+skinparam ArrowFontSize 11
+
+
 |👤 Consumer Debtor|
 start
 :Consult administrator
-Day -7 to -1;
-note right: Directive 6R7\nAssessment
+**Day -7** to -1;
+note right: ****Directive 6R7**:**\nAssessment of Individual Debtor\n**Purpose:** Evaluate financial\nsituation and proposal viability
 :Prepare documents
 Forms 47, 65, 79;
+note right: ****Form 47**:** Consumer Proposal\n****Form 65**:** Statement of Affairs\n****Form 79**:** Estate Summary Info\n**Requirement:** Debt ≤$250k\n(excl. primary residence mortgage)
 :Sign proposal
-Day -1;
+**Day -1**;
 
 |💼 Administrator|
 :Assess eligibility
 ≤$250k debt excl home
-Dir 6R7;
+**Dir 6R7**;
 :Assist prepare docs;
 :File with Official Receiver
 **DAY 0**;
-note right: BIA §66.13\n🛡️ STAY begins §69.2
+note right: **BIA §66.13**\n🛡️ STAY begins §69.2
 
 |🏛️ Official Receiver|
 :Receive filing
 Record proposal;
 
 |💼 Administrator|
-:Prepare Form 51 report
+:Prepare **Form 51** report
 **Within 10 days**;
-note right: Administrator's opinion\nFair & reasonable?
+note right: ****Form 51**:**\nAdministrator's Report to Creditors\n**Contains:**\n- Investigation results\n- Opinion (fair & reasonable?)\n- Condensed financials\n- List of creditors >$250
 :Send notice package
 to ALL creditors
 **Within 10 days**;
-note right: Forms 31, 37.1, 49\nBIA §66.14
+note right: ****BIA §66.14**(b) Package:**\n- **Form 31**: Proof of Claim (blank)\n- **Form 37.1**: Voting Letter\n- **Form 49**: Explanatory Notice\n- Copy of proposal\n- Copy of **Form 51**\n**Purpose:** Notify every known creditor
 
 |💰 Creditors|
 :Receive notice package
-Days 1-10;
+**Days 1-10**;
 :File proof of claim
-Form 31
-Days 1-45;
+**Form 31**
+**Days 1-45**;
 :Submit voting letter
-Form 37.1 (optional);
+**Form 37.1** (optional);
 :Request meeting?
 Need ≥25% of claims;
-note right: BIA §66.15(2)(b)\n25% threshold
+note right: **BIA §66.15**(2)(b)\n25% threshold
 
 |💼 Administrator|
 :Count meeting requests
-Days 1-45;
+**Days 1-45**;
 
-if (≥25% requested?) then (yes)
+if (≥25% requested?) then (YES - Meeting required)
   |💼 Administrator|
-  :Call meeting of creditors
+  :Call meeting + Send notice
   **Day 45**;
-  note right: BIA §66.15\nMust hold within 21 days
+  note right: **BIA §66.15(2)(b):** CALL meeting\nat expiration of 45-day period\n\n**BIA §66.15(3):** Send notice\nat least 10 days before meeting\n\n**BIA §66.15(2):** Meeting HELD\nwithin 21 days after called
 
   |💰 Creditors|
-  :Attend meeting;
+  :Attend meeting
+  **Days 55-66**;
+  note right: **Earliest:** Day 55\n(10 days after notice)\n**Latest:** Day 66\n(21 days after called)
 
-  if (Quorum present?) then (yes)
+  if (Quorum present?) then (YES - At least 1 creditor)
     :Vote on proposal
     Simple majority
     $1 = 1 vote;
-    note right: BIA §66.19\nOrdinary resolution
+    note right: **BIA §66.19**\nOrdinary resolution
 
-    if (>50% vote YES?) then (yes)
+    if (>50% vote YES?) then (YES - Majority approves)
       |💼 Administrator|
       :ACCEPTED;
-      note right: BIA §66.19(1)
-    else (no)
+      note right: **BIA §66.19**(1)
+    else (NO - Majority rejects)
       |💼 Administrator|
       :REFUSED;
       note right: NOT auto bankruptcy
 
       |💼 Administrator|
       :Notify all parties
+      **Within 5 days**
       §66.27;
+      note right: ****BIA §66.27**:**\nAdministrator must notify:\n- Consumer debtor\n- Every known creditor\n- Official Receiver\n**Deadline:** 5 days after refusal\n**Consequence:** Creditor rights\nrevived §66.32(2)
       stop
     endif
-  else (no quorum)
+  else (NO - No quorum)
     |💼 Administrator|
     :DEEMED ACCEPTED;
-    note right: BIA §66.18(2)\nDir 22R4
+    note right: **BIA §66.18**(2)\nDir 22R4\nUnique to consumer proposals!
   endif
-else (no - <25%)
+else (NO - Less than 25%)
   |💼 Administrator|
   :DEEMED ACCEPTED
   **Day 45**;
-  note right: BIA §66.18(1)\nNo meeting needed
+  note right: **BIA §66.18**(1)\nNo meeting needed
 endif
 
 |💼 Administrator|
@@ -98,7 +108,7 @@ endif
 
 |🏛️ Official Receiver|
 :Monitor compliance
-Days 46-60;
+**Days 46-60**;
 
 if (Court review requested?) then (yes)
   |⚖️ Court|
@@ -118,26 +128,27 @@ if (Court review requested?) then (yes)
   endif
 else (no)
   |⚖️ Court|
-  :DEEMED APPROVED
+  :DEEMED APPROVED BY COURT
   **Day 60**;
-  note right: BIA §66.22\n15 days after acceptance
+  note right: **BIA §66.22(2)**\nDeemed approved at expiration\nof 15th day after acceptance\nNo court application needed
 endif
 
 |💼 Administrator|
 :Arrange counselling
-Dir 1R8;
+**Dir 1R8**;
+note right: ****Directive 1R8**:**\nCounselling in Insolvency Matters\n**Mandatory:** 2 sessions required\n**Consequence:** No counselling\n= NO certificate §66.38(2)
 
 |🎓 Counsellor|
 :Provide Session 1
-Days 10-90 from filing;
-note right: Topics:\n- Budgeting\n- Credit use\n- Financial goals
+**Days 10-90** from filing;
+note right: **Session 1 Topics:**\n- Budgeting fundamentals\n- Responsible credit use\n- Financial goal setting\n- Spending habit analysis\n**May identify:** Gambling,\nsubstance abuse → refer specialists
 
 |👤 Consumer Debtor|
 :Attend Session 1;
 
 |👤 Consumer Debtor|
 :Begin making payments
-**Day 60+**;
+****Day 60**+**;
 
 |💼 Administrator|
 :Receive payments;
@@ -179,7 +190,7 @@ repeat while (Proposal term complete?) is (no) not (yes - max 5 years)
 
 if (Counselling completed?) then (yes)
   :Issue Certificate
-  Form 46
+  **Form 46**
   §66.38;
   note right: Certificate to:\n- Debtor\n- Official Receiver
 
@@ -192,20 +203,20 @@ if (Counselling completed?) then (yes)
   :Receive certificate copy;
 
   |💼 Administrator|
-  :Prepare Form 14
+  :Prepare **Form 14**
   Final Statement
   R&D;
 
   |🏛️ Official Receiver|
-  :Review Form 14;
+  :Review **Form 14**;
   :Issue comment letter;
 
   |💼 Administrator|
-  :Send Form 16
+  :Send **Form 16**
   Deemed Taxation Notice;
 
   |💰 Creditors|
-  :Receive Form 16;
+  :Receive **Form 16**;
   :30-day objection period;
 
   if (Objections?) then (no)
